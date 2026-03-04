@@ -2,12 +2,11 @@ package com.teago.teago.Services;
 
 import org.springframework.stereotype.Service;
 
-
+import com.teago.teago.models.User;
 import com.teago.teago.Repositories.UserRepository;
 import com.teago.teago.dto.LoginRequest;
 import com.teago.teago.dto.RegisterRequest;
 import com.teago.teago.dto.UserDTO;
-import com.teago.teago.models.User;
 
 @Service
 public class UserService {
