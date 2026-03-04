@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.teago.teago.models.User;
 import com.teago.teago.Repositories.UserRepository;
 import com.teago.teago.Services.UserService;
 import com.teago.teago.dto.LoginRequest;
 import com.teago.teago.dto.RegisterRequest;
 import com.teago.teago.dto.UserDTO;
-import com.teago.teago.models.User;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -79,4 +78,3 @@ public class AuthController {
         }
     }
 }
-
