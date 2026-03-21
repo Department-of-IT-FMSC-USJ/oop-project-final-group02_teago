@@ -628,7 +628,6 @@
           <option value="">Select your role</option>
           <option value="land_owner">Tea Land Owner</option>
           <option value="factory_owner">Factory Owner</option>
-          <option value="supervisor">Supervisor</option>
         </select>
       </div>
       <button class="form-btn" onclick="handleLogin()">Sign In →</button>
@@ -636,32 +635,136 @@
     </div>
     <!-- Register Form -->
     <div id="register-form" style="display:none;">
+
+      <!-- Step 1: Choose role FIRST -->
       <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" placeholder="Your full name" id="reg-name">
-      </div>
-      <div class="form-group">
-        <label>NIC Number</label>
-        <input type="text" placeholder="e.g. 123456789V" id="reg-nic">
-      </div>
-      <div class="form-group">
-        <label>Username</label>
-        <input type="text" placeholder="Choose a username" id="reg-username">
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" placeholder="Create a password" id="reg-password">
-      </div>
-      <div class="form-group">
-        <label>Role</label>
-        <select id="reg-role">
-          <option value="">Select your role</option>
-          <option value="land_owner">Tea Land Owner</option>
-          <option value="factory_owner">Factory Owner</option>
-          <option value="supervisor">Supervisor</option>
+        <label>I am a… <span style="color:#d64045">*</span></label>
+        <select id="reg-role" onchange="onRoleChange()">
+          <option value="">— Select your role —</option>
+          <option value="land_owner">🌿 Tea Land Owner</option>
+          <option value="factory_owner">🏭 Factory Owner</option>
         </select>
       </div>
-      <button class="form-btn" onclick="handleRegister()">Create Account →</button>
+
+      <!-- Shown for BOTH roles after selection -->
+      <div id="fields-common" style="display:none;">
+
+        <div style="font-size:0.78rem;font-weight:600;color:var(--tea);margin-bottom:0.7rem;text-transform:uppercase;letter-spacing:0.06em;" id="common-section-label">Account Details</div>
+
+        <div class="form-group">
+          <label>NIC Number <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. 123456789V" id="reg-nic">
+        </div>
+        <div class="form-group">
+          <label>Username <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="Choose a username" id="reg-username">
+        </div>
+        <div class="form-group">
+          <label>Password <span style="color:#d64045">*</span></label>
+          <input type="password" placeholder="Create a password (min 6 chars)" id="reg-password">
+        </div>
+        <div class="form-group">
+          <label>Contact Number <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. 0771234567" id="reg-contact">
+        </div>
+        <div class="form-group">
+          <label>Address <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="Your home / permanent address" id="reg-address">
+        </div>
+      </div>
+
+      <!-- LAND OWNER specific fields -->
+      <div id="fields-land-owner" style="display:none;">
+
+        <!-- Personal -->
+        <div style="font-size:0.78rem;font-weight:600;color:var(--tea);margin:0.4rem 0 0.7rem;text-transform:uppercase;letter-spacing:0.06em;">🌿 Personal Details</div>
+        <div class="form-group">
+          <label>Full Name with Initials <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. K.A. Perera" id="reg-name-initials">
+        </div>
+        <div class="form-group">
+          <label>Full Name <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. Kamal Asanka Perera" id="reg-full-name">
+        </div>
+        <div class="form-group">
+          <label>Date of Birth <span style="color:#d64045">*</span></label>
+          <input type="date" id="reg-dob">
+        </div>
+
+        <!-- Land -->
+        <div style="font-size:0.78rem;font-weight:600;color:var(--tea);margin:1rem 0 0.7rem;text-transform:uppercase;letter-spacing:0.06em;">🏡 Land Details</div>
+        <div class="form-group">
+          <label>Land Location <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. Kandy, Matale" id="reg-land-location">
+        </div>
+        <div class="form-group">
+          <label>Land Size (acres) <span style="color:#d64045">*</span></label>
+          <input type="number" step="0.01" min="0.01" placeholder="e.g. 3.5" id="reg-land-size">
+        </div>
+
+        <!-- Bank -->
+        <div style="font-size:0.78rem;font-weight:600;color:var(--tea);margin:1rem 0 0.7rem;text-transform:uppercase;letter-spacing:0.06em;">🏦 Bank Account Details</div>
+        <div class="form-group">
+          <label>Account Holder Name <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="Name as on bank account" id="reg-bank-acc-name">
+        </div>
+        <div class="form-group">
+          <label>Bank <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. Bank of Ceylon" id="reg-bank-name">
+        </div>
+        <div class="form-group">
+          <label>Branch <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. Kandy" id="reg-bank-branch">
+        </div>
+        <div class="form-group">
+          <label>Account Number <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. 0012345678" id="reg-bank-acc-number">
+        </div>
+
+        <!-- Emergency contact -->
+        <div style="font-size:0.78rem;font-weight:600;color:var(--tea);margin:1rem 0 0.7rem;text-transform:uppercase;letter-spacing:0.06em;">🆘 Emergency Contact</div>
+        <div class="form-group">
+          <label>Full Name <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="Emergency contact name" id="reg-em-name">
+        </div>
+        <div class="form-group">
+          <label>Address <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="Emergency contact address" id="reg-em-address">
+        </div>
+        <div class="form-group">
+          <label>Phone Number <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. 0771234567" id="reg-em-phone">
+        </div>
+        <div class="form-group">
+          <label>Relationship <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. Spouse, Parent, Sibling" id="reg-em-relationship">
+        </div>
+      </div>
+
+      <!-- FACTORY OWNER specific fields -->
+      <div id="fields-factory-owner" style="display:none;">
+        <div style="font-size:0.78rem;font-weight:600;color:var(--tea);margin:0.4rem 0 0.7rem;text-transform:uppercase;letter-spacing:0.06em;">🏭 Factory Owner Details</div>
+        <div class="form-group">
+          <label>Full Name <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="Your full name" id="reg-fo-name">
+        </div>
+        <div class="form-group">
+          <label>Factory Name <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. Nuwara Eliya Premium Tea" id="reg-factory-name">
+        </div>
+        <div class="form-group">
+          <label>Factory Location <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. Nuwara Eliya" id="reg-factory-location">
+        </div>
+        <div class="form-group">
+          <label>Business Registration Number <span style="color:#d64045">*</span></label>
+          <input type="text" placeholder="e.g. PV 00123456" id="reg-reg-number">
+        </div>
+      </div>
+
+      <div id="fields-submit" style="display:none;">
+        <button class="form-btn" id="reg-btn" onclick="handleRegister()">Create Account →</button>
+      </div>
       <div class="form-footer">Already have an account? <a href="#" onclick="switchTab('login-form')">Sign in here</a></div>
     </div>
   </div>
@@ -709,6 +812,9 @@
 </div>
 
 <script>
+  const API = 'http://localhost:8080';
+
+  // ── Tab helpers ────────────────────────────────────────────────────────
   function setTab(el, formId) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
@@ -720,19 +826,35 @@
   function switchTab(formId) {
     const tabs = document.querySelectorAll('.tab');
     tabs.forEach(t => t.classList.remove('active'));
-    if (formId === 'login-form') tabs[0].classList.add('active');
-    else tabs[1].classList.add('active');
+    tabs[formId === 'login-form' ? 0 : 1].classList.add('active');
     document.getElementById('login-form').style.display = 'none';
     document.getElementById('register-form').style.display = 'none';
     document.getElementById(formId).style.display = 'block';
   }
 
+  // ── Show / hide role-specific fields ──────────────────────────────────
+  function onRoleChange() {
+    const role = document.getElementById('reg-role').value;
+    // Hide all dynamic sections first
+    ['fields-common','fields-land-owner','fields-factory-owner','fields-submit']
+      .forEach(id => document.getElementById(id).style.display = 'none');
+    if (!role) return;
+    // Always show common fields once a role is chosen
+    document.getElementById('fields-common').style.display = 'block';
+    // Show role-specific fields
+    if (role === 'land_owner')    document.getElementById('fields-land-owner').style.display    = 'block';
+    if (role === 'factory_owner') document.getElementById('fields-factory-owner').style.display = 'block';
+    // Show submit button
+    document.getElementById('fields-submit').style.display = 'block';
+  }
+
+  // ── Toast ─────────────────────────────────────────────────────────────
   function showToast(msg, isError = false) {
     const t = document.getElementById('toast');
     t.textContent = msg;
     t.style.display = 'block';
     t.style.background = isError ? '#c0392b' : 'var(--tea-dark)';
-    setTimeout(() => { t.style.display = 'none'; }, 3200);
+    setTimeout(() => { t.style.display = 'none'; }, 3500);
   }
 
   // ── API base URL ──────────────────────────────────────────────────────────
@@ -804,6 +926,7 @@
     }
   }
 
+  // ── REGISTER — POST /api/auth/register ────────────────────────────────
   async function handleRegister() {
     const name = document.getElementById('reg-name').value.trim();
     const nic  = document.getElementById('reg-nic').value.trim();
@@ -840,7 +963,15 @@
     }
   }
 
-  // Scroll reveal
+      setTimeout(() => switchTab('login-form'), 2000);
+
+    } catch(e) {
+      showToast('❌ Cannot reach server. Is Spring Boot running on port 8080?', true);
+    } finally {
+      btn.disabled = false; btn.textContent = 'Create Account →';
+    }
+  }
+  // ── Scroll reveal ─────────────────────────────────────────────────────
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {

@@ -5,15 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * LandOwner — stores tea land owner profile data.
- * Inherits identity from User via @MapsId (shared primary key).
+ * LandOwner — stores tea land owner profile and membership data.
  *
- * OOP: Encapsulation — land-specific fields (size, location) are
- * kept here, separate from the generic User credentials.
+ * OOP Encapsulation: all land-owner-specific fields are kept here,
+ * separate from generic User credentials stored in the User table.
  */
 @Entity
 @Table(name = "LandOwner")
@@ -30,15 +30,55 @@ public class LandOwner {
     @JoinColumn(name = "LandOwnerID")
     private User user;
 
-    /** Total land area in acres */
+    // ── Personal details ──────────────────────────────────────────────────
+
+    @Column(name = "NameWithInitials", length = 150)
+    private String nameWithInitials;        // e.g. "K.A. Perera"
+
+    @Column(name = "FullName", length = 150)
+    private String fullName;                // e.g. "Kamal Asanka Perera"
+
+    @Column(name = "DateOfBirth")
+    private LocalDate dateOfBirth;
+
+    // ── Land details ──────────────────────────────────────────────────────
+
     @Column(name = "LandSize", precision = 10, scale = 2)
     private BigDecimal landSize;
 
-    /** Physical location / address of the land */
     @Column(name = "LandLocation", length = 255)
     private String landLocation;
 
-    /** Factory registrations (many-to-many via LandOwnerFactory) */
+    // ── Bank details ──────────────────────────────────────────────────────
+
+    @Column(name = "BankAccountName", length = 150)
+    private String bankAccountName;
+
+    @Column(name = "BankName", length = 100)
+    private String bankName;
+
+    @Column(name = "BankBranch", length = 100)
+    private String bankBranch;
+
+    @Column(name = "BankAccountNumber", length = 50)
+    private String bankAccountNumber;
+
+    // ── Emergency contact ─────────────────────────────────────────────────
+
+    @Column(name = "EmergencyContactName", length = 150)
+    private String emergencyContactName;
+
+    @Column(name = "EmergencyContactAddress", length = 255)
+    private String emergencyContactAddress;
+
+    @Column(name = "EmergencyContactPhone", length = 20)
+    private String emergencyContactPhone;
+
+    @Column(name = "EmergencyContactRelationship", length = 100)
+    private String emergencyContactRelationship;
+
+    // ── Factory registrations ─────────────────────────────────────────────
+
     @OneToMany(mappedBy = "landOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LandOwnerFactory> factoryRegistrations = new ArrayList<>();
 }

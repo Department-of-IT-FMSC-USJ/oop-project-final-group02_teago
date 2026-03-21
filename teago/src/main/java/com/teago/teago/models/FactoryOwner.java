@@ -1,15 +1,16 @@
 package com.teago.teago.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * FactoryOwner — stores factory owner profile data.
+ * Inherits identity from User via @MapsId (shared primary key).
+ *
+ * OOP Encapsulation: all factory-specific fields are kept here,
+ * separate from generic User credentials.
+ */
 @Entity
 @Getter
 @Setter
@@ -25,10 +26,19 @@ public class FactoryOwner {
     @JoinColumn(name = "FactoryOwnerID")
     private User user;
 
-    @Column(name = "FactoryName", length = 100)
+    /** Full name of the factory owner */
+    @Column(name = "FullName", length = 150)
+    private String fullName;
+
+    /** Official factory / company name */
+    @Column(name = "FactoryName", length = 150)
     private String factoryName;
 
+    /** Physical location of the factory */
     @Column(name = "FactoryLocation", length = 255)
     private String factoryLocation;
 
+    /** Official business / company registration number */
+    @Column(name = "RegistrationNumber", length = 100, unique = true)
+    private String registrationNumber;
 }
