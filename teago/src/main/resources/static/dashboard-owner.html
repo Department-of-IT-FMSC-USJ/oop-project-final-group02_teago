@@ -3,1070 +3,1127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TeaGo — Dashboard</title>
+<title>TeaGo — Land Owner Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #3d6b4f;
+  --tea-light: #5a8c68;
+  --tea-light2: #5a8c68;
+  --green-pale: #e8f4ed;
+  --gold: #c8a84b;
+  --gold-pale: #fef7e6;
+  --cream: #f5f0e8;
+  --cream-mid: #ede7dc;
+  --cream-dark: #e8dfd0;
+  --text: #1a2e24;
+  --muted: #5a6b61;
+  --white: #fff;
+  --danger: #d64045;
+  --warning: #e07b39;
+  --sidebar: 255px;
+  --tea-dark: #264436;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);}
 
+/* LAYOUT */
+.app{display:flex;height:100vh;overflow:hidden;}
+
+/* SIDEBAR */
+.sidebar{
+  width:var(--sidebar);min-width:var(--sidebar);
+  background:var(--tea-dark);
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+}
+.sb-top{
+  padding:1.8rem 1.4rem 1.4rem;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.sb-logo{display:flex;align-items:center;gap:9px;margin-bottom:1.5rem;}
+.sb-logo svg{width:32px;height:32px;}
+.sb-logo .brand{font-family:'Playfair Display',serif;font-size:1.45rem;color:#fff;letter-spacing:-0.3px;}
+.sb-logo .sub{font-size:0.65rem;color:rgba(255,255,255,0.45);letter-spacing:0.1em;text-transform:uppercase;margin-top:-2px;}
+
+.profile-card{
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:16px;padding:1rem 1.1rem;
+  display:flex;align-items:center;gap:0.8rem;
+}
+.avatar{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--gold);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:1rem;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+.profile-card .pname{color:#fff;font-size:0.9rem;font-weight:600;line-height:1.2;}
+.profile-card .pid{color:rgba(255,255,255,0.5);font-size:0.72rem;margin-top:1px;}
+.lbl-chip{
+  margin-left:auto;background:rgba(201,147,58,0.3);
+  color:#f0c478;font-size:0.65rem;font-weight:700;
+  padding:0.2rem 0.55rem;border-radius:50px;letter-spacing:0.04em;
+  flex-shrink:0;
+}
+
+.sb-section{padding:1rem 1.4rem 0.3rem;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.3);}
+.nav-item{
+  display:flex;align-items:center;gap:0.7rem;
+  padding:0.68rem 1rem;margin:0.1rem 0.7rem;
+  border-radius:11px;cursor:pointer;
+  color:rgba(255,255,255,0.55);font-size:0.875rem;font-weight:500;
+  transition:all 0.18s;position:relative;
+}
+.nav-item:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+.nav-item.active{background:rgba(255,255,255,0.14);color:#fff;}
+.nav-item.active::before{
+  content:'';position:absolute;left:-0.7rem;top:22%;bottom:22%;
+  width:3px;background:var(--gold);border-radius:2px;
+}
+.nav-ico{font-size:1rem;width:20px;text-align:center;}
+.nb{
+  margin-left:auto;background:var(--danger);color:#fff;
+  font-size:0.62rem;font-weight:700;padding:0.12rem 0.42rem;
+  border-radius:50px;
+}
+
+.sb-footer{
+  margin-top:auto;padding:1rem 0.7rem;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.logout{
+  display:flex;align-items:center;gap:0.7rem;
+  padding:0.68rem 1rem;border-radius:11px;cursor:pointer;
+  color:rgba(255,255,255,0.4);font-size:0.875rem;
+  transition:all 0.18s;
+}
+.logout:hover{background:rgba(201,64,64,0.15);color:#f08080;}
+
+/* MAIN */
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--cream);}
+
+.topbar{
+  background:var(--white);
+  border-bottom:1px solid var(--cream-dark);
+  padding:0.95rem 2rem;
+  display:flex;align-items:center;gap:1.2rem;
+  position:sticky;top:0;z-index:40;
+}
+.tb-title{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--tea-dark);flex:1;}
+.tb-right{display:flex;align-items:center;gap:0.7rem;}
+.chip{
+  background:var(--cream);border:1px solid var(--cream-dark);
+  padding:0.4rem 0.9rem;border-radius:9px;font-size:0.8rem;color:var(--muted);
+}
+.ib{
+  width:36px;height:36px;border-radius:9px;
+  border:1px solid var(--cream-dark);background:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:0.95rem;transition:all 0.15s;position:relative;
+}
+.ib:hover{background:var(--cream-dark);}
+.ndot{position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--danger);border-radius:50%;border:1.5px solid var(--white);}
+
+/* CONTENT */
+.content{padding:1.8rem 2rem;flex:1;}
+.page{display:none;}
+.page.active{display:block;animation:fadeUp 0.28s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* PAGE HEADER */
+.ph{margin-bottom:1.8rem;}
+.ph h2{font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--tea-dark);}
+.ph p{color:var(--muted);font-size:0.88rem;margin-top:0.3rem;}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:1rem;margin-bottom:1.8rem;}
+.sc{
+  background:var(--white);border-radius:16px;padding:1.3rem 1.2rem;
+  border:1px solid var(--cream-dark);transition:transform 0.18s,box-shadow 0.18s;
+}
+.sc:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(38,68,54,0.09);}
+.sc .ico{font-size:1.3rem;margin-bottom:0.55rem;}
+.sc .lbl{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.35rem;}
+.sc .val{font-family:'Playfair Display',serif;font-size:1.85rem;color:var(--tea-dark);line-height:1;}
+.sc .sub{font-size:0.76rem;color:var(--muted);margin-top:0.35rem;}
+.sc.dark{background:var(--tea-dark);}
+.sc.dark .lbl,.sc.dark .sub{color:rgba(255,255,255,0.5);}
+.sc.dark .val{color:#fff;}
+.sc.gold{background:var(--gold);}
+.sc.gold .lbl,.sc.gold .sub{color:rgba(255,255,255,0.7);}
+.sc.gold .val{color:#fff;}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.4rem;margin-bottom:1.4rem;}
+
+/* CARD */
+.card{background:var(--white);border-radius:16px;padding:1.4rem;border:1px solid var(--cream-dark);}
+.ct{
+  font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--tea-dark);
+  margin-bottom:1.2rem;display:flex;align-items:center;justify-content:space-between;
+}
+.ct small{font-family:'DM Sans',sans-serif;font-size:0.75rem;color:var(--muted);font-weight:400;}
+
+/* TABLE */
+.tw{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.855rem;}
+th{text-align:left;padding:0.6rem 0.9rem;color:var(--muted);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;border-bottom:2px solid var(--cream-mid);font-weight:600;}
+td{padding:0.72rem 0.9rem;border-bottom:1px solid var(--cream);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(61,107,79,0.025);}
+
+/* BADGES */
+.b{display:inline-flex;align-items:center;padding:0.22rem 0.65rem;border-radius:50px;font-size:0.71rem;font-weight:600;}
+.b.g{background:#e8f4ed;color:#2d8a55;}
+.b.y{background:#fef7e6;color:#b87c1a;}
+.b.r{background:#fde8e8;color:#b83232;}
+.b.bl{background:#e8f0fe;color:#2455b8;}
+
+/* FORM */
+.fg{margin-bottom:1rem;}
+.fgg{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fg.full{grid-column:1/-1;}
+.fg label{display:block;font-size:0.81rem;font-weight:500;color:var(--text);margin-bottom:0.38rem;}
+.fg input,.fg select,.fg textarea{
+  width:100%;padding:0.72rem 0.95rem;
+  border:1.5px solid var(--cream-dark);border-radius:11px;
+  font-family:'DM Sans',sans-serif;font-size:0.88rem;
+  background:var(--cream);color:var(--text);outline:none;
+  transition:border-color 0.18s,box-shadow 0.18s;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  border-color:var(--tea-dark);box-shadow:0 0 0 3px rgba(61,107,79,0.1);
+}
+.fg textarea{resize:vertical;min-height:85px;}
+.fg input[readonly]{background:#e8f4ed;color:var(--tea-dark);font-weight:700;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:0.68rem 1.4rem;border-radius:11px;border:none;font-family:'DM Sans',sans-serif;font-size:0.87rem;font-weight:600;cursor:pointer;transition:all 0.18s;}
+.btn-p{background:var(--tea-dark);color:#fff;}
+.btn-p:hover{background:var(--green);}
+.btn-o{background:transparent;color:var(--tea-dark);border:1.5px solid var(--tea-dark);}
+.btn-o:hover{background:var(--tea-dark);color:#fff;}
+.btn-g{background:var(--gold);color:#fff;}
+.btn-g:hover{background:#b8941f;}
+.btn-sm{padding:0.38rem 0.85rem;font-size:0.78rem;border-radius:8px;}
+
+/* MODAL */
+.mo{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);align-items:center;justify-content:center;}
+.mo.on{display:flex;}
+.mbox{background:var(--white);border-radius:20px;padding:2rem;width:90%;max-width:500px;max-height:90vh;overflow-y:auto;animation:fadeUp 0.25s ease;}
+.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem;}
+.mhead h3{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--tea-dark);}
+.mclose{background:none;border:none;font-size:1.35rem;cursor:pointer;color:var(--muted);}
+
+/* CHART */
+.bchart{display:flex;align-items:flex-end;gap:5px;height:110px;padding-top:6px;}
+.bc{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
+.bar{border-radius:6px 6px 0 0;background:var(--green-light);width:100%;transition:height 0.6s ease;}
+.bar.hi{background:var(--tea-dark);}
+.blbl{font-size:0.63rem;color:var(--muted);}
+
+/* PROGRESS */
+.pb{height:7px;background:var(--cream-mid);border-radius:50px;overflow:hidden;margin-top:4px;}
+.pf{height:100%;border-radius:50px;background:var(--green);}
+.pf.gold{background:var(--gold);}
+.pf.red{background:var(--danger);}
+
+/* ACTIVITY */
+.ai{display:flex;gap:0.9rem;padding:0.7rem 0;border-bottom:1px solid var(--cream);}
+.ai:last-child{border-bottom:none;}
+.adot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
+.adot.g{background:#e8f4ed;}
+.adot.y{background:#fef7e6;}
+.adot.b{background:#e8f0fe;}
+.at .am{font-size:0.86rem;color:var(--text);}
+.at .ti{font-size:0.74rem;color:var(--muted);margin-top:2px;}
+
+/* TOAST */
+#toast{display:none;position:fixed;bottom:2rem;right:2rem;z-index:500;background:var(--tea-dark);color:#fff;padding:0.95rem 1.4rem;border-radius:13px;font-size:0.88rem;box-shadow:0 8px 24px rgba(0,0,0,0.18);animation:fadeUp 0.25s ease;max-width:300px;}
+
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .g2,.g3{grid-template-columns:1fr;}
+  .fgg{grid-template-columns:1fr;}
+  .content{padding:1.2rem;}
+}
 </style>
 </head>
 <body>
-
 <div class="app">
 
-<!-- ═══════════════ SIDEBAR ═══════════════ -->
+<!-- SIDEBAR -->
 <aside class="sidebar">
-  <div class="sidebar-logo">
-    <svg viewBox="0 0 36 36" fill="none">
-      <circle cx="18" cy="18" r="18" fill="#5a8c68"/>
-      <path d="M10 22c0-6 4-10 8-12 4 2 8 6 8 12a8 8 0 01-16 0z" fill="#3d6b4f"/>
-      <path d="M18 10c0 4-3 7-3 12" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M18 10c2 2 5 3 5 8" stroke="#c8a84b" stroke-width="1.2" stroke-linecap="round"/>
-    </svg>
-    <span>TeaGo</span>
-  </div>
-
-  <div class="sidebar-user">
-    <div class="user-avatar" id="sidebar-avatar">A</div>
-    <div class="user-info">
-      <div class="name" id="sidebar-name">Amara Perera</div>
-      <div class="role" id="sidebar-role">Land Owner</div>
+  <div class="sb-top">
+    <div class="sb-logo">
+      <svg viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="16" fill="rgba(255,255,255,0.15)"/>
+        <path d="M9 20c0-5.5 3.5-9 7-11 3.5 2 7 5.5 7 11a7 7 0 01-14 0z" fill="rgba(255,255,255,0.3)"/>
+        <path d="M16 9c0 3.5-2.5 6-2.5 11" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M16 9c1.8 1.8 4.2 2.8 4.2 7" stroke="#c9933a" stroke-width="1.1" stroke-linecap="round"/>
+      </svg>
+      <div><div class="brand">TeaGo</div><div class="sub">Land Owner Portal</div></div>
     </div>
-    <div class="role-badge land" id="sidebar-badge">LO</div>
-  </div>
-
-  <div class="sidebar-section">Main</div>
-  <div class="nav-item active" onclick="showPage('dashboard')">
-    <span class="nav-icon">🏠</span> Dashboard
-  </div>
-  <div class="nav-item" onclick="showPage('deliveries')">
-    <span class="nav-icon">🍃</span> Tea Deliveries
-  </div>
-  <div class="nav-item" onclick="showPage('payments')">
-    <span class="nav-icon">💰</span> Payments
-  </div>
-
-  <div class="sidebar-section">Management</div>
-  <div class="nav-item" onclick="showPage('fertilizer')">
-    <span class="nav-icon">🌿</span> Fertilizer
-  </div>
-  <div class="nav-item" onclick="showPage('loans')">
-    <span class="nav-icon">📋</span> Loans & Advances
-  </div>
-  <div class="nav-item" onclick="showPage('cheques')">
-    <span class="nav-icon">💳</span> Cheques
-  </div>
-  <div class="nav-item" onclick="showPage('employees')">
-    <span class="nav-icon">👷</span> Employees
-  </div>
-
-  <div class="sidebar-section">Reporting</div>
-  <div class="nav-item" onclick="showPage('reports')">
-    <span class="nav-icon">📊</span> Reports
-  </div>
-  <div class="nav-item" onclick="showPage('complaints')">
-    <span class="nav-icon">📣</span> Complaints
-    <div class="nav-badge" id="complaint-badge">2</div>
-  </div>
-
-  <div class="sidebar-section" id="admin-section" style="display:none;">Admin</div>
-  <div class="nav-item" id="nav-users" style="display:none;" onclick="showPage('users')">
-    <span class="nav-icon">👥</span> All Land Owners
-  </div>
-
-  <div class="sidebar-footer">
-    <div class="logout-btn" onclick="location.href='index.html'">
-      <span class="nav-icon">🚪</span> Logout
+    <div class="profile-card">
+      <div class="avatar" id="prof-av">??</div>
+      <div>
+        <div class="pname" id="prof-name">Loading…</div>
+        <div class="pid"   id="prof-id">ID: — · —</div>
+      </div>
+      <div class="lbl-chip">OWNER</div>
     </div>
+  </div>
+
+  <div class="sb-section">Overview</div>
+  <div class="nav-item active" onclick="nav('dash',this)"><span class="nav-ico">🏡</span> My Dashboard</div>
+  <div class="nav-item" onclick="nav('deliveries',this)"><span class="nav-ico">🍃</span> Tea Deliveries</div>
+  <div class="nav-item" onclick="nav('payments',this)"><span class="nav-ico">💰</span> My Payments</div>
+
+  <div class="sb-section">Requests</div>
+  <div class="nav-item" onclick="nav('fertilizer',this)"><span class="nav-ico">🌿</span> Fertilizer</div>
+  <div class="nav-item" onclick="nav('loans',this)"><span class="nav-ico">📋</span> Loans & Advances</div>
+  <div class="nav-item" onclick="nav('cheques',this)"><span class="nav-ico">💳</span> My Cheques</div>
+
+  <div class="sb-section">My Farm</div>
+  <div class="nav-item" onclick="nav('factories',this)"><span class="nav-ico">🏭</span> My Factories</div>
+  <div class="nav-item" onclick="nav('employees',this)"><span class="nav-ico">👷</span> My Employees</div>
+  <div class="nav-item" onclick="nav('reports',this)"><span class="nav-ico">📊</span> Reports</div>
+  <div class="nav-item" id="nav-complaints" onclick="nav('complaints',this)"><span class="nav-ico">📣</span> Complaints <div class="nb" id="nb-comp">1</div></div>
+
+  <div class="sb-footer">
+    <div class="logout" onclick="signOut()">🚪 &nbsp;Sign Out</div>
   </div>
 </aside>
 
-<!-- ═══════════════ MAIN ═══════════════ -->
+<!-- MAIN -->
 <main class="main">
   <div class="topbar">
-    <div class="topbar-title" id="topbar-title">Dashboard</div>
-    <div class="topbar-actions">
-      <div class="date-chip" id="date-chip"></div>
-      <div class="icon-btn" title="Notifications" onclick="showPage('complaints')">
-        🔔 <div class="notif-dot"></div>
-      </div>
-      <div class="icon-btn" title="Settings">⚙️</div>
+    <div class="tb-title" id="tb-title">My Dashboard</div>
+    <div class="tb-right">
+      <div class="chip" id="date-chip"></div>
+      <div class="ib" onclick="nav('complaints',document.getElementById('nav-complaints'))">🔔<div class="ndot"></div></div>
     </div>
   </div>
 
   <div class="content">
 
-    <!-- ROLE SWITCHER (Demo) -->
-    <div class="role-switcher">
-      <button class="role-btn active" onclick="setRole('land')">🧑‍🌾 Land Owner</button>
-      <button class="role-btn" onclick="setRole('factory')">🏭 Factory Owner</button>
-      <button class="role-btn" onclick="setRole('supervisor')">🚚 Supervisor</button>
-    </div>
-
-    <!-- ════ DASHBOARD ════ -->
-    <div class="page active" id="page-dashboard">
-      <div class="page-header">
-        <h2>Welcome back, <em style="font-style:italic;color:var(--tea);" id="welcome-name">Amara</em> 👋</h2>
-        <p>Here's your overview for <span id="month-label">March 2025</span></p>
+    <!-- DASHBOARD -->
+    <div class="page active" id="p-dash">
+      <div class="ph">
+        <h2>Good morning, <span id="greeting-name">there</span> 🌿</h2>
+        <p>Your tea farm overview for <span id="month-lbl">March 2025</span></p>
       </div>
-      <div class="stats-row">
-        <div class="stat-card">
-          <div class="s-icon">🍃</div>
-          <div class="s-label">Total Deliveries</div>
-          <div class="s-val">2,840</div>
-          <div class="s-sub">kg this month</div>
+      <div class="stats">
+        <div class="sc"><div class="ico">🍃</div><div class="lbl">Delivered This Month</div><div class="val">2,840</div><div class="sub">kg of tea leaves</div></div>
+        <div class="sc dark"><div class="ico">💰</div><div class="lbl">Net Payable</div><div class="val">Rs 128k</div><div class="sub">After all deductions</div></div>
+        <div class="sc gold"><div class="ico">📋</div><div class="lbl">Loan Balance</div><div class="val">Rs 25k</div><div class="sub">Outstanding</div></div>
+        <div class="sc"><div class="ico">👷</div><div class="lbl">Active Workers</div><div class="val">5</div><div class="sub">This month</div></div>
+        <div class="sc"><div class="ico">🌿</div><div class="lbl">Fertilizer Used</div><div class="val">80 kg</div><div class="sub">March</div></div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="ct">Monthly Deliveries <small>Last 6 months</small></div>
+          <div class="bchart" id="del-chart"></div>
         </div>
-        <div class="stat-card accent">
-          <div class="s-icon">💰</div>
-          <div class="s-label">Net Payable</div>
-          <div class="s-val">Rs 142k</div>
-          <div class="s-sub">After deductions</div>
-        </div>
-        <div class="stat-card gold">
-          <div class="s-icon">📋</div>
-          <div class="s-label">Active Loans</div>
-          <div class="s-val">Rs 25k</div>
-          <div class="s-sub">2 loans pending</div>
-        </div>
-        <div class="stat-card">
-          <div class="s-icon">🌿</div>
-          <div class="s-label">Fertilizer</div>
-          <div class="s-val">80 kg</div>
-          <div class="s-sub">Last distributed</div>
-        </div>
-        <div class="stat-card">
-          <div class="s-icon">👷</div>
-          <div class="s-label">Employees</div>
-          <div class="s-val">5</div>
-          <div class="s-sub">Active workers</div>
+        <div class="card">
+          <div class="ct">Recent Activity</div>
+          <div class="ai"><div class="adot g">🍃</div><div class="at"><div class="am">Delivered 120 kg — Rs 6,000</div><div class="ti">Today 7:30 AM</div></div></div>
+          <div class="ai"><div class="adot y">💰</div><div class="at"><div class="am">Payment Rs 7,250 recorded</div><div class="ti">Yesterday 3:00 PM</div></div></div>
+          <div class="ai"><div class="adot b">📋</div><div class="at"><div class="am">Loan Rs 15,000 submitted</div><div class="ti">2 days ago</div></div></div>
+          <div class="ai"><div class="adot g">🌿</div><div class="at"><div class="am">Fertilizer 50 kg approved</div><div class="ti">5 days ago</div></div></div>
+          <div class="ai"><div class="adot y">💳</div><div class="at"><div class="am">Cheque CHQ-0042 delivered</div><div class="ti">1 week ago</div></div></div>
         </div>
       </div>
 
-      <div class="grid-2" style="margin-bottom:1.5rem;">
+      <div class="g2">
         <div class="card">
-          <div class="card-title">Monthly Deliveries <span>Last 6 months</span></div>
-          <div class="bar-chart" id="delivery-chart"></div>
-          <div style="display:flex; justify-content:center; gap:1rem; margin-top:0.8rem;">
-            <div style="display:flex;align-items:center;gap:4px;font-size:0.75rem;color:var(--text-muted);">
-              <div style="width:10px;height:10px;border-radius:2px;background:var(--tea-light)"></div> kg Delivered
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title">Recent Activity</div>
-          <div id="activity-feed">
-            <div class="activity-item">
-              <div class="activity-dot green">🍃</div>
-              <div class="activity-text">
-                <div class="main">Delivered 120 kg of tea</div>
-                <div class="time">Today, 7:30 AM</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot yellow">💰</div>
-              <div class="activity-text">
-                <div class="main">Payment Rs 6,000 processed</div>
-                <div class="time">Yesterday, 3:00 PM</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot blue">📋</div>
-              <div class="activity-text">
-                <div class="main">Loan request approved — Rs 10,000</div>
-                <div class="time">2 days ago</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot green">🌿</div>
-              <div class="activity-text">
-                <div class="main">Fertilizer 50 kg distributed</div>
-                <div class="time">5 days ago</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot yellow">💳</div>
-              <div class="activity-text">
-                <div class="main">Cheque #CHQ-0042 delivered</div>
-                <div class="time">1 week ago</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title">Payment Breakdown</div>
+          <div class="ct">This Month's Payment Breakdown</div>
           <div style="display:flex;flex-direction:column;gap:0.9rem;">
-            <div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:0.84rem;">
-                <span>Gross Income</span><strong>Rs 142,000</strong>
-              </div>
-              <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:0.84rem;">
-                <span>Loan Deduction</span><strong style="color:var(--danger)">− Rs 10,000</strong>
-              </div>
-              <div class="progress-bar"><div class="progress-fill danger" style="width:7%"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:0.84rem;">
-                <span>Fertilizer Deduction</span><strong style="color:var(--warning)">− Rs 4,000</strong>
-              </div>
-              <div class="progress-bar"><div class="progress-fill gold" style="width:3%"></div></div>
-            </div>
-            <div style="border-top:2px solid var(--cream-dark);padding-top:0.8rem;display:flex;justify-content:space-between;font-weight:600;">
-              <span>Net Payable</span><strong style="color:var(--tea-dark);font-size:1.05rem;">Rs 128,000</strong>
-            </div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:3px;"><span>Gross Income (2,840kg × Rs50)</span><strong>Rs 142,000</strong></div><div class="pb"><div class="pf" style="width:100%"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:3px;"><span>Loan Repayment</span><strong style="color:var(--danger)">−Rs 10,000</strong></div><div class="pb"><div class="pf red" style="width:7%"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:3px;"><span>Fertilizer Cost</span><strong style="color:var(--warning)">−Rs 4,000</strong></div><div class="pb"><div class="pf gold" style="width:3%"></div></div></div>
+            <div style="border-top:2px solid var(--cream-mid);padding-top:0.8rem;display:flex;justify-content:space-between;font-weight:700;"><span>Net Payable</span><strong style="color:var(--tea-dark);font-size:1.05rem;">Rs 128,000</strong></div>
           </div>
         </div>
         <div class="card">
-          <div class="card-title">Quick Actions</div>
+          <div class="ct">Quick Actions</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
-            <button class="btn btn-tea" onclick="openModal('modal-delivery')">🍃 Add Delivery</button>
-            <button class="btn btn-outline" onclick="showPage('loans');openModal('modal-loan')">📋 Request Loan</button>
-            <button class="btn btn-outline" onclick="showPage('fertilizer');openModal('modal-fertilizer')">🌿 Request Fertilizer</button>
-            <button class="btn btn-gold" onclick="showPage('reports')">📊 Get Report</button>
+            <button class="btn btn-p" onclick="nav('deliveries',null)">🍃 View Deliveries</button>
+            <button class="btn btn-o" onclick="nav('loans',null);openM('m-loan')">📋 Apply for Loan</button>
+            <button class="btn btn-o" onclick="nav('fertilizer',null);openM('m-fert')">🌿 Request Fertilizer</button>
+            <button class="btn btn-g" onclick="nav('reports',null)">📊 Get Report</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ════ DELIVERIES ════ -->
-    <div class="page" id="page-deliveries">
-      <div class="page-header">
+    <!-- DELIVERIES -->
+    <div class="page" id="p-deliveries">
+      <div class="ph">
         <h2>Tea Deliveries</h2>
-        <p>Record and track all daily tea leaf deliveries</p>
+        <p>Your delivery records — managed by the factory on your behalf</p>
       </div>
-      <div class="stats-row">
-        <div class="stat-card"><div class="s-label">This Month</div><div class="s-val">2,840 kg</div><div class="s-sub">Total delivered</div></div>
-        <div class="stat-card accent"><div class="s-label">This Week</div><div class="s-val">520 kg</div><div class="s-sub">4 deliveries</div></div>
-        <div class="stat-card"><div class="s-label">Today</div><div class="s-val">120 kg</div><div class="s-sub">1 delivery</div></div>
-        <div class="stat-card gold"><div class="s-label">Rate / kg</div><div class="s-val">Rs 50</div><div class="s-sub">Current rate</div></div>
+      <!-- read-only notice -->
+      <div style="background:#fef7e6;border:1px solid rgba(200,168,75,0.35);border-radius:12px;padding:0.85rem 1.1rem;margin-bottom:1.4rem;display:flex;align-items:center;gap:0.75rem;font-size:0.84rem;color:#7a5c10;">
+        <span style="font-size:1.1rem;">📋</span>
+        <span><strong>Read-only:</strong> Deliveries are recorded by the factory owner. Contact the factory if you notice any discrepancy.</span>
+      </div>
+      <div class="stats">
+        <div class="sc dark"><div class="lbl">This Month</div><div class="val">2,840 kg</div><div class="sub">Total delivered</div></div>
+        <div class="sc"><div class="lbl">This Week</div><div class="val">520 kg</div></div>
+        <div class="sc"><div class="lbl">Today</div><div class="val">120 kg</div></div>
+        <div class="sc gold"><div class="lbl">Rate / kg</div><div class="val">Rs 50</div><div class="sub">Current</div></div>
       </div>
       <div class="card">
-        <div class="card-title">
+        <div class="ct">
           Delivery Records
-          <button class="btn btn-tea btn-sm" onclick="openModal('modal-delivery')">+ Add Delivery</button>
+          <small>Recorded by factory</small>
         </div>
-        <div class="table-wrap">
+        <div class="tw">
           <table>
-            <thead><tr><th>Date</th><th>Land Owner</th><th>Weight (kg)</th><th>Rate/kg</th><th>Amount</th><th>Status</th></tr></thead>
-            <tbody id="delivery-table">
-              <tr><td>2025-03-01</td><td>Amara Perera</td><td>120</td><td>Rs 50</td><td>Rs 6,000</td><td><span class="badge green">✓ Recorded</span></td></tr>
-              <tr><td>2025-02-28</td><td>Amara Perera</td><td>145</td><td>Rs 50</td><td>Rs 7,250</td><td><span class="badge green">✓ Recorded</span></td></tr>
-              <tr><td>2025-02-27</td><td>Amara Perera</td><td>98</td><td>Rs 50</td><td>Rs 4,900</td><td><span class="badge green">✓ Recorded</span></td></tr>
-              <tr><td>2025-02-26</td><td>Amara Perera</td><td>157</td><td>Rs 50</td><td>Rs 7,850</td><td><span class="badge green">✓ Recorded</span></td></tr>
-              <tr><td>2025-02-25</td><td>Amara Perera</td><td>110</td><td>Rs 50</td><td>Rs 5,500</td><td><span class="badge green">✓ Recorded</span></td></tr>
+            <thead><tr><th>Date</th><th>Weight (kg)</th><th>Rate/kg</th><th>Amount</th><th>Recorded By</th><th>Status</th></tr></thead>
+            <tbody id="del-tbody">
+              <tr><td>2025-03-01</td><td>120</td><td>Rs 50</td><td>Rs 6,000</td><td><span class="b bl">Factory</span></td><td><span class="b g">✓ Recorded</span></td></tr>
+              <tr><td>2025-02-28</td><td>145</td><td>Rs 50</td><td>Rs 7,250</td><td><span class="b bl">Factory</span></td><td><span class="b g">✓ Recorded</span></td></tr>
+              <tr><td>2025-02-27</td><td>98</td><td>Rs 50</td><td>Rs 4,900</td><td><span class="b bl">Factory</span></td><td><span class="b g">✓ Recorded</span></td></tr>
+              <tr><td>2025-02-26</td><td>157</td><td>Rs 50</td><td>Rs 7,850</td><td><span class="b bl">Factory</span></td><td><span class="b g">✓ Recorded</span></td></tr>
+              <tr><td>2025-02-25</td><td>110</td><td>Rs 50</td><td>Rs 5,500</td><td><span class="b bl">Factory</span></td><td><span class="b g">✓ Recorded</span></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- ════ PAYMENTS ════ -->
-    <div class="page" id="page-payments">
-      <div class="page-header">
-        <h2>Payment Management</h2>
-        <p>View and track all payment records</p>
+    <!-- PAYMENTS -->
+    <div class="page" id="p-payments">
+      <div class="ph"><h2>My Payments</h2><p>Track your income and deductions</p></div>
+      <div class="stats">
+        <div class="sc dark"><div class="lbl">Gross Mar 2025</div><div class="val">Rs 142k</div></div>
+        <div class="sc gold"><div class="lbl">Deductions</div><div class="val">Rs 14k</div></div>
+        <div class="sc"><div class="lbl">Net Payable</div><div class="val">Rs 128k</div></div>
+        <div class="sc"><div class="lbl">Feb 2025</div><div class="val">Rs 118k</div><div class="sub">Previous month</div></div>
       </div>
-      <div class="stats-row">
-        <div class="stat-card accent"><div class="s-label">Total Earned</div><div class="s-val">Rs 142k</div><div class="s-sub">March 2025</div></div>
-        <div class="stat-card gold"><div class="s-label">Deductions</div><div class="s-val">Rs 14k</div><div class="s-sub">Loans + Fertilizer</div></div>
-        <div class="stat-card"><div class="s-label">Net Payable</div><div class="s-val">Rs 128k</div><div class="s-sub">This month</div></div>
-        <div class="stat-card"><div class="s-label">Prev Month</div><div class="s-val">Rs 118k</div><div class="s-sub">February 2025</div></div>
-      </div>
-      <div class="grid-2">
+      <div class="g2">
         <div class="card">
-          <div class="card-title">Payment History</div>
-          <div class="table-wrap">
+          <div class="ct">Payment History</div>
+          <div class="tw">
             <table>
               <thead><tr><th>Month</th><th>Gross</th><th>Deductions</th><th>Net</th><th>Status</th></tr></thead>
               <tbody>
-                <tr><td>Mar 2025</td><td>Rs 142,000</td><td>Rs 14,000</td><td>Rs 128,000</td><td><span class="badge yellow">Pending</span></td></tr>
-                <tr><td>Feb 2025</td><td>Rs 130,000</td><td>Rs 12,000</td><td>Rs 118,000</td><td><span class="badge green">Paid</span></td></tr>
-                <tr><td>Jan 2025</td><td>Rs 124,500</td><td>Rs 8,000</td><td>Rs 116,500</td><td><span class="badge green">Paid</span></td></tr>
-                <tr><td>Dec 2024</td><td>Rs 115,000</td><td>Rs 10,000</td><td>Rs 105,000</td><td><span class="badge green">Paid</span></td></tr>
+                <tr><td>Mar 2025</td><td>Rs 142,000</td><td>Rs 14,000</td><td>Rs 128,000</td><td><span class="b y">Pending</span></td></tr>
+                <tr><td>Feb 2025</td><td>Rs 130,000</td><td>Rs 12,000</td><td>Rs 118,000</td><td><span class="b g">Paid</span></td></tr>
+                <tr><td>Jan 2025</td><td>Rs 124,500</td><td>Rs 8,000</td><td>Rs 116,500</td><td><span class="b g">Paid</span></td></tr>
+                <tr><td>Dec 2024</td><td>Rs 115,000</td><td>Rs 10,000</td><td>Rs 105,000</td><td><span class="b g">Paid</span></td></tr>
               </tbody>
             </table>
           </div>
         </div>
         <div class="card">
-          <div class="card-title">Monthly Earnings <span>Rs (thousands)</span></div>
-          <div class="bar-chart" id="earnings-chart"></div>
+          <div class="ct">Monthly Net Earnings</div>
+          <div class="bchart" id="pay-chart"></div>
         </div>
       </div>
     </div>
 
-    <!-- ════ FERTILIZER ════ -->
-    <div class="page" id="page-fertilizer">
-      <div class="page-header">
-        <h2>Fertilizer Distribution</h2>
-        <p>Request and manage fertilizer allocations</p>
-      </div>
-      <div class="stats-row">
-        <div class="stat-card"><div class="s-label">Distributed</div><div class="s-val">80 kg</div><div class="s-sub">This month</div></div>
-        <div class="stat-card accent"><div class="s-label">Pending</div><div class="s-val">1</div><div class="s-sub">Awaiting approval</div></div>
-        <div class="stat-card gold"><div class="s-label">Total Cost</div><div class="s-val">Rs 4,000</div><div class="s-sub">Deducted from bill</div></div>
+    <!-- FERTILIZER -->
+    <div class="page" id="p-fertilizer">
+      <div class="ph"><h2>Fertilizer Requests</h2><p>Request fertilizer from the factory</p></div>
+      <div class="stats">
+        <div class="sc"><div class="lbl">This Month</div><div class="val">80 kg</div></div>
+        <div class="sc dark"><div class="lbl">Pending</div><div class="val">1</div></div>
+        <div class="sc gold"><div class="lbl">Deducted</div><div class="val">Rs 4,000</div></div>
       </div>
       <div class="card">
-        <div class="card-title">
-          Fertilizer Requests
-          <button class="btn btn-tea btn-sm" onclick="openModal('modal-fertilizer')">+ New Request</button>
-        </div>
-        <div class="table-wrap">
+        <div class="ct">My Requests <button class="btn btn-p btn-sm" onclick="openM('m-fert')">+ New Request</button></div>
+        <div class="tw">
           <table>
-            <thead><tr><th>Date</th><th>Type</th><th>Qty (kg)</th><th>Unit Price</th><th>Total</th><th>Status</th><th id="fert-action-head">Action</th></tr></thead>
-            <tbody id="fertilizer-table">
-              <tr><td>2025-03-01</td><td>Urea</td><td>50</td><td>Rs 40</td><td>Rs 2,000</td><td><span class="badge yellow">Pending</span></td><td>—</td></tr>
-              <tr><td>2025-02-15</td><td>NPK</td><td>30</td><td>Rs 65</td><td>Rs 1,950</td><td><span class="badge green">Approved</span></td><td>—</td></tr>
-              <tr><td>2025-01-20</td><td>Organic</td><td>25</td><td>Rs 80</td><td>Rs 2,000</td><td><span class="badge green">Approved</span></td><td>—</td></tr>
+            <thead><tr><th>Date</th><th>Type</th><th>Qty (kg)</th><th>Unit Price</th><th>Total Cost</th><th>Status</th></tr></thead>
+            <tbody id="fert-tbody">
+              <tr><td>2025-03-01</td><td>Urea</td><td>50</td><td>Rs 40</td><td>Rs 2,000</td><td><span class="b y">Pending</span></td></tr>
+              <tr><td>2025-02-15</td><td>NPK</td><td>30</td><td>Rs 65</td><td>Rs 1,950</td><td><span class="b g">Approved</span></td></tr>
+              <tr><td>2025-01-20</td><td>Organic</td><td>25</td><td>Rs 80</td><td>Rs 2,000</td><td><span class="b g">Approved</span></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- ════ LOANS ════ -->
-    <div class="page" id="page-loans">
-      <div class="page-header">
-        <h2>Loans & Advances</h2>
-        <p>Manage loan applications and track repayments</p>
-      </div>
-      <div class="stats-row">
-        <div class="stat-card accent"><div class="s-label">Total Borrowed</div><div class="s-val">Rs 35k</div><div class="s-sub">Lifetime</div></div>
-        <div class="stat-card gold"><div class="s-label">Outstanding</div><div class="s-val">Rs 25k</div><div class="s-sub">To repay</div></div>
-        <div class="stat-card"><div class="s-label">This Month</div><div class="s-val">Rs 10k</div><div class="s-sub">Deducted</div></div>
-        <div class="stat-card"><div class="s-label">Pending</div><div class="s-val">1</div><div class="s-sub">Awaiting approval</div></div>
+    <!-- LOANS -->
+    <div class="page" id="p-loans">
+      <div class="ph"><h2>Loans & Advances</h2><p>Apply for advances and track repayments</p></div>
+      <div class="stats">
+        <div class="sc dark"><div class="lbl">Outstanding</div><div class="val">Rs 25k</div></div>
+        <div class="sc gold"><div class="lbl">Monthly Deduction</div><div class="val">Rs 10k</div></div>
+        <div class="sc"><div class="lbl">Total Borrowed</div><div class="val">Rs 35k</div></div>
+        <div class="sc"><div class="lbl">Pending</div><div class="val">1</div><div class="sub">Awaiting approval</div></div>
       </div>
       <div class="card">
-        <div class="card-title">
-          Loan Applications
-          <button class="btn btn-tea btn-sm" onclick="openModal('modal-loan')">+ Apply for Loan</button>
-        </div>
-        <div class="table-wrap">
+        <div class="ct">My Loan Applications <button class="btn btn-p btn-sm" onclick="openM('m-loan')">+ Apply for Loan</button></div>
+        <div class="tw">
           <table>
-            <thead><tr><th>Date</th><th>Amount</th><th>Reason</th><th>Status</th><th>Cheque</th><th id="loan-action-head">Action</th></tr></thead>
-            <tbody id="loans-table">
-              <tr><td>2025-03-01</td><td>Rs 15,000</td><td>Land preparation</td><td><span class="badge yellow">Pending</span></td><td>—</td><td>—</td></tr>
-              <tr><td>2025-02-10</td><td>Rs 10,000</td><td>Equipment repair</td><td><span class="badge green">Approved</span></td><td><span class="badge blue">Issued</span></td><td>—</td></tr>
-              <tr><td>2025-01-05</td><td>Rs 10,000</td><td>Seed purchase</td><td><span class="badge green">Approved</span></td><td><span class="badge green">Delivered</span></td><td>—</td></tr>
+            <thead><tr><th>Date</th><th>Amount</th><th>Reason</th><th>Status</th><th>Cheque</th></tr></thead>
+            <tbody id="loan-tbody">
+              <tr><td>2025-03-01</td><td>Rs 15,000</td><td>Land preparation</td><td><span class="b y">Pending</span></td><td>—</td></tr>
+              <tr><td>2025-02-10</td><td>Rs 10,000</td><td>Equipment repair</td><td><span class="b g">Approved</span></td><td><span class="b bl">Issued</span></td></tr>
+              <tr><td>2025-01-05</td><td>Rs 10,000</td><td>Seed purchase</td><td><span class="b g">Approved</span></td><td><span class="b g">Delivered</span></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- ════ CHEQUES ════ -->
-    <div class="page" id="page-cheques">
-      <div class="page-header">
-        <h2>Cheque Handling</h2>
-        <p>Track advance cheque issuance, delivery and verification</p>
-      </div>
-      <div class="stats-row">
-        <div class="stat-card"><div class="s-label">Total Issued</div><div class="s-val">8</div><div class="s-sub">Cheques</div></div>
-        <div class="stat-card accent"><div class="s-label">In Transit</div><div class="s-val">1</div><div class="s-sub">With supervisor</div></div>
-        <div class="stat-card gold"><div class="s-label">Delivered</div><div class="s-val">6</div><div class="s-sub">Verified</div></div>
-        <div class="stat-card"><div class="s-label">Pending</div><div class="s-val">1</div><div class="s-sub">Not yet issued</div></div>
+    <!-- CHEQUES -->
+    <div class="page" id="p-cheques">
+      <div class="ph"><h2>My Cheques</h2><p>Track cheque delivery and verify receipt</p></div>
+      <div class="stats">
+        <div class="sc"><div class="lbl">Total Issued</div><div class="val">8</div></div>
+        <div class="sc dark"><div class="lbl">In Transit</div><div class="val">1</div></div>
+        <div class="sc gold"><div class="lbl">To Verify</div><div class="val">1</div></div>
+        <div class="sc"><div class="lbl">Verified</div><div class="val">6</div></div>
       </div>
       <div class="card">
-        <div class="card-title">Cheque Records</div>
-        <div class="table-wrap">
+        <div class="ct">Cheque Records</div>
+        <div class="tw">
           <table>
-            <thead><tr><th>Cheque No</th><th>Loan Ref</th><th>Amount</th><th>Issued To</th><th>Supervisor</th><th>Status</th><th>Verify</th></tr></thead>
-            <tbody id="cheques-table">
-              <tr><td>CHQ-0044</td><td>LN-003</td><td>Rs 15,000</td><td>Amara Perera</td><td>Kamal Silva</td><td><span class="badge blue">In Transit</span></td><td>—</td></tr>
-              <tr><td>CHQ-0042</td><td>LN-002</td><td>Rs 10,000</td><td>Amara Perera</td><td>Kamal Silva</td><td><span class="badge yellow">Pending Verify</span></td><td><button class="btn btn-tea btn-sm" onclick="verifyCheque(this)">✓ Verify</button></td></tr>
-              <tr><td>CHQ-0038</td><td>LN-001</td><td>Rs 10,000</td><td>Amara Perera</td><td>Nimal Fernando</td><td><span class="badge green">Verified</span></td><td>—</td></tr>
-              <tr><td>CHQ-0031</td><td>LN-000</td><td>Rs 5,000</td><td>Amara Perera</td><td>Nimal Fernando</td><td><span class="badge green">Verified</span></td><td>—</td></tr>
+            <thead><tr><th>Cheque No.</th><th>Loan Ref</th><th>Amount</th><th>Supervisor</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="cheq-tbody">
+              <tr><td>CHQ-0044</td><td>LN-003</td><td>Rs 15,000</td><td>Kamal Silva</td><td><span class="b bl">In Transit</span></td><td>—</td></tr>
+              <tr><td>CHQ-0042</td><td>LN-002</td><td>Rs 10,000</td><td>Kamal Silva</td><td><span class="b y">Pending Verify</span></td><td><button class="btn btn-p btn-sm" onclick="verifyCheq(this)">✓ Verify Receipt</button></td></tr>
+              <tr><td>CHQ-0038</td><td>LN-001</td><td>Rs 10,000</td><td>Nimal Fernando</td><td><span class="b g">Verified</span></td><td>—</td></tr>
+              <tr><td>CHQ-0031</td><td>LN-000</td><td>Rs 5,000</td><td>Nimal Fernando</td><td><span class="b g">Verified</span></td><td>—</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- ════ EMPLOYEES ════ -->
-    <div class="page" id="page-employees">
-      <div class="page-header">
-        <h2>Employee Management</h2>
-        <p>Manage workers and calculate salaries</p>
+    <!-- MY FACTORIES -->
+    <div class="page" id="p-factories">
+      <div class="ph">
+        <h2>My Factories</h2>
+        <p>Register with tea factories and track your registration status</p>
       </div>
-      <div class="stats-row">
-        <div class="stat-card"><div class="s-label">Total Workers</div><div class="s-val">5</div><div class="s-sub">Active</div></div>
-        <div class="stat-card accent"><div class="s-label">Salary This Month</div><div class="s-val">Rs 62k</div><div class="s-sub">Total payroll</div></div>
-        <div class="stat-card gold"><div class="s-label">Avg Work Days</div><div class="s-val">23</div><div class="s-sub">Per employee</div></div>
-      </div>
-      <div class="card">
-        <div class="card-title">
-          Employee Records
-          <button class="btn btn-tea btn-sm" onclick="openModal('modal-employee')">+ Add Employee</button>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Employee ID</th><th>Name</th><th>NIC</th><th>Work Days</th><th>Daily Rate</th><th>Salary</th><th>Action</th></tr></thead>
-            <tbody id="employee-table">
-              <tr><td>EMP-001</td><td>Sunil Bandara</td><td>871234567V</td><td>25</td><td>Rs 700</td><td>Rs 17,500</td><td><button class="btn btn-outline btn-sm" onclick="editEmployee(this)">Edit</button></td></tr>
-              <tr><td>EMP-002</td><td>Kamala Wickrama</td><td>891234567V</td><td>22</td><td>Rs 700</td><td>Rs 15,400</td><td><button class="btn btn-outline btn-sm" onclick="editEmployee(this)">Edit</button></td></tr>
-              <tr><td>EMP-003</td><td>Roshan Jayawardena</td><td>901234567V</td><td>24</td><td>Rs 800</td><td>Rs 19,200</td><td><button class="btn btn-outline btn-sm" onclick="editEmployee(this)">Edit</button></td></tr>
-              <tr><td>EMP-004</td><td>Nilmini Perera</td><td>921234567V</td><td>15</td><td>Rs 600</td><td>Rs 9,000</td><td><button class="btn btn-outline btn-sm" onclick="editEmployee(this)">Edit</button></td></tr>
-              <tr><td>EMP-005</td><td>Asela Fernando</td><td>951234567V</td><td>1</td><td>Rs 700</td><td>Rs 700</td><td><button class="btn btn-outline btn-sm" onclick="editEmployee(this)">Edit</button></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
 
-    <!-- ════ REPORTS ════ -->
-    <div class="page" id="page-reports">
-      <div class="page-header">
-        <h2>Reports & Statements</h2>
-        <p>Generate monthly bills and income statements</p>
+      <!-- Stats -->
+      <div class="stats">
+        <div class="sc dark"><div class="lbl">Registered</div><div class="val" id="fac-count-active">—</div><div class="sub">Active factories</div></div>
+        <div class="sc gold"><div class="lbl">Pending</div><div class="val" id="fac-count-pending">—</div><div class="sub">Awaiting approval</div></div>
+        <div class="sc"><div class="lbl">Available</div><div class="val" id="fac-count-all">—</div><div class="sub">Factories to join</div></div>
       </div>
-      <div class="grid-2" style="margin-bottom:1.5rem;">
+
+      <div class="g2">
+        <!-- My registrations -->
         <div class="card">
-          <div class="card-title">Monthly Bill</div>
-          <div class="form-group">
-            <label>Select Month</label>
-            <select id="bill-month">
-              <option>March 2025</option>
-              <option>February 2025</option>
-              <option>January 2025</option>
-              <option>December 2024</option>
+          <div class="ct">My Registrations</div>
+          <div id="my-factories-list">
+            <div style="text-align:center;color:var(--muted);padding:2rem;font-size:0.87rem;">
+              ⏳ Loading…
+            </div>
+          </div>
+        </div>
+
+        <!-- Register with a new factory -->
+        <div class="card">
+          <div class="ct">Register with a Factory</div>
+          <div class="fg">
+            <label>Select Factory</label>
+            <select id="reg-factory-sel">
+              <option value="">Loading factories…</option>
             </select>
           </div>
-          <button class="btn btn-tea" onclick="generateBill()">📄 Generate Bill</button>
-          <div id="bill-result" style="margin-top:1.2rem;display:none;">
+          <div class="fg">
+            <label>Your Land Size for this Factory (acres)</label>
+            <input type="number" step="0.01" placeholder="e.g. 3.2" id="reg-factory-size">
+          </div>
+          <!-- Factory info preview -->
+          <div id="factory-preview" style="display:none;background:var(--cream);border:1px solid var(--cream-dark);border-radius:12px;padding:1rem;margin-bottom:1rem;">
+            <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.5rem;">Factory Details</div>
+            <div style="font-weight:600;color:var(--tea-dark);font-size:0.95rem;" id="preview-name">—</div>
+            <div style="font-size:0.83rem;color:var(--muted);margin-top:3px;" id="preview-location">—</div>
+          </div>
+          <button class="btn btn-p" style="width:100%;" onclick="registerWithFactory()">🏭 Submit Registration</button>
+        </div>
+      </div>
+
+      <!-- All available factories -->
+      <div class="card">
+        <div class="ct">All Available Factories <small>Click a factory to register</small></div>
+        <div class="tw">
+          <table>
+            <thead><tr><th>#</th><th>Factory Name</th><th>Location</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="all-factories-tb">
+              <tr><td colspan="5" style="text-align:center;color:var(--muted);padding:1.5rem;">⏳ Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMPLOYEES -->
+    <div class="page" id="p-employees">
+      <div class="ph"><h2>My Employees</h2><p>Manage farm workers and calculate salaries</p></div>
+      <div class="stats">
+        <div class="sc"><div class="lbl">Total Workers</div><div class="val">5</div></div>
+        <div class="sc dark"><div class="lbl">Monthly Payroll</div><div class="val">Rs 62k</div></div>
+        <div class="sc gold"><div class="lbl">Avg Work Days</div><div class="val">23</div></div>
+      </div>
+      <div class="card">
+        <div class="ct">Employee Records <button class="btn btn-p btn-sm" onclick="openM('m-emp')">+ Add Employee</button></div>
+        <div class="tw">
+          <table>
+            <thead><tr><th>ID</th><th>Name</th><th>NIC</th><th>Work Days</th><th>Daily Rate</th><th>Salary</th><th></th></tr></thead>
+            <tbody id="emp-tbody">
+              <tr><td>EMP-001</td><td>Sunil Bandara</td><td>871234567V</td><td>25</td><td>Rs 700</td><td>Rs 17,500</td><td><button class="btn btn-o btn-sm" onclick="toast('Editing Sunil Bandara…')">Edit</button></td></tr>
+              <tr><td>EMP-002</td><td>Kamala Wickrama</td><td>891234567V</td><td>22</td><td>Rs 700</td><td>Rs 15,400</td><td><button class="btn btn-o btn-sm" onclick="toast('Editing Kamala Wickrama…')">Edit</button></td></tr>
+              <tr><td>EMP-003</td><td>Roshan Jayawardena</td><td>901234567V</td><td>24</td><td>Rs 800</td><td>Rs 19,200</td><td><button class="btn btn-o btn-sm" onclick="toast('Editing Roshan…')">Edit</button></td></tr>
+              <tr><td>EMP-004</td><td>Nilmini Perera</td><td>921234567V</td><td>15</td><td>Rs 600</td><td>Rs 9,000</td><td><button class="btn btn-o btn-sm" onclick="toast('Editing Nilmini…')">Edit</button></td></tr>
+              <tr><td>EMP-005</td><td>Asela Fernando</td><td>951234567V</td><td>1</td><td>Rs 700</td><td>Rs 700</td><td><button class="btn btn-o btn-sm" onclick="toast('Editing Asela…')">Edit</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPORTS -->
+    <div class="page" id="p-reports">
+      <div class="ph"><h2>Reports & Statements</h2><p>Generate bills and income statements</p></div>
+      <div class="g2">
+        <div class="card">
+          <div class="ct">Monthly Bill</div>
+          <div class="fg"><label>Select Month</label>
+            <select id="bill-mon"><option>March 2025</option><option>February 2025</option><option>January 2025</option></select>
+          </div>
+          <button class="btn btn-p" onclick="genBill()">📄 Generate Bill</button>
+          <div id="bill-out" style="display:none;margin-top:1.2rem;">
             <div style="background:var(--cream);border-radius:12px;padding:1.2rem;border:1px solid var(--cream-dark);">
-              <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:0.8rem;color:var(--tea-dark);">Monthly Bill — March 2025</div>
-              <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.87rem;">
-                <div style="display:flex;justify-content:space-between;"><span>Gross Income (2,840 kg × Rs50)</span><strong>Rs 142,000</strong></div>
-                <div style="display:flex;justify-content:space-between;color:var(--danger)"><span>Loan Deduction</span><strong>− Rs 10,000</strong></div>
-                <div style="display:flex;justify-content:space-between;color:var(--warning)"><span>Fertilizer Deduction</span><strong>− Rs 4,000</strong></div>
-                <div style="border-top:1.5px solid var(--cream-dark);padding-top:0.5rem;display:flex;justify-content:space-between;font-weight:700;font-size:0.95rem;"><span>Net Payable</span><span style="color:var(--tea-dark)">Rs 128,000</span></div>
+              <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:0.8rem;color:var(--tea-dark);">Monthly Bill — <span id="bill-mon-lbl">March 2025</span></div>
+              <div style="display:flex;flex-direction:column;gap:0.45rem;font-size:0.86rem;">
+                <div style="display:flex;justify-content:space-between;"><span>Gross (2,840 kg × Rs 50)</span><strong>Rs 142,000</strong></div>
+                <div style="display:flex;justify-content:space-between;color:var(--danger)"><span>Loan Deduction</span><strong>−Rs 10,000</strong></div>
+                <div style="display:flex;justify-content:space-between;color:var(--warning)"><span>Fertilizer</span><strong>−Rs 4,000</strong></div>
+                <div style="border-top:1.5px solid var(--cream-dark);padding-top:0.5rem;display:flex;justify-content:space-between;font-weight:700;"><span>Net Payable</span><span style="color:var(--tea-dark)">Rs 128,000</span></div>
               </div>
-              <button class="btn btn-outline btn-sm" style="margin-top:1rem;" onclick="showToast('Bill downloaded as PDF')">⬇ Download PDF</button>
+              <button class="btn btn-o btn-sm" style="margin-top:0.9rem;" onclick="toast('Bill downloaded as PDF')">⬇ Download PDF</button>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="card-title">Income Statement</div>
-          <div class="form-group">
-            <label>Period</label>
-            <select id="income-period">
-              <option value="3">3 Months</option>
-              <option value="6">6 Months</option>
-            </select>
+          <div class="ct">Income Statement</div>
+          <div class="fg"><label>Period</label>
+            <select id="inc-per"><option value="3">3 Months</option><option value="6">6 Months</option></select>
           </div>
-          <div class="form-group">
-            <label>End Month</label>
-            <select id="income-end">
-              <option>March 2025</option>
-              <option>February 2025</option>
-            </select>
+          <div class="fg"><label>Ending Month</label>
+            <select><option>March 2025</option><option>February 2025</option></select>
           </div>
-          <button class="btn btn-tea" onclick="requestIncomeStatement()">📊 Request Statement</button>
-          <div id="income-pending" style="margin-top:1rem;display:none;">
-            <div class="badge yellow" style="font-size:0.82rem;">⏳ Awaiting factory approval…</div>
-          </div>
-          <div id="income-result" style="margin-top:1.2rem;display:none;">
+          <button class="btn btn-p" onclick="reqStatement()">📊 Request Statement</button>
+          <div id="inc-pend" style="display:none;margin-top:1rem;"><span class="b y">⏳ Awaiting factory approval…</span></div>
+          <div id="inc-out" style="display:none;margin-top:1.2rem;">
             <div style="background:var(--cream);border-radius:12px;padding:1.2rem;border:1px solid var(--cream-dark);">
               <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:0.8rem;color:var(--tea-dark);">3-Month Income Statement</div>
-              <div style="display:flex;flex-direction:column;gap:0.4rem;font-size:0.87rem;">
+              <div style="display:flex;flex-direction:column;gap:0.4rem;font-size:0.86rem;">
                 <div style="display:flex;justify-content:space-between;"><span>January 2025</span><strong>Rs 116,500</strong></div>
                 <div style="display:flex;justify-content:space-between;"><span>February 2025</span><strong>Rs 118,000</strong></div>
                 <div style="display:flex;justify-content:space-between;"><span>March 2025</span><strong>Rs 128,000</strong></div>
                 <div style="border-top:1.5px solid var(--cream-dark);padding-top:0.5rem;display:flex;justify-content:space-between;font-weight:700;"><span>Total</span><span style="color:var(--tea-dark)">Rs 362,500</span></div>
               </div>
-              <button class="btn btn-outline btn-sm" style="margin-top:1rem;" onclick="showToast('Statement downloaded')">⬇ Download</button>
+              <button class="btn btn-o btn-sm" style="margin-top:0.9rem;" onclick="toast('Statement downloaded')">⬇ Download</button>
             </div>
           </div>
         </div>
       </div>
       <div class="card">
-        <div class="card-title">Past Reports</div>
-        <div class="table-wrap">
+        <div class="ct">Past Reports</div>
+        <div class="tw">
           <table>
-            <thead><tr><th>Type</th><th>Period</th><th>Generated</th><th>Status</th><th>Download</th></tr></thead>
+            <thead><tr><th>Type</th><th>Period</th><th>Date</th><th>Status</th><th>Download</th></tr></thead>
             <tbody>
-              <tr><td>Monthly Bill</td><td>Feb 2025</td><td>2025-03-01</td><td><span class="badge green">Ready</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Downloading…')">⬇ PDF</button></td></tr>
-              <tr><td>Income Statement</td><td>Oct–Dec 2024</td><td>2025-01-03</td><td><span class="badge green">Ready</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Downloading…')">⬇ PDF</button></td></tr>
-              <tr><td>Monthly Bill</td><td>Jan 2025</td><td>2025-02-01</td><td><span class="badge green">Ready</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Downloading…')">⬇ PDF</button></td></tr>
+              <tr><td>Monthly Bill</td><td>Feb 2025</td><td>2025-03-01</td><td><span class="b g">Ready</span></td><td><button class="btn btn-o btn-sm" onclick="toast('Downloading…')">⬇ PDF</button></td></tr>
+              <tr><td>Income Statement</td><td>Oct–Dec 2024</td><td>2025-01-03</td><td><span class="b g">Ready</span></td><td><button class="btn btn-o btn-sm" onclick="toast('Downloading…')">⬇ PDF</button></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- ════ COMPLAINTS ════ -->
-    <div class="page" id="page-complaints">
-      <div class="page-header">
-        <h2>Complaints & Reviews</h2>
-        <p>Submit complaints and track factory responses</p>
-      </div>
-      <div class="grid-2" style="margin-bottom:1.5rem;">
+    <!-- COMPLAINTS -->
+    <div class="page" id="p-complaints">
+      <div class="ph"><h2>Complaints</h2><p>Submit and track your complaints to the factory</p></div>
+      <div class="g2">
         <div class="card">
-          <div class="card-title">Submit a Complaint</div>
-          <div class="form-group">
-            <label>Subject</label>
-            <input type="text" placeholder="Brief subject of your complaint" id="comp-subject">
-          </div>
-          <div class="form-group">
-            <label>Details</label>
-            <textarea placeholder="Describe your complaint in detail…" id="comp-text"></textarea>
-          </div>
-          <button class="btn btn-tea" onclick="submitComplaint()">📣 Submit Complaint</button>
+          <div class="ct">Submit a Complaint</div>
+          <div class="fg"><label>Subject</label><input type="text" placeholder="Brief complaint subject" id="c-subj"></div>
+          <div class="fg"><label>Details</label><textarea placeholder="Describe your complaint…" id="c-text"></textarea></div>
+          <button class="btn btn-p" onclick="submitComp()">📣 Submit</button>
         </div>
         <div class="card">
-          <div class="card-title">My Complaints <span id="complaint-count">3 total</span></div>
-          <div id="complaint-list">
-            <div class="activity-item">
-              <div class="activity-dot yellow">📣</div>
-              <div class="activity-text" style="flex:1">
-                <div class="main">Payment calculation discrepancy in Feb</div>
-                <div class="time">2025-02-20 · <span class="badge yellow" style="font-size:0.7rem;">Open</span></div>
-                <div style="margin-top:6px;font-size:0.82rem;color:var(--text-muted);background:var(--cream);padding:0.5rem;border-radius:8px;">
-                  <strong>Factory:</strong> We are reviewing the records and will respond shortly.
-                </div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot green">✅</div>
-              <div class="activity-text" style="flex:1">
-                <div class="main">Fertilizer not delivered on time</div>
-                <div class="time">2025-01-15 · <span class="badge green" style="font-size:0.7rem;">Resolved</span></div>
-                <div style="margin-top:6px;font-size:0.82rem;color:var(--text-muted);background:var(--cream);padding:0.5rem;border-radius:8px;">
-                  <strong>Factory:</strong> Resolved. Fertilizer was dispatched on Jan 18th.
-                </div>
-              </div>
-            </div>
+          <div class="ct">My Complaints</div>
+          <div id="comp-list">
+            <div class="ai"><div class="adot y">📣</div><div class="at" style="flex:1">
+              <div class="am">Payment calculation issue in February</div>
+              <div class="ti">2025-02-20 · <span class="b y" style="font-size:0.68rem;">Open</span></div>
+              <div style="margin-top:5px;font-size:0.81rem;color:var(--muted);background:var(--cream);padding:0.45rem 0.7rem;border-radius:8px;"><strong>Factory:</strong> We are reviewing and will respond shortly.</div>
+            </div></div>
+            <div class="ai"><div class="adot g">✅</div><div class="at" style="flex:1">
+              <div class="am">Fertilizer not delivered on time</div>
+              <div class="ti">2025-01-15 · <span class="b g" style="font-size:0.68rem;">Resolved</span></div>
+              <div style="margin-top:5px;font-size:0.81rem;color:var(--muted);background:var(--cream);padding:0.45rem 0.7rem;border-radius:8px;"><strong>Factory:</strong> Resolved — dispatched on Jan 18th.</div>
+            </div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ════ ALL LAND OWNERS (Factory/Admin) ════ -->
-    <div class="page" id="page-users">
-      <div class="page-header">
-        <h2>All Land Owners</h2>
-        <p>Manage registered tea land owners</p>
-      </div>
-      <div class="stats-row">
-        <div class="stat-card"><div class="s-label">Total Owners</div><div class="s-val">24</div></div>
-        <div class="stat-card accent"><div class="s-label">Active</div><div class="s-val">21</div></div>
-        <div class="stat-card gold"><div class="s-label">Pending Approval</div><div class="s-val">3</div></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Land Owner Registry</div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>ID</th><th>Name</th><th>NIC</th><th>Land (ac)</th><th>Monthly kg</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr><td>LO-001</td><td>Amara Perera</td><td>871234567V</td><td>3.2</td><td>2,840</td><td><span class="badge green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Viewing Amara Perera')">View</button></td></tr>
-              <tr><td>LO-002</td><td>Kamal Jayawardena</td><td>882345678V</td><td>2.1</td><td>1,920</td><td><span class="badge green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Viewing Kamal Jayawardena')">View</button></td></tr>
-              <tr><td>LO-003</td><td>Nirmala Wickrama</td><td>893456789V</td><td>4.5</td><td>3,500</td><td><span class="badge green">Active</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Viewing Nirmala Wickrama')">View</button></td></tr>
-              <tr><td>LO-004</td><td>Suresh Bandara</td><td>904567890V</td><td>1.8</td><td>1,200</td><td><span class="badge yellow">Pending</span></td><td><button class="btn btn-tea btn-sm" onclick="showToast('LO-004 approved!')">Approve</button></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /content -->
+  </div>
 </main>
-</div><!-- /app -->
+</div>
 
-<!-- ════════════ MODALS ════════════ -->
-
-<!-- Add Delivery -->
-<div class="modal-overlay" id="modal-delivery">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>🍃 Record Tea Delivery</h3>
-      <button class="modal-close" onclick="closeModal('modal-delivery')">✕</button>
+<!-- MODALS -->
+<div class="mo" id="m-loan">
+  <div class="mbox">
+    <div class="mhead"><h3>📋 Apply for Loan</h3><button class="mclose" onclick="closeM('m-loan')">✕</button></div>
+    <div class="fgg">
+      <div class="fg"><label>Amount (Rs)</label><input type="number" placeholder="e.g. 15000" id="l-amt"></div>
+      <div class="fg"><label>Date Needed</label><input type="date" id="l-date"></div>
+      <div class="fg full"><label>Reason</label><textarea placeholder="Why do you need this advance?" id="l-reason"></textarea></div>
     </div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label>Delivery Date</label>
-        <input type="date" id="del-date">
-      </div>
-      <div class="form-group">
-        <label>Tea Weight (kg)</label>
-        <input type="number" placeholder="e.g. 120" id="del-weight" oninput="calcDelivery()">
-      </div>
-      <div class="form-group">
-        <label>Rate per kg (Rs)</label>
-        <input type="number" value="50" id="del-rate" oninput="calcDelivery()">
-      </div>
-      <div class="form-group">
-        <label>Calculated Amount</label>
-        <input type="text" id="del-amount" readonly style="background:#e8f4ed;color:var(--tea-dark);font-weight:700;">
-      </div>
-      <div class="form-group full">
-        <label>Notes (optional)</label>
-        <textarea placeholder="Any notes about this delivery…" id="del-notes"></textarea>
-      </div>
-    </div>
-    <div style="display:flex;gap:0.8rem;justify-content:flex-end;">
-      <button class="btn btn-outline" onclick="closeModal('modal-delivery')">Cancel</button>
-      <button class="btn btn-tea" onclick="saveDelivery()">Save Delivery</button>
+    <div style="background:var(--cream);border-radius:10px;padding:0.85rem;margin-bottom:1rem;font-size:0.82rem;color:var(--muted);">⚠️ Repayment deducted from monthly payments. Max: Rs 50,000.</div>
+    <div style="display:flex;gap:0.7rem;justify-content:flex-end;">
+      <button class="btn btn-o" onclick="closeM('m-loan')">Cancel</button>
+      <button class="btn btn-p" onclick="saveLoan()">Submit Application</button>
     </div>
   </div>
 </div>
 
-<!-- Loan Request -->
-<div class="modal-overlay" id="modal-loan">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>📋 Apply for Loan / Advance</h3>
-      <button class="modal-close" onclick="closeModal('modal-loan')">✕</button>
-    </div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label>Requested Amount (Rs)</label>
-        <input type="number" placeholder="e.g. 15000" id="loan-amount">
+<div class="mo" id="m-fert">
+  <div class="mbox">
+    <div class="mhead"><h3>🌿 Request Fertilizer</h3><button class="mclose" onclick="closeM('m-fert')">✕</button></div>
+    <div class="fgg">
+      <div class="fg"><label>Type</label>
+        <select id="f-type"><option>Urea</option><option>NPK</option><option>Organic Compost</option><option>Potassium Chloride</option></select>
       </div>
-      <div class="form-group">
-        <label>Preferred Date</label>
-        <input type="date" id="loan-date">
-      </div>
-      <div class="form-group full">
-        <label>Reason for Loan</label>
-        <textarea placeholder="Describe why you need this advance…" id="loan-reason"></textarea>
-      </div>
+      <div class="fg"><label>Quantity (kg)</label><input type="number" placeholder="e.g. 50" id="f-qty"></div>
+      <div class="fg full"><label>Notes</label><textarea placeholder="Intended use…" id="f-notes"></textarea></div>
     </div>
-    <div style="background:var(--cream);border-radius:12px;padding:1rem;margin-bottom:1rem;font-size:0.83rem;color:var(--text-muted);">
-      ⚠️ Loan repayment will be deducted automatically from your monthly payments. Max loan limit: Rs 50,000.
-    </div>
-    <div style="display:flex;gap:0.8rem;justify-content:flex-end;">
-      <button class="btn btn-outline" onclick="closeModal('modal-loan')">Cancel</button>
-      <button class="btn btn-tea" onclick="saveLoan()">Submit Application</button>
+    <div style="display:flex;gap:0.7rem;justify-content:flex-end;">
+      <button class="btn btn-o" onclick="closeM('m-fert')">Cancel</button>
+      <button class="btn btn-p" onclick="saveFert()">Submit Request</button>
     </div>
   </div>
 </div>
 
-<!-- Fertilizer Request -->
-<div class="modal-overlay" id="modal-fertilizer">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>🌿 Request Fertilizer</h3>
-      <button class="modal-close" onclick="closeModal('modal-fertilizer')">✕</button>
+<div class="mo" id="m-emp">
+  <div class="mbox">
+    <div class="mhead"><h3>👷 Add Employee</h3><button class="mclose" onclick="closeM('m-emp')">✕</button></div>
+    <div class="fgg">
+      <div class="fg"><label>Full Name</label><input type="text" placeholder="Employee name" id="e-name"></div>
+      <div class="fg"><label>NIC</label><input type="text" placeholder="e.g. 901234567V" id="e-nic"></div>
+      <div class="fg"><label>Work Days</label><input type="number" placeholder="e.g. 25" id="e-days" oninput="calcSal()"></div>
+      <div class="fg"><label>Daily Rate (Rs)</label><input type="number" placeholder="e.g. 700" id="e-rate" oninput="calcSal()"></div>
+      <div class="fg"><label>Salary (auto)</label><input type="text" id="e-sal" readonly></div>
+      <div class="fg"><label>Contact</label><input type="text" placeholder="07X XXXXXXX" id="e-tel"></div>
     </div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label>Fertilizer Type</label>
-        <select id="fert-type">
-          <option>Urea</option>
-          <option>NPK</option>
-          <option>Organic Compost</option>
-          <option>Potassium Chloride</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Quantity (kg)</label>
-        <input type="number" placeholder="e.g. 50" id="fert-qty">
-      </div>
-      <div class="form-group full">
-        <label>Purpose / Notes</label>
-        <textarea placeholder="Intended use of fertilizer…" id="fert-notes"></textarea>
-      </div>
-    </div>
-    <div style="display:flex;gap:0.8rem;justify-content:flex-end;">
-      <button class="btn btn-outline" onclick="closeModal('modal-fertilizer')">Cancel</button>
-      <button class="btn btn-tea" onclick="saveFertilizer()">Submit Request</button>
+    <div style="display:flex;gap:0.7rem;justify-content:flex-end;margin-top:0.5rem;">
+      <button class="btn btn-o" onclick="closeM('m-emp')">Cancel</button>
+      <button class="btn btn-p" onclick="saveEmp()">Add Employee</button>
     </div>
   </div>
 </div>
 
-<!-- Employee -->
-<div class="modal-overlay" id="modal-employee">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>👷 Add Employee</h3>
-      <button class="modal-close" onclick="closeModal('modal-employee')">✕</button>
-    </div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" placeholder="Employee full name" id="emp-name">
-      </div>
-      <div class="form-group">
-        <label>NIC Number</label>
-        <input type="text" placeholder="e.g. 901234567V" id="emp-nic">
-      </div>
-      <div class="form-group">
-        <label>Work Days (this month)</label>
-        <input type="number" placeholder="e.g. 25" id="emp-days" oninput="calcSalary()">
-      </div>
-      <div class="form-group">
-        <label>Daily Rate (Rs)</label>
-        <input type="number" placeholder="e.g. 700" id="emp-rate" oninput="calcSalary()">
-      </div>
-      <div class="form-group">
-        <label>Calculated Salary</label>
-        <input type="text" id="emp-salary" readonly style="background:#e8f4ed;color:var(--tea-dark);font-weight:700;">
-      </div>
-      <div class="form-group">
-        <label>Contact Number</label>
-        <input type="text" placeholder="07X XXXXXXX" id="emp-contact">
-      </div>
-    </div>
-    <div style="display:flex;gap:0.8rem;justify-content:flex-end;margin-top:0.5rem;">
-      <button class="btn btn-outline" onclick="closeModal('modal-employee')">Cancel</button>
-      <button class="btn btn-tea" onclick="saveEmployee()">Add Employee</button>
-    </div>
-  </div>
-</div>
-
-<!-- Toast -->
 <div id="toast"></div>
 
 <script>
-// ─────────── STATE ───────────
-const state = {
-  role: 'land',
-  users: {
-    land: { name: 'Amara Perera', initials: 'AP', roleLabel: 'Land Owner', badge: 'LO', badgeClass: 'land' },
-    factory: { name: 'Rajith Mendis', initials: 'RM', roleLabel: 'Factory Owner', badge: 'FO', badgeClass: 'factory' },
-    supervisor: { name: 'Kamal Silva', initials: 'KS', roleLabel: 'Supervisor', badge: 'SV', badgeClass: 'supervisor' }
-  },
-  deliveries: [
-    { date: '2025-03-01', name: 'Amara Perera', weight: 120, rate: 50, amount: 6000 },
-    { date: '2025-02-28', name: 'Amara Perera', weight: 145, rate: 50, amount: 7250 },
-    { date: '2025-02-27', name: 'Amara Perera', weight: 98, rate: 50, amount: 4900 },
-    { date: '2025-02-26', name: 'Amara Perera', weight: 157, rate: 50, amount: 7850 },
-  ],
-  employees: [
-    { id: 'EMP-001', name: 'Sunil Bandara', nic: '871234567V', days: 25, rate: 700 },
-    { id: 'EMP-002', name: 'Kamala Wickrama', nic: '891234567V', days: 22, rate: 700 },
-    { id: 'EMP-003', name: 'Roshan Jayawardena', nic: '901234567V', days: 24, rate: 800 },
-    { id: 'EMP-004', name: 'Nilmini Perera', nic: '921234567V', days: 15, rate: 600 },
-    { id: 'EMP-005', name: 'Asela Fernando', nic: '951234567V', days: 1, rate: 700 },
-  ],
-  loans: [
-    { date: '2025-03-01', amount: 15000, reason: 'Land preparation', status: 'Pending' },
-    { date: '2025-02-10', amount: 10000, reason: 'Equipment repair', status: 'Approved' },
-  ],
-  fertilizers: [
-    { date: '2025-03-01', type: 'Urea', qty: 50, unitPrice: 40, status: 'Pending' },
-    { date: '2025-02-15', type: 'NPK', qty: 30, unitPrice: 65, status: 'Approved' },
-  ],
-  complaints: []
-};
+// ── Backend base URL ──────────────────────────────────────────────────────
+const API = 'http://localhost:8080';
 
-// ─────────── INIT ───────────
 document.addEventListener('DOMContentLoaded', () => {
-  setDate();
-  buildCharts();
-  setDate();
-  document.getElementById('del-date').valueAsDate = new Date();
-  document.getElementById('loan-date').valueAsDate = new Date();
-});
-
-function setDate() {
   const d = new Date();
-  document.getElementById('date-chip').textContent = d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
-  document.getElementById('month-label').textContent = d.toLocaleDateString('en-GB', { month:'long', year:'numeric' });
-}
+  document.getElementById('date-chip').textContent =
+      d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  document.getElementById('month-lbl').textContent =
+      d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+  document.getElementById('l-date').valueAsDate = new Date();
 
-// ─────────── NAVIGATION ───────────
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  const titles = {
-    dashboard: 'Dashboard', deliveries: 'Tea Deliveries', payments: 'Payments',
-    fertilizer: 'Fertilizer', loans: 'Loans & Advances', cheques: 'Cheques',
-    employees: 'Employees', reports: 'Reports', complaints: 'Complaints', users: 'Land Owners'
-  };
-  document.getElementById('topbar-title').textContent = titles[id] || id;
-  // activate nav item
-  document.querySelectorAll('.nav-item').forEach(n => {
-    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) {
-      n.classList.add('active');
-    }
-  });
-}
+  // ── Read session written by index.html after login ────────────────────
+  const fullName    = localStorage.getItem('teago_fullName')    || 'Land Owner';
+  const landOwnerId = localStorage.getItem('teago_landOwnerId') || '';
+  const landSize    = localStorage.getItem('teago_landSize')    || '';
+  const role        = localStorage.getItem('teago_role')        || '';
 
-// ─────────── ROLE SWITCHER ───────────
-function setRole(role) {
-  state.role = role;
-  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  const u = state.users[role];
-  document.getElementById('sidebar-avatar').textContent = u.initials;
-  document.getElementById('sidebar-name').textContent = u.name;
-  document.getElementById('sidebar-role').textContent = u.roleLabel;
-  const badge = document.getElementById('sidebar-badge');
-  badge.textContent = u.badge;
-  badge.className = 'role-badge ' + u.badgeClass;
-  document.getElementById('welcome-name').textContent = u.name.split(' ')[0];
-
-  // Show/hide admin sections
-  const isFactory = role === 'factory';
-  document.getElementById('admin-section').style.display = isFactory ? '' : 'none';
-  document.getElementById('nav-users').style.display = isFactory ? '' : 'none';
-
-  // Supervisor-specific cheque actions
-  if (role === 'supervisor') {
-    renderSupervisorCheques();
+  // Guard: redirect if not a land owner
+  if (role && role !== 'LAND_OWNER') {
+    window.location.href = 'index.html';
+    return;
   }
-  if (role === 'factory') {
-    renderFactoryApprovals();
-  }
-  if (role === 'land') {
-    restoreLandOwnerView();
-  }
-  showToast('Switched to ' + u.roleLabel + ' view');
-}
 
-function renderSupervisorCheques() {
-  const table = document.getElementById('cheques-table');
-  table.innerHTML = `
-    <tr><td>CHQ-0044</td><td>LN-003</td><td>Rs 15,000</td><td>Amara Perera</td><td>Kamal Silva</td><td><span class="badge blue">In Transit</span></td><td><button class="btn btn-tea btn-sm" onclick="markDelivered(this)">Mark Delivered</button></td></tr>
-    <tr><td>CHQ-0042</td><td>LN-002</td><td>Rs 10,000</td><td>Amara Perera</td><td>Kamal Silva</td><td><span class="badge green">Delivered</span></td><td>—</td></tr>
-  `;
-}
+  // ── Sidebar profile ───────────────────────────────────────────────────
+  const initials = fullName.trim().split(/\s+/)
+      .map(w => w[0] ? w[0].toUpperCase() : '').slice(0, 2).join('');
+  document.getElementById('prof-av').textContent   = initials || '?';
+  document.getElementById('prof-name').textContent = fullName;
+  const idPart   = landOwnerId ? `LO-${String(landOwnerId).padStart(3, '0')}` : '—';
+  const sizePart = landSize    ? `${landSize} acres` : '—';
+  document.getElementById('prof-id').textContent   = `ID: ${idPart} · ${sizePart}`;
 
-function renderFactoryApprovals() {
-  const loanTable = document.getElementById('loans-table');
-  loanTable.innerHTML = `
-    <tr><td>2025-03-01</td><td>Rs 15,000</td><td>Land preparation (Amara P.)</td><td><span class="badge yellow">Pending</span></td><td>—</td><td>
-      <button class="btn btn-tea btn-sm" onclick="approveLoan(this)">✓ Approve</button>
-      <button class="btn btn-danger btn-sm" onclick="rejectLoan(this)" style="margin-left:4px;">✗ Reject</button>
-    </td></tr>
-    <tr><td>2025-02-10</td><td>Rs 10,000</td><td>Equipment repair (Amara P.)</td><td><span class="badge green">Approved</span></td><td><span class="badge blue">Issued</span></td><td>—</td></tr>
-    <tr><td>2025-02-05</td><td>Rs 8,000</td><td>Crop protection (Suresh B.)</td><td><span class="badge yellow">Pending</span></td><td>—</td><td>
-      <button class="btn btn-tea btn-sm" onclick="approveLoan(this)">✓ Approve</button>
-      <button class="btn btn-danger btn-sm" onclick="rejectLoan(this)" style="margin-left:4px;">✗ Reject</button>
-    </td></tr>
-  `;
-  const fertTable = document.getElementById('fertilizer-table');
-  fertTable.innerHTML = `
-    <tr><td>2025-03-01</td><td>Urea</td><td>50</td><td>Rs 40</td><td>Rs 2,000</td><td><span class="badge yellow">Pending</span></td>
-    <td><button class="btn btn-tea btn-sm" onclick="approveFert(this)">✓ Approve</button> <button class="btn btn-danger btn-sm" onclick="rejectFert(this)">✗</button></td></tr>
-    <tr><td>2025-02-15</td><td>NPK</td><td>30</td><td>Rs 65</td><td>Rs 1,950</td><td><span class="badge green">Approved</span></td><td>—</td></tr>
-  `;
-}
+  // ── Greeting ──────────────────────────────────────────────────────────
+  document.getElementById('greeting-name').textContent = fullName.split(' ')[0];
 
-function restoreLandOwnerView() {
-  document.getElementById('cheques-table').innerHTML = `
-    <tr><td>CHQ-0044</td><td>LN-003</td><td>Rs 15,000</td><td>Amara Perera</td><td>Kamal Silva</td><td><span class="badge blue">In Transit</span></td><td>—</td></tr>
-    <tr><td>CHQ-0042</td><td>LN-002</td><td>Rs 10,000</td><td>Amara Perera</td><td>Kamal Silva</td><td><span class="badge yellow">Pending Verify</span></td><td><button class="btn btn-tea btn-sm" onclick="verifyCheque(this)">✓ Verify</button></td></tr>
-    <tr><td>CHQ-0038</td><td>LN-001</td><td>Rs 10,000</td><td>Amara Perera</td><td>Nimal Fernando</td><td><span class="badge green">Verified</span></td><td>—</td></tr>
-  `;
-  document.getElementById('loans-table').innerHTML = `
-    <tr><td>2025-03-01</td><td>Rs 15,000</td><td>Land preparation</td><td><span class="badge yellow">Pending</span></td><td>—</td><td>—</td></tr>
-    <tr><td>2025-02-10</td><td>Rs 10,000</td><td>Equipment repair</td><td><span class="badge green">Approved</span></td><td><span class="badge blue">Issued</span></td><td>—</td></tr>
-  `;
-  document.getElementById('fertilizer-table').innerHTML = `
-    <tr><td>2025-03-01</td><td>Urea</td><td>50</td><td>Rs 40</td><td>Rs 2,000</td><td><span class="badge yellow">Pending</span></td><td>—</td></tr>
-    <tr><td>2025-02-15</td><td>NPK</td><td>30</td><td>Rs 65</td><td>Rs 1,950</td><td><span class="badge green">Approved</span></td><td>—</td></tr>
-  `;
-}
-
-// ─────────── MODAL ───────────
-function openModal(id) { document.getElementById(id).classList.add('active'); }
-function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-document.querySelectorAll('.modal-overlay').forEach(m => {
-  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('active'); });
+  buildCharts();
+  loadMyDeliveries();
 });
 
-// ─────────── DELIVERY ───────────
-function calcDelivery() {
-  const w = parseFloat(document.getElementById('del-weight').value) || 0;
-  const r = parseFloat(document.getElementById('del-rate').value) || 0;
-  document.getElementById('del-amount').value = w && r ? 'Rs ' + (w * r).toLocaleString() : '';
-}
-function saveDelivery() {
-  const date = document.getElementById('del-date').value;
-  const weight = parseFloat(document.getElementById('del-weight').value);
-  const rate = parseFloat(document.getElementById('del-rate').value) || 50;
-  if (!date || !weight) { showToast('Please fill in date and weight.', true); return; }
-  const amount = weight * rate;
-  const tbody = document.getElementById('delivery-table');
-  const row = `<tr><td>${date}</td><td>Amara Perera</td><td>${weight}</td><td>Rs ${rate}</td><td>Rs ${amount.toLocaleString()}</td><td><span class="badge green">✓ Recorded</span></td></tr>`;
-  tbody.insertAdjacentHTML('afterbegin', row);
-  closeModal('modal-delivery');
-  showToast('✓ Delivery of ' + weight + ' kg recorded — Rs ' + amount.toLocaleString());
-  document.getElementById('del-weight').value = '';
-  document.getElementById('del-amount').value = '';
+const pages={dash:'My Dashboard',deliveries:'Tea Deliveries',payments:'My Payments',fertilizer:'Fertilizer Requests',loans:'Loans & Advances',cheques:'My Cheques',factories:'My Factories',employees:'My Employees',reports:'Reports',complaints:'Complaints'};
+
+function baseNav(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p-'+id).classList.add('active');
+  document.getElementById('tb-title').textContent=pages[id]||id;
+  if(el){document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));el.classList.add('active');}
 }
 
-// ─────────── LOAN ───────────
-function saveLoan() {
-  const amount = document.getElementById('loan-amount').value;
-  const reason = document.getElementById('loan-reason').value;
-  if (!amount || !reason) { showToast('Please fill all fields.', true); return; }
-  const tbody = document.getElementById('loans-table');
-  const today = new Date().toISOString().split('T')[0];
-  tbody.insertAdjacentHTML('afterbegin', `<tr><td>${today}</td><td>Rs ${parseInt(amount).toLocaleString()}</td><td>${reason}</td><td><span class="badge yellow">Pending</span></td><td>—</td><td>—</td></tr>`);
-  closeModal('modal-loan');
-  showToast('✓ Loan application submitted — awaiting factory approval');
-  document.getElementById('loan-amount').value = '';
-  document.getElementById('loan-reason').value = '';
-}
-function approveLoan(btn) {
-  const row = btn.closest('tr');
-  row.cells[3].innerHTML = '<span class="badge green">Approved</span>';
-  row.cells[5].innerHTML = '<button class="btn btn-gold btn-sm" onclick="issueCheque(this)">💳 Issue Cheque</button>';
-  showToast('✓ Loan approved');
-}
-function rejectLoan(btn) {
-  const row = btn.closest('tr');
-  row.cells[3].innerHTML = '<span class="badge red">Rejected</span>';
-  row.cells[5].innerHTML = '—';
-  showToast('Loan rejected', true);
-}
-function issueCheque(btn) {
-  const row = btn.closest('tr');
-  row.cells[4].innerHTML = '<span class="badge blue">Issued</span>';
-  row.cells[5].innerHTML = '—';
-  showToast('✓ Cheque issued and assigned to supervisor');
+function openM(id){document.getElementById(id).classList.add('on');}
+function closeM(id){document.getElementById(id).classList.remove('on');}
+document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on');}));
+
+function saveLoan(){
+  const amt=document.getElementById('l-amt').value;
+  const reason=document.getElementById('l-reason').value;
+  if(!amt||!reason){toast('Please fill all fields.',true);return;}
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('loan-tbody').insertAdjacentHTML('afterbegin',
+    `<tr><td>${today}</td><td>Rs ${parseInt(amt).toLocaleString()}</td><td>${reason}</td><td><span class="b y">Pending</span></td><td>—</td></tr>`);
+  closeM('m-loan');toast('✓ Loan application submitted — awaiting factory approval');
+  document.getElementById('l-amt').value='';document.getElementById('l-reason').value='';
 }
 
-// ─────────── FERTILIZER ───────────
-function saveFertilizer() {
-  const type = document.getElementById('fert-type').value;
-  const qty = document.getElementById('fert-qty').value;
-  if (!qty) { showToast('Please enter quantity.', true); return; }
-  const today = new Date().toISOString().split('T')[0];
-  const tbody = document.getElementById('fertilizer-table');
-  tbody.insertAdjacentHTML('afterbegin', `<tr><td>${today}</td><td>${type}</td><td>${qty}</td><td>Rs 50</td><td>Rs ${(qty*50).toLocaleString()}</td><td><span class="badge yellow">Pending</span></td><td>—</td></tr>`);
-  closeModal('modal-fertilizer');
-  showToast('✓ Fertilizer request submitted');
-  document.getElementById('fert-qty').value = '';
-}
-function approveFert(btn) {
-  const row = btn.closest('tr');
-  row.cells[5].innerHTML = '<span class="badge green">Approved</span>';
-  row.cells[6].innerHTML = '—';
-  showToast('✓ Fertilizer request approved');
-}
-function rejectFert(btn) {
-  const row = btn.closest('tr');
-  row.cells[5].innerHTML = '<span class="badge red">Rejected</span>';
-  row.cells[6].innerHTML = '—';
-  showToast('Fertilizer request rejected', true);
+function saveFert(){
+  const type=document.getElementById('f-type').value;
+  const qty=document.getElementById('f-qty').value;
+  if(!qty){toast('Please enter quantity.',true);return;}
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('fert-tbody').insertAdjacentHTML('afterbegin',
+    `<tr><td>${today}</td><td>${type}</td><td>${qty}</td><td>Rs 50</td><td>Rs ${(qty*50).toLocaleString()}</td><td><span class="b y">Pending</span></td></tr>`);
+  closeM('m-fert');toast('✓ Fertilizer request submitted');
+  document.getElementById('f-qty').value='';
 }
 
-// ─────────── EMPLOYEES ───────────
-function calcSalary() {
-  const d = parseFloat(document.getElementById('emp-days').value) || 0;
-  const r = parseFloat(document.getElementById('emp-rate').value) || 0;
-  document.getElementById('emp-salary').value = d && r ? 'Rs ' + (d * r).toLocaleString() : '';
+let empN=6;
+function calcSal(){
+  const d=parseFloat(document.getElementById('e-days').value)||0;
+  const r=parseFloat(document.getElementById('e-rate').value)||0;
+  document.getElementById('e-sal').value=d&&r?'Rs '+(d*r).toLocaleString():'';
 }
-let empCounter = 6;
-function saveEmployee() {
-  const name = document.getElementById('emp-name').value;
-  const nic = document.getElementById('emp-nic').value;
-  const days = document.getElementById('emp-days').value;
-  const rate = document.getElementById('emp-rate').value;
-  if (!name || !nic || !days || !rate) { showToast('Please fill all fields.', true); return; }
-  const salary = days * rate;
-  const tbody = document.getElementById('employee-table');
-  tbody.insertAdjacentHTML('beforeend', `<tr><td>EMP-00${empCounter++}</td><td>${name}</td><td>${nic}</td><td>${days}</td><td>Rs ${parseInt(rate).toLocaleString()}</td><td>Rs ${salary.toLocaleString()}</td><td><button class="btn btn-outline btn-sm" onclick="editEmployee(this)">Edit</button></td></tr>`);
-  closeModal('modal-employee');
-  showToast('✓ Employee ' + name + ' added');
-  ['emp-name','emp-nic','emp-days','emp-rate','emp-salary','emp-contact'].forEach(id => document.getElementById(id).value = '');
-}
-function editEmployee(btn) {
-  const row = btn.closest('tr');
-  showToast('Editing ' + row.cells[1].textContent + '…');
+function saveEmp(){
+  const name=document.getElementById('e-name').value;
+  const nic=document.getElementById('e-nic').value;
+  const days=document.getElementById('e-days').value;
+  const rate=document.getElementById('e-rate').value;
+  if(!name||!nic||!days||!rate){toast('Please fill all fields.',true);return;}
+  document.getElementById('emp-tbody').insertAdjacentHTML('beforeend',
+    `<tr><td>EMP-00${empN++}</td><td>${name}</td><td>${nic}</td><td>${days}</td><td>Rs ${parseInt(rate).toLocaleString()}</td><td>Rs ${(days*rate).toLocaleString()}</td><td><button class="btn btn-o btn-sm" onclick="toast('Editing…')">Edit</button></td></tr>`);
+  closeM('m-emp');toast('✓ Employee '+name+' added');
+  ['e-name','e-nic','e-days','e-rate','e-sal','e-tel'].forEach(id=>document.getElementById(id).value='');
 }
 
-// ─────────── CHEQUES ───────────
-function verifyCheque(btn) {
-  const row = btn.closest('tr');
-  row.cells[5].innerHTML = '<span class="badge green">Verified</span>';
-  row.cells[6].innerHTML = '—';
-  showToast('✓ Cheque verified and confirmed as received');
-}
-function markDelivered(btn) {
-  const row = btn.closest('tr');
-  row.cells[5].innerHTML = '<span class="badge green">Delivered</span>';
-  row.cells[6].innerHTML = '—';
-  showToast('✓ Cheque marked as delivered to land owner');
+function verifyCheq(btn){
+  const row=btn.closest('tr');
+  row.cells[4].innerHTML='<span class="b g">Verified</span>';
+  row.cells[5].innerHTML='—';
+  toast('✓ Cheque verified — confirmed as received');
 }
 
-// ─────────── REPORTS ───────────
-function generateBill() {
-  document.getElementById('bill-result').style.display = 'block';
-  showToast('✓ Monthly bill generated');
+function genBill(){
+  document.getElementById('bill-mon-lbl').textContent=document.getElementById('bill-mon').value;
+  document.getElementById('bill-out').style.display='block';
+  toast('✓ Monthly bill generated');
 }
-function requestIncomeStatement() {
-  const p = document.getElementById('income-pending');
-  const r = document.getElementById('income-result');
-  p.style.display = 'block';
-  r.style.display = 'none';
-  showToast('Request submitted — awaiting factory approval');
-  // Simulate approval after 2s
-  setTimeout(() => {
-    p.style.display = 'none';
-    r.style.display = 'block';
-    showToast('✓ Income statement approved and ready');
-  }, 2500);
+function reqStatement(){
+  document.getElementById('inc-pend').style.display='block';
+  document.getElementById('inc-out').style.display='none';
+  toast('Request sent — awaiting factory approval');
+  setTimeout(()=>{
+    document.getElementById('inc-pend').style.display='none';
+    document.getElementById('inc-out').style.display='block';
+    toast('✓ Income statement approved and ready');
+  },2500);
 }
 
-// ─────────── COMPLAINTS ───────────
-function submitComplaint() {
-  const subj = document.getElementById('comp-subject').value;
-  const text = document.getElementById('comp-text').value;
-  if (!subj || !text) { showToast('Please fill all fields.', true); return; }
-  const feed = document.getElementById('complaint-list');
-  const today = new Date().toISOString().split('T')[0];
-  feed.insertAdjacentHTML('afterbegin', `
-    <div class="activity-item">
-      <div class="activity-dot yellow">📣</div>
-      <div class="activity-text" style="flex:1">
-        <div class="main">${subj}</div>
-        <div class="time">${today} · <span class="badge yellow" style="font-size:0.7rem;">Open</span></div>
-        <div style="margin-top:6px;font-size:0.82rem;color:var(--text-muted);background:var(--cream);padding:0.5rem;border-radius:8px;">
-          Awaiting factory response…
-        </div>
-      </div>
-    </div>
-  `);
-  document.getElementById('comp-subject').value = '';
-  document.getElementById('comp-text').value = '';
-  // Update badge
-  const b = document.getElementById('complaint-badge');
-  b.textContent = parseInt(b.textContent) + 1;
-  showToast('✓ Complaint submitted to factory');
+function submitComp(){
+  const subj=document.getElementById('c-subj').value;
+  const text=document.getElementById('c-text').value;
+  if(!subj||!text){toast('Please fill all fields.',true);return;}
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('comp-list').insertAdjacentHTML('afterbegin',
+    `<div class="ai"><div class="adot y">📣</div><div class="at" style="flex:1"><div class="am">${subj}</div><div class="ti">${today} · <span class="b y" style="font-size:0.68rem;">Open</span></div><div style="margin-top:5px;font-size:0.81rem;color:var(--muted);background:var(--cream);padding:0.45rem 0.7rem;border-radius:8px;">Awaiting factory response…</div></div></div>`);
+  document.getElementById('c-subj').value='';document.getElementById('c-text').value='';
+  const nb=document.getElementById('nb-comp');nb.textContent=parseInt(nb.textContent||0)+1;
+  toast('✓ Complaint submitted');
 }
 
-// ─────────── CHARTS ───────────
-function buildCharts() {
-  const months = ['Oct','Nov','Dec','Jan','Feb','Mar'];
-  const data = [1800, 2100, 2300, 2100, 2650, 2840];
-  const max = Math.max(...data);
-  const chart = document.getElementById('delivery-chart');
-  if (!chart) return;
-  chart.innerHTML = months.map((m, i) => `
-    <div class="bar-col">
-      <div class="bar" style="height:${Math.round((data[i]/max)*100)}px;${i===5?'background:var(--tea-dark)':''}"></div>
-      <div class="bar-lbl">${m}</div>
-    </div>
-  `).join('');
-
-  const earningsData = [116.5, 118, 124.5, 130, 118, 142];
-  const maxE = Math.max(...earningsData);
-  const ec = document.getElementById('earnings-chart');
-  if (!ec) return;
-  ec.innerHTML = months.map((m, i) => `
-    <div class="bar-col">
-      <div class="bar gold" style="height:${Math.round((earningsData[i]/maxE)*100)}px;${i===5?'background:var(--gold);opacity:1':'opacity:0.7'}"></div>
-      <div class="bar-lbl">${m}</div>
-    </div>
-  `).join('');
+function buildCharts(){
+  const months=['Oct','Nov','Dec','Jan','Feb','Mar'];
+  const data=[1800,2100,2300,2100,2650,2840];
+  const max=Math.max(...data);
+  document.getElementById('del-chart').innerHTML=months.map((m,i)=>
+    `<div class="bc"><div class="bar ${i===5?'hi':''}" style="height:${Math.round(data[i]/max*100)}px"></div><div class="blbl">${m}</div></div>`).join('');
+  const edata=[116.5,118,124.5,130,118,128];
+  const emax=Math.max(...edata);
+  document.getElementById('pay-chart').innerHTML=months.map((m,i)=>
+    `<div class="bc"><div class="bar" style="height:${Math.round(edata[i]/emax*100)}px;background:${i===5?'var(--gold)':'var(--gold-pale);border:1px solid var(--gold)'};opacity:0.9"></div><div class="blbl">${m}</div></div>`).join('');
 }
 
-// ─────────── TOAST ───────────
-function showToast(msg, isError = false) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.display = 'block';
-  t.style.background = isError ? '#c0392b' : 'var(--tea-dark)';
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => { t.style.display = 'none'; }, 3000);
+// ── GET /api/deliveries/owner/{id} — load land owner's deliveries ────────
+async function loadMyDeliveries(){
+  const landOwnerId = localStorage.getItem('teago_landOwnerId');
+  if(!landOwnerId) return;
+
+  const tbody = document.getElementById('del-tbody');
+  tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem;">⏳ Loading…</td></tr>`;
+
+  try {
+    const res = await fetch(`${API}/api/deliveries/owner/${landOwnerId}`);
+    if(!res.ok){ tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--danger);padding:1.5rem;">❌ Could not load deliveries (${res.status})</td></tr>`; return; }
+
+    const deliveries = await res.json();
+    tbody.innerHTML = '';
+
+    if(!Array.isArray(deliveries) || deliveries.length === 0){
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem;">No deliveries recorded yet.</td></tr>`;
+      return;
+    }
+
+    const now = new Date();
+    const todayStr = now.toISOString().split('T')[0];
+    let totalThisMonth = 0, totalToday = 0, latestRate = 50;
+
+    deliveries.slice().sort((a,b) => new Date(b.deliveryDate)-new Date(a.deliveryDate))
+      .forEach(d => {
+        const rate   = parseFloat(d.ratePerKg ?? 50);
+        const total  = parseFloat(d.totalAmount ?? (parseFloat(d.teaWeight)*rate));
+        latestRate   = rate;
+        const dDate  = new Date(d.deliveryDate);
+        if(dDate.getMonth()===now.getMonth()&&dDate.getFullYear()===now.getFullYear())
+          totalThisMonth += parseFloat(d.teaWeight);
+        if(d.deliveryDate===todayStr) totalToday += parseFloat(d.teaWeight);
+        tbody.insertAdjacentHTML('beforeend',
+          `<tr><td>${d.deliveryDate}</td><td>${d.teaWeight}</td><td>Rs ${rate}</td>
+           <td>Rs ${total.toLocaleString()}</td><td><span class="b bl">Factory</span></td>
+           <td><span class="b g">✓ Recorded</span></td></tr>`);
+      });
+
+    const cards = document.querySelectorAll('#p-deliveries .sc .val');
+    if(cards[0]) cards[0].textContent = totalThisMonth.toLocaleString()+' kg';
+    if(cards[2]) cards[2].textContent = totalToday.toLocaleString()+' kg';
+    if(cards[3]) cards[3].textContent = 'Rs '+latestRate;
+
+  } catch(e){
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem;">⚠️ Cannot reach server.</td></tr>`;
+    console.warn('loadMyDeliveries:', e.message);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FACTORY REGISTRATION
+// ─────────────────────────────────────────────────────────────────────────────
+
+let allFactoriesCache = [];   // full list fetched once
+
+// Called when "My Factories" nav item is clicked — lazy load
+function nav(id, el){
+  baseNav(id, el);
+  if(id === 'factories') initFactoriesPage();
+}
+
+async function initFactoriesPage(){
+  await Promise.all([ loadAllFactories(), loadMyRegistrations() ]);
+}
+
+// ── GET /api/factories — all available factories ──────────────────────────
+async function loadAllFactories(){
+  try {
+    const res = await fetch(`${API}/api/factories`);
+    if(!res.ok) return;
+    allFactoriesCache = await res.json();
+
+    // Update stat card
+    const el = document.getElementById('fac-count-all');
+    if(el) el.textContent = allFactoriesCache.length;
+
+    // Populate the select dropdown
+    const sel = document.getElementById('reg-factory-sel');
+    sel.innerHTML = '<option value="">— Select a factory —</option>';
+    allFactoriesCache.forEach(f => {
+      const opt = document.createElement('option');
+      opt.value       = f.factoryId;
+      opt.textContent = `${f.factoryName} — ${f.factoryLocation || ''}`;
+      sel.appendChild(opt);
+    });
+
+    // Preview on change
+    sel.onchange = () => {
+      const chosen = allFactoriesCache.find(f => f.factoryId == sel.value);
+      const preview = document.getElementById('factory-preview');
+      if(chosen){
+        document.getElementById('preview-name').textContent     = chosen.factoryName || '—';
+        document.getElementById('preview-location').textContent = chosen.factoryLocation || '—';
+        preview.style.display = 'block';
+      } else {
+        preview.style.display = 'none';
+      }
+    };
+
+  } catch(e){ console.warn('loadAllFactories:', e.message); }
+}
+
+// ── GET /api/factories/registrations/{id} — my registrations ─────────────
+async function loadMyRegistrations(){
+  const landOwnerId = localStorage.getItem('teago_landOwnerId');
+  if(!landOwnerId) return;
+
+  const listEl = document.getElementById('my-factories-list');
+  const tb     = document.getElementById('all-factories-tb');
+  listEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1.5rem;">⏳ Loading…</div>';
+
+  try {
+    const res = await fetch(`${API}/api/factories/registrations/${landOwnerId}`);
+    if(!res.ok){ listEl.innerHTML = '<div style="color:var(--danger);padding:1rem;">❌ Could not load registrations.</div>'; return; }
+
+    const regs = await res.json();
+
+    // Update stat cards
+    const active  = regs.filter(r => r.status === 'Active').length;
+    const pending = regs.filter(r => r.status === 'Pending').length;
+    const activeEl  = document.getElementById('fac-count-active');
+    const pendingEl = document.getElementById('fac-count-pending');
+    if(activeEl)  activeEl.textContent  = active;
+    if(pendingEl) pendingEl.textContent = pending;
+
+    // Build registration cards
+    if(regs.length === 0){
+      listEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1.5rem;font-size:0.87rem;">You have not registered with any factory yet.</div>';
+    } else {
+      listEl.innerHTML = regs.map(r => {
+        const badgeClass = r.status==='Active'?'g': r.status==='Pending'?'y':'r';
+        const sizeStr    = r.landSize ? `${r.landSize} acres` : '—';
+        return `<div style="border:1px solid var(--cream-dark);border-radius:12px;padding:1rem;margin-bottom:0.8rem;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-weight:600;color:var(--tea-dark);font-size:0.95rem;">${r.factoryName}</div>
+              <div style="font-size:0.8rem;color:var(--muted);margin-top:2px;">📍 ${r.factoryLocation || '—'}</div>
+              <div style="font-size:0.8rem;color:var(--muted);margin-top:2px;">🌿 Land size: ${sizeStr} &nbsp;·&nbsp; Registered: ${r.registrationDate || '—'}</div>
+            </div>
+            <span class="b ${badgeClass}">${r.status}</span>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    // Populate the main table with all factories + registration status
+    rebuildFactoriesTable(regs);
+
+  } catch(e){
+    listEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1.5rem;">⚠️ Cannot reach server.</div>';
+    console.warn('loadMyRegistrations:', e.message);
+  }
+}
+
+function rebuildFactoriesTable(myRegs){
+  const tb = document.getElementById('all-factories-tb');
+  if(!allFactoriesCache.length){ tb.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:1.5rem;">No factories available.</td></tr>'; return; }
+
+  tb.innerHTML = allFactoriesCache.map((f, i) => {
+    const myReg = myRegs.find(r => r.factoryId === f.factoryId);
+    let statusCell, actionCell;
+
+    if(myReg){
+      const badgeClass = myReg.status==='Active'?'g': myReg.status==='Pending'?'y':'r';
+      statusCell = `<span class="b ${badgeClass}">${myReg.status}</span>`;
+      actionCell = myReg.status === 'Rejected'
+        ? `<button class="btn btn-o btn-sm" onclick="prefillRegister(${f.factoryId})">Re-apply</button>`
+        : '—';
+    } else {
+      statusCell = `<span class="b" style="background:var(--cream);color:var(--muted);">Not Registered</span>`;
+      actionCell = `<button class="btn btn-p btn-sm" onclick="prefillRegister(${f.factoryId})">Register</button>`;
+    }
+
+    return `<tr>
+      <td>${i+1}</td>
+      <td><strong>${f.factoryName}</strong></td>
+      <td>${f.factoryLocation || '—'}</td>
+      <td>${statusCell}</td>
+      <td>${actionCell}</td>
+    </tr>`;
+  }).join('');
+}
+
+// Pre-fill the register form when clicking a factory row
+function prefillRegister(factoryId){
+  const sel = document.getElementById('reg-factory-sel');
+  sel.value = factoryId;
+  sel.dispatchEvent(new Event('change'));
+  document.getElementById('reg-factory-size').focus();
+  window.scrollTo({ top: document.getElementById('reg-factory-sel').getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
+}
+
+// ── POST /api/factories/register — submit registration ────────────────────
+async function registerWithFactory(){
+  const landOwnerId = localStorage.getItem('teago_landOwnerId');
+  const factoryId   = parseInt(document.getElementById('reg-factory-sel').value);
+  const landSize    = document.getElementById('reg-factory-size').value;
+
+  if(!factoryId) { toast('Please select a factory.', true); return; }
+  if(!landSize)  { toast('Please enter your land size.', true); return; }
+
+  const btn = document.querySelector('[onclick="registerWithFactory()"]');
+  btn.disabled = true; btn.textContent = '⏳ Submitting…';
+
+  try {
+    const res = await fetch(`${API}/api/factories/register`, {
+      method : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body   : JSON.stringify({
+        landOwnerId : parseInt(landOwnerId),
+        factoryId   : factoryId,
+        landSize    : parseFloat(landSize)
+      })
+    });
+
+    const data = await res.json();
+    if(!res.ok){ toast('❌ ' + (data.message || 'Registration failed.'), true); return; }
+
+    toast(`✓ Registration submitted to ${data.factoryName} — awaiting approval`);
+    document.getElementById('reg-factory-size').value = '';
+    document.getElementById('factory-preview').style.display = 'none';
+    document.getElementById('reg-factory-sel').value = '';
+
+    // Refresh both lists
+    await loadMyRegistrations();
+
+  } catch(e){
+    toast('❌ Network error — is the server running?', true);
+    console.error(e);
+  } finally {
+    btn.disabled = false; btn.textContent = '🏭 Submit Registration';
+  }
+}
+
+// ── Sign out ──────────────────────────────────────────────────────────────
+function signOut(){
+  ['teago_userId','teago_role','teago_fullName','teago_username',
+   'teago_landOwnerId','teago_landSize',
+   'teago_factoryOwnerId','teago_factoryName','teago_factoryLocation']
+    .forEach(k => localStorage.removeItem(k));
+  window.location.href = 'index.html';
+}
+
+function toast(msg,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.display='block';
+  t.style.background=err?'var(--danger)':'var(--tea-dark)';
+  clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',3000);
 }
 </script>
 </body>
