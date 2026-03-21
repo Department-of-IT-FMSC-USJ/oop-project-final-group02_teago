@@ -814,7 +814,7 @@
 <script>
   const API = 'http://localhost:8080';
 
-  // ── Tab helpers ────────────────────────────────────────────────────────
+  // ── Tab switching ─────────────────────────────────────────────────────
   function setTab(el, formId) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
@@ -832,19 +832,15 @@
     document.getElementById(formId).style.display = 'block';
   }
 
-  // ── Show / hide role-specific fields ──────────────────────────────────
+  // ── Show / hide role-specific fields ─────────────────────────────────
   function onRoleChange() {
     const role = document.getElementById('reg-role').value;
-    // Hide all dynamic sections first
-    ['fields-common','fields-land-owner','fields-factory-owner','fields-submit']
+    ['fields-common', 'fields-land-owner', 'fields-factory-owner', 'fields-submit']
       .forEach(id => document.getElementById(id).style.display = 'none');
     if (!role) return;
-    // Always show common fields once a role is chosen
     document.getElementById('fields-common').style.display = 'block';
-    // Show role-specific fields
     if (role === 'land_owner')    document.getElementById('fields-land-owner').style.display    = 'block';
     if (role === 'factory_owner') document.getElementById('fields-factory-owner').style.display = 'block';
-    // Show submit button
     document.getElementById('fields-submit').style.display = 'block';
   }
 
@@ -857,120 +853,176 @@
     setTimeout(() => { t.style.display = 'none'; }, 3500);
   }
 
-  // ── API base URL ──────────────────────────────────────────────────────────
-  const API = 'http://localhost:8080';
-
+  // ── LOGIN ─────────────────────────────────────────────────────────────
   async function handleLogin() {
-    const u = document.getElementById('username').value.trim();
-    const p = document.getElementById('password').value.trim();
-    const r = document.getElementById('role').value;
-    if (!u || !p || !r) { showToast('Please fill in all fields.', true); return; }
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const role     = document.getElementById('role').value;
+    if (!username || !password || !role) {
+      showToast('Please fill in all fields.', true); return;
+    }
 
     const btn = document.querySelector('#login-form .form-btn');
-    btn.textContent = 'Signing in…';
-    btn.disabled = true;
+    btn.disabled = true; btn.textContent = 'Signing in…';
 
     try {
-      const res = await fetch(`${API}/api/auth/login`, {
-        method: 'POST',
+      const res  = await fetch(`${API}/api/auth/login`, {
+        method : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: u, password: p })
+        body   : JSON.stringify({ username, password })
       });
-
       const data = await res.json();
+      if (!res.ok) { showToast('❌ ' + (data.message || 'Login failed.'), true); return; }
 
-      if (!res.ok) {
-        showToast(data.message || 'Login failed. Please try again.', true);
-        return;
+      const roleMap = { land_owner: 'LAND_OWNER', factory_owner: 'FACTORY_OWNER' };
+      if (data.role !== roleMap[role]) {
+        showToast('❌ Wrong role selected — please choose the correct one.', true); return;
       }
 
-      // Validate role selected matches what the server returned
-      const roleMap = {
-        'factory_owner': 'FACTORY_OWNER',
-        'land_owner':    'LAND_OWNER',
-        'supervisor':    'SUPERVISOR'
-      };
-      if (roleMap[r] !== data.role) {
-        showToast('Role mismatch — please select the correct role.', true);
-        return;
-      }
-
-      // ── Save common session fields ────────────────────────────────────────
+      // Save session to localStorage
       localStorage.setItem('teago_userId',   data.userId);
       localStorage.setItem('teago_role',     data.role);
       localStorage.setItem('teago_fullName', data.fullName);
       localStorage.setItem('teago_username', data.username);
 
-      // ── Save role-specific fields ─────────────────────────────────────────
-      localStorage.setItem('teago_landOwnerId',     data.landOwnerId     ?? '');
-      localStorage.setItem('teago_landSize',        data.landSize        ?? '');
-      localStorage.setItem('teago_factoryOwnerId',  data.factoryOwnerId  ?? '');
-      localStorage.setItem('teago_factoryName',     data.factoryName     ?? '');
-      localStorage.setItem('teago_factoryLocation', data.factoryLocation ?? '');
+      if (data.role === 'LAND_OWNER') {
+        localStorage.setItem('teago_landOwnerId',  data.landOwnerId  ?? '');
+        localStorage.setItem('teago_landSize',     data.landSize     ?? '');
+        localStorage.setItem('teago_landLocation', data.landLocation ?? '');
+      }
+      if (data.role === 'FACTORY_OWNER') {
+        localStorage.setItem('teago_factoryOwnerId',  data.factoryOwnerId  ?? '');
+        localStorage.setItem('teago_factoryName',     data.factoryName     ?? '');
+        localStorage.setItem('teago_factoryLocation', data.factoryLocation ?? '');
+      }
 
       showToast(`✓ Welcome back, ${data.fullName}! Redirecting…`);
-
-      // ── Redirect by role ──────────────────────────────────────────────────
       setTimeout(() => {
-        if      (data.role === 'FACTORY_OWNER') window.location.href = 'dashboard-factory.html';
-        else if (data.role === 'LAND_OWNER')    window.location.href = 'dashboard-owner.html';
-        else if (data.role === 'SUPERVISOR')    window.location.href = 'dashboard-supervisor.html';
+        if      (data.role === 'LAND_OWNER')    window.location.href = 'dashboard-owner.html';
+        else if (data.role === 'FACTORY_OWNER') window.location.href = 'dashboard-factory.html';
       }, 1200);
 
     } catch (e) {
-      showToast('❌ Network error — is the server running?', true);
-      console.error(e);
+      showToast('❌ Cannot reach server. Is Spring Boot running on port 8080?', true);
     } finally {
-      btn.textContent = 'Sign In →';
-      btn.disabled = false;
+      btn.disabled = false; btn.textContent = 'Sign In →';
     }
   }
 
-  // ── REGISTER — POST /api/auth/register ────────────────────────────────
+  // ── REGISTER ──────────────────────────────────────────────────────────
   async function handleRegister() {
-    const name = document.getElementById('reg-name').value.trim();
-    const nic  = document.getElementById('reg-nic').value.trim();
-    const u    = document.getElementById('reg-username').value.trim();
-    const p    = document.getElementById('reg-password').value.trim();
-    const r    = document.getElementById('reg-role').value;
-    if (!name || !nic || !u || !p || !r) { showToast('Please fill in all fields.', true); return; }
-    if (nic.length < 9)  { showToast('Please enter a valid NIC number.', true); return; }
-    if (p.length < 6)    { showToast('Password must be at least 6 characters.', true); return; }
+    const role = document.getElementById('reg-role').value;
 
-    const btn = document.querySelector('#register-form .form-btn');
-    btn.textContent = 'Creating account…';
-    btn.disabled = true;
+    // Common fields (shown for both roles)
+    const nic      = document.getElementById('reg-nic').value.trim();
+    const username = document.getElementById('reg-username').value.trim();
+    const password = document.getElementById('reg-password').value.trim();
+    const contact  = document.getElementById('reg-contact').value.trim();
+    const address  = document.getElementById('reg-address').value.trim();
+
+    if (!nic || !username || !password || !contact || !address) {
+      showToast('Please fill in all account details.', true); return;
+    }
+    if (nic.length < 9) {
+      showToast('Please enter a valid NIC number (min 9 chars).', true); return;
+    }
+    if (password.length < 6) {
+      showToast('Password must be at least 6 characters.', true); return;
+    }
+
+    let body = { nic, username, password, contactNumber: contact, address, role };
+
+    // ── Land Owner fields ─────────────────────────────────────────────
+    if (role === 'land_owner') {
+      const nameWithInitials             = document.getElementById('reg-name-initials').value.trim();
+      const fullName                     = document.getElementById('reg-full-name').value.trim();
+      const dateOfBirth                  = document.getElementById('reg-dob').value;
+      const landLocation                 = document.getElementById('reg-land-location').value.trim();
+      const landSize                     = document.getElementById('reg-land-size').value.trim();
+      const bankAccountName              = document.getElementById('reg-bank-acc-name').value.trim();
+      const bankName                     = document.getElementById('reg-bank-name').value.trim();
+      const bankBranch                   = document.getElementById('reg-bank-branch').value.trim();
+      const bankAccountNumber            = document.getElementById('reg-bank-acc-number').value.trim();
+      const emergencyContactName         = document.getElementById('reg-em-name').value.trim();
+      const emergencyContactAddress      = document.getElementById('reg-em-address').value.trim();
+      const emergencyContactPhone        = document.getElementById('reg-em-phone').value.trim();
+      const emergencyContactRelationship = document.getElementById('reg-em-relationship').value.trim();
+
+      if (!nameWithInitials)             { showToast('Please enter your name with initials.', true); return; }
+      if (!fullName)                     { showToast('Please enter your full name.', true); return; }
+      if (!dateOfBirth)                  { showToast('Please enter your date of birth.', true); return; }
+      if (!landLocation)                 { showToast('Please enter your land location.', true); return; }
+      if (!landSize)                     { showToast('Please enter your land size.', true); return; }
+      if (!bankAccountName)              { showToast('Please enter your bank account name.', true); return; }
+      if (!bankName)                     { showToast('Please enter your bank name.', true); return; }
+      if (!bankBranch)                   { showToast('Please enter your bank branch.', true); return; }
+      if (!bankAccountNumber)            { showToast('Please enter your bank account number.', true); return; }
+      if (!emergencyContactName)         { showToast('Please enter emergency contact name.', true); return; }
+      if (!emergencyContactAddress)      { showToast('Please enter emergency contact address.', true); return; }
+      if (!emergencyContactPhone)        { showToast('Please enter emergency contact phone.', true); return; }
+      if (!emergencyContactRelationship) { showToast('Please enter relationship with emergency contact.', true); return; }
+
+      body.name = fullName;
+      Object.assign(body, {
+        nameWithInitials, fullName, dateOfBirth,
+        landLocation, landSize: parseFloat(landSize),
+        bankAccountName, bankName, bankBranch, bankAccountNumber,
+        emergencyContactName, emergencyContactAddress,
+        emergencyContactPhone, emergencyContactRelationship
+      });
+    }
+
+    // ── Factory Owner fields ──────────────────────────────────────────
+    if (role === 'factory_owner') {
+      const foName             = document.getElementById('reg-fo-name').value.trim();
+      const factoryName        = document.getElementById('reg-factory-name').value.trim();
+      const factoryLocation    = document.getElementById('reg-factory-location').value.trim();
+      const registrationNumber = document.getElementById('reg-reg-number').value.trim();
+
+      if (!foName)             { showToast('Please enter your full name.', true); return; }
+      if (!factoryName)        { showToast('Please enter your factory name.', true); return; }
+      if (!factoryLocation)    { showToast('Please enter your factory location.', true); return; }
+      if (!registrationNumber) { showToast('Please enter your business registration number.', true); return; }
+
+      body.name = foName;
+      Object.assign(body, { factoryOwnerFullName: foName, factoryName, factoryLocation, registrationNumber });
+    }
+
+    const btn = document.getElementById('reg-btn');
+    btn.disabled = true; btn.textContent = 'Creating account…';
 
     try {
-      const res = await fetch(`${API}/api/auth/register`, {
-        method: 'POST',
+      const res  = await fetch(`${API}/api/auth/register`, {
+        method : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, nic, username: u, password: p, role: r })
+        body   : JSON.stringify(body)
       });
-
       const data = await res.json();
-      if (!res.ok) { showToast(data.message || 'Registration failed.', true); return; }
+      if (!res.ok) { showToast('❌ ' + (data.message || 'Registration failed.'), true); return; }
 
-      showToast(`✓ Account created! Welcome to TeaGo, ${name}!`);
-      setTimeout(() => { switchTab('login-form'); }, 1800);
+      showToast(`✓ Account created! Welcome to TeaGo, ${body.name}. Please sign in.`);
 
-    } catch (e) {
-      showToast('❌ Network error — is the server running?', true);
-      console.error(e);
-    } finally {
-      btn.textContent = 'Create Account →';
-      btn.disabled = false;
-    }
-  }
+      // Clear all fields
+      ['reg-nic', 'reg-username', 'reg-password', 'reg-contact', 'reg-address',
+       'reg-name-initials', 'reg-full-name', 'reg-dob',
+       'reg-land-location', 'reg-land-size',
+       'reg-bank-acc-name', 'reg-bank-name', 'reg-bank-branch', 'reg-bank-acc-number',
+       'reg-em-name', 'reg-em-address', 'reg-em-phone', 'reg-em-relationship',
+       'reg-fo-name', 'reg-factory-name', 'reg-factory-location', 'reg-reg-number']
+        .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      document.getElementById('reg-role').value = '';
+      ['fields-common', 'fields-land-owner', 'fields-factory-owner', 'fields-submit']
+        .forEach(id => document.getElementById(id).style.display = 'none');
 
       setTimeout(() => switchTab('login-form'), 2000);
 
-    } catch(e) {
+    } catch (e) {
       showToast('❌ Cannot reach server. Is Spring Boot running on port 8080?', true);
     } finally {
       btn.disabled = false; btn.textContent = 'Create Account →';
     }
   }
+
   // ── Scroll reveal ─────────────────────────────────────────────────────
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
