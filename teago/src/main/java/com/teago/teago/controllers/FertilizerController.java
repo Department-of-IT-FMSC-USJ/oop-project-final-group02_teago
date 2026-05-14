@@ -23,7 +23,7 @@ public class FertilizerController {
         this.fertilizerService = fertilizerService;
     }
 
-    // Land Owner — submit a fertilizer request
+   
     @PostMapping
     public ResponseEntity<?> requestFertilizer(
             @Valid @RequestBody FertilizerRequestDTO request) {
@@ -35,19 +35,19 @@ public class FertilizerController {
         }
     }
 
-    // Factory Owner — view all fertilizer requests
+    
     @GetMapping
     public ResponseEntity<List<FertilizerResponseDTO>> getAllRequests() {
         return ResponseEntity.ok(fertilizerService.getAllRequests());
     }
 
-    // Factory Owner — view only pending requests
+   
     @GetMapping("/pending")
     public ResponseEntity<List<FertilizerResponseDTO>> getPendingRequests() {
         return ResponseEntity.ok(fertilizerService.getPendingRequests());
     }
 
-    // Factory Owner — view only pending requests routed to this factory owner
+    
     @GetMapping("/pending/{factoryOwnerId}")
     public ResponseEntity<?> getPendingRequestsByFactoryOwner(@PathVariable Integer factoryOwnerId) {
         try {
@@ -57,7 +57,6 @@ public class FertilizerController {
         }
     }
 
-    // Factory Owner — view all requests routed to this factory owner
     @GetMapping("/factory/{factoryOwnerId}")
     public ResponseEntity<?> getAllRequestsByFactoryOwner(@PathVariable Integer factoryOwnerId) {
         try {
@@ -67,7 +66,7 @@ public class FertilizerController {
         }
     }
 
-    // Land Owner — view their own fertilizer requests
+   
     @GetMapping("/owner/{landOwnerId}")
     public ResponseEntity<?> getRequestsByOwner(@PathVariable Integer landOwnerId) {
         try {
@@ -78,7 +77,7 @@ public class FertilizerController {
         }
     }
 
-    // Factory Owner — approve or reject a fertilizer request
+    
     @PutMapping("/{requestId}/status")
     public ResponseEntity<?> updateStatus(@PathVariable Integer requestId,
                                            @Valid @RequestBody FertilizerStatusUpdateDTO request) {
