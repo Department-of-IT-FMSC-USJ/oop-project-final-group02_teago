@@ -1,21 +1,8 @@
 package com.teago.teago.models;
 
-<<<<<<< Updated upstream
 public class FactoryOwner {
 
 }
-=======
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
-
-@Entity
-@Getter
-@Setter
-@Table(name = "FactoryOwner")
-public class FactoryOwner {
-
     @Id
     @Column(name = "FactoryOwnerID")
     private Integer factoryOwnerId;
@@ -24,6 +11,7 @@ public class FactoryOwner {
     @MapsId
     @JoinColumn(name = "FactoryOwnerID")
     private User user;
+
 
     @Column(name = "FullName", length = 150)
     private String fullName;
@@ -39,4 +27,6 @@ public class FactoryOwner {
     @Column(name = "RegistrationNumber", length = 100, unique = true)
     private String registrationNumber;
 }
->>>>>>> Stashed changes
+
+
+    
