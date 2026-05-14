@@ -9,12 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * LandOwner — stores tea land owner profile and membership data.
- *
- * OOP Encapsulation: all land-owner-specific fields are kept here,
- * separate from generic User credentials stored in the User table.
- */
+
 @Entity
 @Table(name = "LandOwner")
 @Getter
@@ -30,7 +25,7 @@ public class LandOwner {
     @JoinColumn(name = "LandOwnerID")
     private User user;
 
-    // ── Personal details ──────────────────────────────────────────────────
+    
 
     @Column(name = "NameWithInitials", length = 150)
     private String nameWithInitials;        // e.g. "K.A. Perera"
@@ -41,7 +36,7 @@ public class LandOwner {
     @Column(name = "DateOfBirth")
     private LocalDate dateOfBirth;
 
-    // ── Land details ──────────────────────────────────────────────────────
+    
 
     @Column(name = "LandSize", precision = 10, scale = 2)
     private BigDecimal landSize;
@@ -49,7 +44,7 @@ public class LandOwner {
     @Column(name = "LandLocation", length = 255)
     private String landLocation;
 
-    // ── Bank details ──────────────────────────────────────────────────────
+    
 
     @Column(name = "BankAccountName", length = 150)
     private String bankAccountName;
@@ -63,7 +58,7 @@ public class LandOwner {
     @Column(name = "BankAccountNumber", length = 50)
     private String bankAccountNumber;
 
-    // ── Emergency contact ─────────────────────────────────────────────────
+    
 
     @Column(name = "EmergencyContactName", length = 150)
     private String emergencyContactName;
@@ -77,7 +72,7 @@ public class LandOwner {
     @Column(name = "EmergencyContactRelationship", length = 100)
     private String emergencyContactRelationship;
 
-    // ── Factory registrations ─────────────────────────────────────────────
+    
 
     @OneToMany(mappedBy = "landOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LandOwnerFactory> factoryRegistrations = new ArrayList<>();

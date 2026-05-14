@@ -7,16 +7,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * Join entity between LandOwner and FactoryOwner.
- *
- * A land owner can register with many factories (e.g. they supply tea
- * to multiple processing plants). Each registration tracks the land
- * size for that specific factory relationship and its approval status.
- *
- * Inheritance: uses a composite-style surrogate PK (auto-generated)
- * while logically representing a many-to-many association.
- */
+
 @Entity
 @Table(name = "LandOwnerFactory",
        uniqueConstraints = @UniqueConstraint(
