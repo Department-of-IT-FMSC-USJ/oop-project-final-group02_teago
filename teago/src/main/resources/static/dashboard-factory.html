@@ -33,11 +33,11 @@
   --amber-pale: #fef7e6;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.45;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
 
 .app{display:flex;height:100vh;overflow:hidden;}
 
-/* SIDEBAR - deep dark forest */
+
 .sidebar{
   width:var(--sb);min-width:var(--sb);
   background:var(--ink-mid);
@@ -90,7 +90,7 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 .lo-btn{display:flex;align-items:center;gap:0.72rem;padding:0.7rem 1.1rem;border-radius:12px;cursor:pointer;color:rgba(255,255,255,0.35);font-size:0.875rem;transition:all 0.18s;}
 .lo-btn:hover{background:rgba(214,64,69,0.15);color:#f08080;}
 
-/* MAIN */
+
 .main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--bg);}
 
 .topbar{
@@ -98,6 +98,7 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
   border-bottom:1px solid var(--cream-dark);
   padding:1rem 2rem;display:flex;align-items:center;gap:1.2rem;
   position:sticky;top:0;z-index:40;
+  backdrop-filter:saturate(1.05) blur(2px);
 }
 .tb-t{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--tea-dark);flex:1;font-weight:600;}
 .tb-r{display:flex;align-items:center;gap:0.7rem;}
@@ -106,55 +107,53 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 .ib:hover{background:var(--cream-dark);}
 .nd{position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--danger);border-radius:50%;border:1.5px solid var(--white);}
 
-/* CONTENT */
-.content{padding:1.8rem 2rem;flex:1;}
+
+.content{padding:1.8rem 2rem;flex:1;max-width:1500px;width:100%;margin:0 auto;}
 .page{display:none;}
 .page.active{display:block;animation:rise 0.28s ease;}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* PAGE HEADER */
 .ph{margin-bottom:1.8rem;}
 .ph h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--text);font-weight:600;}
-.ph p{color:var(--muted);font-size:0.87rem;margin-top:0.25rem;}
+.ph p{color:var(--muted);font-size:0.87rem;margin-top:0.25rem;line-height:1.55;}
 
-/* STAT CARDS */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:1rem;margin-bottom:1.8rem;}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.8rem;}
 .sc{background:var(--white);border:1px solid var(--cream-dark);border-radius:16px;padding:1.3rem;transition:all 0.18s;}
-.sc:hover{background:var(--white);transform:translateY(-3px);box-shadow:0 8px 24px rgba(38,68,54,0.09);}
+.sc:hover{background:var(--white);transform:translateY(-3px);box-shadow:0 8px 24px rgba(38,68,54,0.09);border-color:#d8cebc;}
 .sc .ico{font-size:1.25rem;margin-bottom:0.55rem;}
-.sc .lbl{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:0.3rem;}
+.sc .lbl{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:0.3rem;font-weight:600;}
 .sc .val{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--tea-dark);line-height:1;}
-.sc .sub{font-size:0.74rem;color:var(--muted);margin-top:0.35rem;}
+.sc .sub{font-size:0.74rem;color:var(--muted);margin-top:0.4rem;line-height:1.35;}
 .sc.sage{background:rgba(61,107,79,0.25);border-color:rgba(61,107,79,0.4);}
 .sc.sage .val{color:#fff;} .sc.sage .lbl,.sc.sage .sub{color:rgba(255,255,255,0.6);}
 .sc.amb{background:rgba(200,168,75,0.15);border-color:rgba(200,168,75,0.3);}
 .sc.amb .val{color:var(--amber);}
 
-/* GRID */
+
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:1.4rem;}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.4rem;margin-bottom:1.4rem;}
 
-/* CARD */
-.card{background:var(--white);border:1px solid var(--cream-dark);border-radius:16px;padding:1.4rem;}
+
+.card{background:var(--white);border:1px solid var(--cream-dark);border-radius:16px;padding:1.4rem;box-shadow:0 2px 8px rgba(38,68,54,0.04);}
 .ct{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text);font-weight:600;margin-bottom:1.2rem;display:flex;align-items:center;justify-content:space-between;}
 .ct small{font-family:'DM Sans',sans-serif;font-size:0.73rem;color:var(--muted);font-weight:400;}
 
-/* TABLE */
+
 .tw{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;font-size:0.855rem;}
-th{text-align:left;padding:0.6rem 0.9rem;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;border-bottom:2px solid var(--cream-mid);font-weight:600;}
-td{padding:0.72rem 0.9rem;border-bottom:1px solid var(--cream);color:var(--text);}
+table{width:100%;border-collapse:collapse;font-size:0.845rem;}
+th{text-align:left;padding:0.62rem 0.9rem;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;border-bottom:2px solid var(--cream-mid);font-weight:700;}
+td{padding:0.74rem 0.9rem;border-bottom:1px solid var(--cream);color:var(--text);vertical-align:middle;}
 tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:rgba(61,107,79,0.012);}
 tr:hover td{background:rgba(61,107,79,0.03);}
 
-/* BADGES */
 .b{display:inline-flex;align-items:center;padding:0.22rem 0.65rem;border-radius:50px;font-size:0.71rem;font-weight:600;}
 .b.g{background:rgba(61,107,79,0.25);color:#6dd89a;}
 .b.y{background:rgba(200,168,75,0.2);color:var(--amber);}
 .b.r{background:rgba(214,64,69,0.2);color:#f08080;}
 .b.bl{background:#e8f0fe;color:#2455b8;}
 
-/* FORM */
+
 .fgg{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .fg{margin-bottom:1rem;}
 .fg.full{grid-column:1/-1;}
@@ -163,19 +162,20 @@ tr:hover td{background:rgba(61,107,79,0.03);}
   width:100%;padding:0.72rem 0.95rem;
   border:1.5px solid var(--cream-dark);border-radius:11px;
   font-family:'DM Sans',sans-serif;font-size:0.88rem;
-  background:var(--cream);color:var(--text);outline:none;
+  background:var(--white);color:var(--text);outline:none;
   transition:border-color 0.18s,box-shadow 0.18s;
 }
+.fg input::placeholder,.fg textarea::placeholder{color:#8a978f;}
 
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(61,107,79,0.2);}
 .fg input[readonly]{background:rgba(61,107,79,0.2);color:var(--tea);}
 
 .fg textarea{resize:vertical;min-height:85px;}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:5px;padding:0.68rem 1.4rem;border-radius:11px;border:none;font-family:'DM Sans',sans-serif;font-size:0.87rem;font-weight:600;cursor:pointer;transition:all 0.18s;}
+
+.btn{display:inline-flex;align-items:center;gap:5px;padding:0.68rem 1.4rem;border-radius:11px;border:none;font-family:'DM Sans',sans-serif;font-size:0.87rem;font-weight:600;cursor:pointer;transition:all 0.18s;min-height:38px;}
 .btn-p{background:var(--tea-dark);color:#fff;}
-.btn-p:hover{background:var(--ink-soft);}
+.btn-p:hover{background:var(--tea);}
 .btn-o{background:transparent;color:var(--tea-dark);border:1.5px solid var(--tea-dark);}
 .btn-o:hover{background:var(--tea-dark);color:#fff;}
 .btn-a{background:rgba(58,155,94,0.2);color:#6dd89a;border:1px solid rgba(58,155,94,0.35);}
@@ -186,7 +186,7 @@ tr:hover td{background:rgba(61,107,79,0.03);}
 .btn-amb:hover{background:rgba(200,168,75,0.35);}
 .btn-sm{padding:0.37rem 0.85rem;font-size:0.78rem;border-radius:8px;}
 
-/* MODAL */
+
 .mo{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.65);backdrop-filter:blur(5px);align-items:center;justify-content:center;}
 .mo.on{display:flex;}
 .mbox{background:var(--white);border-radius:20px;padding:2rem;width:90%;max-width:500px;max-height:90vh;overflow-y:auto;animation:rise 0.25s ease;}
@@ -194,7 +194,7 @@ tr:hover td{background:rgba(61,107,79,0.03);}
 .mhead h3{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--text);font-weight:600;}
 .mclose{background:none;border:none;font-size:1.35rem;cursor:pointer;color:var(--muted);}
 
-/* CHART */
+
 .bchart{display:flex;align-items:flex-end;gap:5px;height:110px;padding-top:6px;}
 .bc{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
 .bar{border-radius:5px 5px 0 0;width:100%;transition:height 0.6s ease;background:rgba(61,107,79,0.4);}
@@ -203,27 +203,26 @@ tr:hover td{background:rgba(61,107,79,0.03);}
 .bar.amb.hi{background:var(--gold);}
 .blbl{font-size:0.63rem;color:var(--muted);}
 
-/* PROGRESS */
+
 .pb{height:7px;background:var(--cream-mid);border-radius:50px;overflow:hidden;margin-top:4px;}
 .pf{height:100%;border-radius:50px;background:var(--tea);}
 .pf.amb{background:var(--amber);}
 .pf.red{background:var(--danger);}
 
-/* ACTIVITY */
-.ai{display:flex;gap:0.9rem;padding:0.7rem 0;border-bottom:1px solid var(--cream);}
+.ai{display:flex;gap:0.9rem;padding:0.72rem 0;border-bottom:1px solid var(--cream);align-items:flex-start;}
 .ai:last-child{border-bottom:none;}
 .adot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
 .adot.g{background:rgba(58,155,94,0.2);}
 .adot.y{background:rgba(200,168,75,0.2);}
 .adot.b{background:#e8f0fe;}
 .adot.r{background:rgba(214,64,69,0.2);}
-.at .am{font-size:0.86rem;color:var(--text);}
+.at .am{font-size:0.86rem;color:var(--text);line-height:1.4;}
 .at .ti{font-size:0.73rem;color:var(--muted);margin-top:2px;}
 
-/* TOAST */
+
 #toast{display:none;position:fixed;bottom:2rem;right:2rem;z-index:500;background:var(--tea-dark);color:#fff;padding:0.95rem 1.4rem;border-radius:13px;font-size:0.88rem;box-shadow:0 8px 24px rgba(0,0,0,0.2);animation:rise 0.25s ease;max-width:310px;}
 
-/* APPROVAL CARD */
+
 .appr-card{
   background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.2);
   border-radius:14px;padding:1.2rem;margin-bottom:0.9rem;
@@ -239,13 +238,14 @@ tr:hover td{background:rgba(61,107,79,0.03);}
   .g2,.g3{grid-template-columns:1fr;}
   .fgg{grid-template-columns:1fr;}
   .content{padding:1.2rem;}
+  .topbar{padding:0.85rem 1rem;}
 }
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- SIDEBAR -->
+
 <aside class="sidebar">
   <div class="sb-top">
     <div class="sb-logo">
@@ -274,20 +274,20 @@ tr:hover td{background:rgba(61,107,79,0.03);}
   <div class="ni" onclick="nav('payments',this)"><span class="nico">💰</span> Payments</div>
 
   <div class="sb-sec">Approvals</div>
-  <div class="ni" onclick="nav('loans',this)"><span class="nico">📋</span> Loan Requests <div class="nbadge amber">3</div></div>
-  <div class="ni" onclick="nav('fertilizer',this)"><span class="nico">🌿</span> Fertilizer Requests <div class="nbadge">2</div></div>
+  <div class="ni" onclick="nav('loans',this)"><span class="nico">📋</span> Loan Requests <div class="nbadge amber" id="loan-nav-badge">0</div></div>
+  <div class="ni" onclick="nav('fertilizer',this)"><span class="nico">🌿</span> Fertilizer Requests <div class="nbadge" id="fert-nav-badge">0</div></div>
   <div class="ni" onclick="nav('cheques',this)"><span class="nico">💳</span> Cheque Management</div>
 
   <div class="sb-sec">Reporting</div>
   <div class="ni" onclick="nav('reports',this)"><span class="nico">📊</span> Reports & Statements</div>
-  <div class="ni" onclick="nav('complaints',this)"><span class="nico">📣</span> Complaints <div class="nbadge">2</div></div>
+  <div class="ni" onclick="nav('complaints',this)"><span class="nico">📣</span> Complaints <div class="nbadge" id="comp-nav-badge">0</div></div>
 
   <div class="sb-foot">
     <div class="lo-btn" onclick="signOut()">🚪 &nbsp;Sign Out</div>
   </div>
 </aside>
 
-<!-- MAIN -->
+
 <main class="main">
   <div class="topbar">
     <div class="tb-t" id="tb-t">Factory Overview</div>
@@ -300,19 +300,19 @@ tr:hover td{background:rgba(61,107,79,0.03);}
 
   <div class="content">
 
-    <!-- DASHBOARD -->
+    
     <div class="page active" id="p-dash">
       <div class="ph">
         <h2>Good morning, <span id="greeting-name">there</span> 🏭</h2>
         <p>Factory operations overview — <span id="month-lbl">March 2025</span></p>
       </div>
       <div class="stats">
-        <div class="sc sage"><div class="ico">👥</div><div class="lbl">Active Land Owners</div><div class="val">24</div><div class="sub">Registered this factory</div></div>
-        <div class="sc"><div class="ico">🍃</div><div class="lbl">Total Deliveries</div><div class="val">68,420</div><div class="sub">kg this month</div></div>
-        <div class="sc amb"><div class="ico">💰</div><div class="lbl">Total Payable</div><div class="val">Rs 3.42M</div><div class="sub">This month</div></div>
-        <div class="sc"><div class="ico">📋</div><div class="lbl">Pending Loans</div><div class="val">3</div><div class="sub">Awaiting approval</div></div>
-        <div class="sc"><div class="ico">🌿</div><div class="lbl">Pending Fertilizer</div><div class="val">2</div><div class="sub">Requests</div></div>
-        <div class="sc"><div class="ico">📣</div><div class="lbl">Open Complaints</div><div class="val">2</div><div class="sub">Unresolved</div></div>
+        <div class="sc sage"><div class="ico">👥</div><div class="lbl">Active Land Owners</div><div class="val" id="dash-active-owners">0</div><div class="sub">Registered this factory</div></div>
+        <div class="sc"><div class="ico">🍃</div><div class="lbl">Total Deliveries</div><div class="val" id="dash-total-deliveries">0</div><div class="sub">kg this month</div></div>
+        <div class="sc amb"><div class="ico">💰</div><div class="lbl">Total Payable</div><div class="val" id="dash-total-payable">Rs 0</div><div class="sub">This month</div></div>
+        <div class="sc"><div class="ico">📋</div><div class="lbl">Pending Loans</div><div class="val" id="dash-pending-loans">0</div><div class="sub">Awaiting approval</div></div>
+        <div class="sc"><div class="ico">🌿</div><div class="lbl">Pending Fertilizer</div><div class="val" id="dash-pending-fertilizer">0</div><div class="sub">Requests</div></div>
+        <div class="sc"><div class="ico">📣</div><div class="lbl">Open Complaints</div><div class="val" id="dash-open-complaints">0</div><div class="sub">Unresolved</div></div>
       </div>
 
       <div class="g2">
@@ -322,62 +322,29 @@ tr:hover td{background:rgba(61,107,79,0.03);}
         </div>
         <div class="card">
           <div class="ct">Recent Factory Activity</div>
-          <div class="ai"><div class="adot g">🍃</div><div class="at"><div class="am">Amara Perera delivered 120 kg</div><div class="ti">Today 7:30 AM</div></div></div>
-          <div class="ai"><div class="adot y">📋</div><div class="at"><div class="am">Loan request Rs 15,000 by Amara Perera</div><div class="ti">2 hours ago</div></div></div>
-          <div class="ai"><div class="adot y">🌿</div><div class="at"><div class="am">Fertilizer request 50 kg Urea — Suresh B.</div><div class="ti">Yesterday</div></div></div>
-          <div class="ai"><div class="adot b">💳</div><div class="at"><div class="am">CHQ-0044 issued to Kamal Silva</div><div class="ti">2 days ago</div></div></div>
-          <div class="ai"><div class="adot r">📣</div><div class="at"><div class="am">Complaint filed by Amara Perera</div><div class="ti">3 days ago</div></div></div>
+          <div id="dash-recent-activity">
+            <div class="ai"><div class="adot b">⏳</div><div class="at"><div class="am">Loading recent activity...</div><div class="ti">Please wait</div></div></div>
+          </div>
         </div>
       </div>
 
       <div class="g3">
         <div class="card">
           <div class="ct">Pending Loan Approvals</div>
-          <div style="font-size:0.86rem;display:flex;flex-direction:column;gap:0.7rem;">
-            <div style="background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.2);border-radius:11px;padding:0.9rem;">
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <div><div style="color:var(--text);font-weight:600;font-size:0.85rem;">Amara Perera</div><div style="color:var(--muted);font-size:0.75rem;">Land preparation</div></div>
-                <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--amber);">Rs 15k</div>
-              </div>
-              <div style="display:flex;gap:0.5rem;margin-top:0.7rem;">
-                <button class="btn btn-a btn-sm" onclick="quickApprove(this,'loan')">✓ Approve</button>
-                <button class="btn btn-d btn-sm" onclick="quickReject(this)">✗ Reject</button>
-              </div>
-            </div>
-            <div style="text-align:center;"><button class="btn btn-o btn-sm" onclick="nav('loans',null)">View All 3 →</button></div>
+          <div id="dash-pending-loan-list" style="font-size:0.86rem;display:flex;flex-direction:column;gap:0.7rem;">
+            <div style="text-align:center;color:var(--muted);padding:1rem;">Loading...</div>
           </div>
         </div>
         <div class="card">
           <div class="ct">Pending Fertilizer</div>
-          <div style="font-size:0.86rem;display:flex;flex-direction:column;gap:0.7rem;">
-            <div style="background:rgba(61,107,79,0.1);border:1px solid rgba(61,107,79,0.2);border-radius:11px;padding:0.9rem;">
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <div><div style="color:var(--text);font-weight:600;font-size:0.85rem;">Nirmala Wickrama</div><div style="color:var(--muted);font-size:0.75rem;">50 kg — Urea</div></div>
-                <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--tea);">Rs 2k</div>
-              </div>
-              <div style="display:flex;gap:0.5rem;margin-top:0.7rem;">
-                <button class="btn btn-a btn-sm" onclick="quickApprove(this,'fert')">✓ Approve</button>
-                <button class="btn btn-d btn-sm" onclick="quickReject(this)">✗ Reject</button>
-              </div>
-            </div>
-            <div style="text-align:center;"><button class="btn btn-o btn-sm" onclick="nav('fertilizer',null)">View All 2 →</button></div>
+          <div id="dash-pending-fert-list" style="font-size:0.86rem;display:flex;flex-direction:column;gap:0.7rem;">
+            <div style="text-align:center;color:var(--muted);padding:1rem;">Loading...</div>
           </div>
         </div>
         <div class="card">
           <div class="ct">Top Deliverers <small>This month</small></div>
-          <div style="display:flex;flex-direction:column;gap:0.65rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.84rem;">
-              <div style="display:flex;align-items:center;gap:6px;"><span style="background:var(--amber);color:var(--tea-dark);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;">1</span><span style="color:var(--text);">Nirmala Wickrama</span></div>
-              <strong style="color:var(--tea);">3,500 kg</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.84rem;">
-              <div style="display:flex;align-items:center;gap:6px;"><span style="background:var(--cream-dark);color:var(--text);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;">2</span><span style="color:var(--text);">Amara Perera</span></div>
-              <strong style="color:var(--tea);">2,840 kg</strong>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.84rem;">
-              <div style="display:flex;align-items:center;gap:6px;"><span style="background:var(--cream);color:var(--muted);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;">3</span><span style="color:var(--muted);">Kamal Jayawardena</span></div>
-              <strong style="color:var(--muted);">1,920 kg</strong>
-            </div>
+          <div id="dash-top-deliverers" style="display:flex;flex-direction:column;gap:0.65rem;">
+            <div style="text-align:center;color:var(--muted);padding:1rem;">Loading...</div>
           </div>
         </div>
       </div>
@@ -387,49 +354,45 @@ tr:hover td{background:rgba(61,107,79,0.03);}
     <div class="page" id="p-owners">
       <div class="ph"><h2>Land Owners</h2><p>Manage all registered tea land owners</p></div>
       <div class="stats">
-        <div class="sc sage"><div class="lbl">Total Registered</div><div class="val">24</div></div>
-        <div class="sc"><div class="lbl">Active</div><div class="val">21</div></div>
-        <div class="sc amb"><div class="lbl">Pending Approval</div><div class="val">3</div></div>
-        <div class="sc"><div class="lbl">Total Land</div><div class="val">68.4 ac</div></div>
+        <div class="sc sage"><div class="lbl">Total Registered</div><div class="val" id="stat-total-registered">0</div></div>
+        <div class="sc"><div class="lbl">Active</div><div class="val" id="stat-active-owners">0</div></div>
+        <div class="sc amb"><div class="lbl">Pending Approval</div><div class="val" id="stat-pending-approval">0</div></div>
+        <div class="sc"><div class="lbl">Total Land</div><div class="val" id="stat-total-land">0 ac</div></div>
       </div>
       <div class="card">
-        <div class="ct">Land Owner Registry <button class="btn btn-p btn-sm" onclick="toast('Add Land Owner feature')">+ Add Owner</button></div>
+        <div class="ct">Land Owner Registry</div>
         <div class="tw">
           <table>
             <thead><tr><th>ID</th><th>Name</th><th>NIC</th><th>Land (ac)</th><th>Monthly kg</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead>
             <tbody id="owners-tb">
-              <tr><td>LO-001</td><td>Amara Perera</td><td>871234567V</td><td>3.2</td><td>2,840 kg</td><td>Rs 128k</td><td><span class="b g">Active</span></td><td><button class="btn btn-o btn-sm" onclick="toast('Viewing Amara Perera')">View</button></td></tr>
-              <tr><td>LO-002</td><td>Kamal Jayawardena</td><td>882345678V</td><td>2.1</td><td>1,920 kg</td><td>Rs 92k</td><td><span class="b g">Active</span></td><td><button class="btn btn-o btn-sm" onclick="toast('Viewing Kamal Jayawardena')">View</button></td></tr>
-              <tr><td>LO-003</td><td>Nirmala Wickrama</td><td>893456789V</td><td>4.5</td><td>3,500 kg</td><td>Rs 172k</td><td><span class="b g">Active</span></td><td><button class="btn btn-o btn-sm" onclick="toast('Viewing Nirmala Wickrama')">View</button></td></tr>
-              <tr><td>LO-004</td><td>Suresh Bandara</td><td>904567890V</td><td>1.8</td><td>1,200 kg</td><td>Rs 58k</td><td><span class="b y">Pending</span></td><td><button class="btn btn-a btn-sm" onclick="approveOwner(this)">Approve</button></td></tr>
-              <tr><td>LO-005</td><td>Priya Fernando</td><td>915678901V</td><td>2.6</td><td>2,100 kg</td><td>Rs 102k</td><td><span class="b g">Active</span></td><td><button class="btn btn-o btn-sm" onclick="toast('Viewing Priya Fernando')">View</button></td></tr>
+              <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:1.5rem;">⏳ Loading land owners…</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- ALL DELIVERIES -->
+    
     <div class="page" id="p-deliveries">
       <div class="ph"><h2>All Deliveries</h2><p>Record tea leaf deliveries for land owners and manage rates</p></div>
       <div class="stats">
-        <div class="sc sage"><div class="lbl">Total This Month</div><div class="val">68,420 kg</div></div>
-        <div class="sc"><div class="lbl">Today</div><div class="val">3,240 kg</div></div>
+        <div class="sc sage"><div class="lbl">Total This Month</div><div class="val" id="del-stat-month">—</div></div>
+        <div class="sc"><div class="lbl">Today</div><div class="val" id="del-stat-today">—</div></div>
         <div class="sc amb"><div class="lbl">Current Rate</div><div class="val" id="rate-display">Rs 50/kg</div></div>
-        <div class="sc"><div class="lbl">Active Owners</div><div class="val">24</div></div>
+        <div class="sc"><div class="lbl">Active Owners</div><div class="val" id="del-stat-owners">—</div></div>
       </div>
 
-      <!-- ROW 1: Record Delivery + Rate Setting -->
+      
       <div class="g2" style="margin-bottom:1.4rem;">
 
-        <!-- RECORD DELIVERY FORM -->
+        
         <div class="card" style="border:1.5px solid rgba(61,107,79,0.35);background:rgba(61,107,79,0.05);">
           <div class="ct" style="margin-bottom:1rem;">
             <span>🍃 Record New Delivery</span>
             <small>Factory records on behalf of land owner</small>
           </div>
 
-          <!-- info banner -->
+          
           <div style="background:rgba(61,107,79,0.12);border:1px solid rgba(61,107,79,0.25);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:var(--muted);">
             <span style="font-size:1rem;">ℹ️</span>
             <span>Only the <strong style="color:var(--tea);">factory owner</strong> can record deliveries. Land owners have read-only access.</span>
@@ -439,10 +402,7 @@ tr:hover td{background:rgba(61,107,79,0.03);}
             <div class="fg">
               <label>Land Owner</label>
               <select id="del-owner" onchange="updateOwnerBadge()">
-                <option value="1" data-initials="AP">Amara Perera (LO-001)</option>
-                <option value="2" data-initials="KJ">Kamal Jayawardena (LO-002)</option>
-                <option value="3" data-initials="NW">Nirmala Wickrama (LO-003)</option>
-                <option value="5" data-initials="PF">Priya Fernando (LO-005)</option>
+                <option value="" disabled selected>⏳ Loading land owners…</option>
               </select>
             </div>
             <div class="fg">
@@ -454,21 +414,35 @@ tr:hover td{background:rgba(61,107,79,0.03);}
               <input type="number" id="del-weight" placeholder="e.g. 120" min="1" oninput="calcFactoryDel()">
             </div>
             <div class="fg">
+              <label>Deduction (Rs)</label>
+              <input type="number" id="del-deduction" placeholder="e.g. 500" min="0" oninput="calcFactoryDel()">
+            </div>
+            <div class="fg">
               <label>Amount (auto-calculated)</label>
               <input type="text" id="del-amount" readonly placeholder="Enter weight first">
             </div>
           </div>
 
-          <!-- preview strip -->
-          <div id="del-preview" style="display:none;background:rgba(61,107,79,0.1);border:1px solid rgba(61,107,79,0.2);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.83rem;display:flex;justify-content:space-between;align-items:center;">
-            <span id="del-preview-text" style="color:var(--muted);"></span>
-            <strong id="del-preview-amt" style="color:var(--tea);font-size:1rem;"></strong>
+          
+          <div id="del-preview" style="display:none;background:rgba(61,107,79,0.1);border:1px solid rgba(61,107,79,0.2);border-radius:10px;padding:0.75rem 1rem;margin-bottom:1rem;font-size:0.83rem;">
+            <div style="margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center;">
+              <span id="del-preview-text" style="color:var(--muted);"></span>
+              <strong id="del-preview-gross" style="color:var(--muted);font-size:0.9rem;"></strong>
+            </div>
+            <div id="del-preview-deduction-row" style="display:none;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center;color:var(--danger);">
+              <span>Deduction:</span>
+              <strong id="del-preview-deduction" style="font-size:0.9rem;"></strong>
+            </div>
+            <div style="border-top:1px solid rgba(61,107,79,0.3);padding-top:0.5rem;display:flex;justify-content:space-between;align-items:center;">
+              <span style="color:var(--muted);">Net Amount:</span>
+              <strong id="del-preview-amt" style="color:var(--tea);font-size:1rem;"></strong>
+            </div>
           </div>
 
           <button class="btn btn-p" style="width:100%;justify-content:center;" onclick="saveFactoryDelivery()">🍃 Record Delivery</button>
         </div>
 
-        <!-- RATE SETTING + CHART -->
+       
         <div style="display:flex;flex-direction:column;gap:1.4rem;">
           <div class="card">
             <div class="ct" style="margin-bottom:0.9rem;">Set Tea Rate <small>Current: <span id="rate-cur-lbl">Rs 50/kg</span></small></div>
@@ -485,32 +459,32 @@ tr:hover td{background:rgba(61,107,79,0.03);}
         </div>
       </div>
 
-      <!-- All delivery records table -->
+      
       <div class="card">
         <div class="ct">All Delivery Records <small id="del-count">5 records</small></div>
         <div class="tw">
           <table>
-            <thead><tr><th>Date</th><th>Land Owner</th><th>Weight (kg)</th><th>Rate</th><th>Amount</th><th>Recorded By</th><th>Status</th></tr></thead>
+            <thead><tr><th>Date</th><th>Land Owner</th><th>Weight (kg)</th><th>Rate</th><th>Gross Amount</th><th>Deduction</th><th>Net Amount</th><th>Status</th></tr></thead>
             <tbody id="del-records-tb">
-              <tr><td>2025-03-01</td><td>Amara Perera</td><td>120</td><td>Rs 50</td><td>Rs 6,000</td><td><span class="b bl">Factory</span></td><td><span class="b g">Recorded</span></td></tr>
-              <tr><td>2025-03-01</td><td>Nirmala Wickrama</td><td>185</td><td>Rs 50</td><td>Rs 9,250</td><td><span class="b bl">Factory</span></td><td><span class="b g">Recorded</span></td></tr>
-              <tr><td>2025-03-01</td><td>Kamal Jayawardena</td><td>95</td><td>Rs 50</td><td>Rs 4,750</td><td><span class="b bl">Factory</span></td><td><span class="b g">Recorded</span></td></tr>
-              <tr><td>2025-02-28</td><td>Amara Perera</td><td>145</td><td>Rs 50</td><td>Rs 7,250</td><td><span class="b bl">Factory</span></td><td><span class="b g">Recorded</span></td></tr>
-              <tr><td>2025-02-28</td><td>Priya Fernando</td><td>110</td><td>Rs 50</td><td>Rs 5,500</td><td><span class="b bl">Factory</span></td><td><span class="b g">Recorded</span></td></tr>
+              <tr><td>2025-03-01</td><td>Amara Perera</td><td>120</td><td>Rs 50</td><td>Rs 6,000</td><td>Rs 0</td><td><strong style="color:var(--tea)">Rs 6,000</strong></td><td><span class="b g">Recorded</span></td></tr>
+              <tr><td>2025-03-01</td><td>Nirmala Wickrama</td><td>185</td><td>Rs 50</td><td>Rs 9,250</td><td>Rs 0</td><td><strong style="color:var(--tea)">Rs 9,250</strong></td><td><span class="b g">Recorded</span></td></tr>
+              <tr><td>2025-03-01</td><td>Kamal Jayawardena</td><td>95</td><td>Rs 50</td><td>Rs 4,750</td><td>Rs 0</td><td><strong style="color:var(--tea)">Rs 4,750</strong></td><td><span class="b g">Recorded</span></td></tr>
+              <tr><td>2025-02-28</td><td>Amara Perera</td><td>145</td><td>Rs 50</td><td>Rs 7,250</td><td>Rs 0</td><td><strong style="color:var(--tea)">Rs 7,250</strong></td><td><span class="b g">Recorded</span></td></tr>
+              <tr><td>2025-02-28</td><td>Priya Fernando</td><td>110</td><td>Rs 50</td><td>Rs 5,500</td><td>Rs 0</td><td><strong style="color:var(--tea)">Rs 5,500</strong></td><td><span class="b g">Recorded</span></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- PAYMENTS -->
+   
     <div class="page" id="p-payments">
       <div class="ph"><h2>Payment Management</h2><p>Process and track all land owner payments</p></div>
       <div class="stats">
-        <div class="sc amb"><div class="lbl">Total Payable</div><div class="val">Rs 3.42M</div><div class="sub">Mar 2025</div></div>
-        <div class="sc"><div class="lbl">Deductions</div><div class="val">Rs 320k</div></div>
-        <div class="sc sage"><div class="lbl">Net Disbursable</div><div class="val">Rs 3.1M</div></div>
-        <div class="sc"><div class="lbl">Payments Done</div><div class="val">18 / 24</div></div>
+        <div class="sc amb"><div class="lbl">Total Payable</div><div class="val" id="pay-stat-total">Rs 0</div><div class="sub">This month</div></div>
+        <div class="sc"><div class="lbl">Deductions</div><div class="val" id="pay-stat-deductions">Rs 0</div></div>
+        <div class="sc sage"><div class="lbl">Net Disbursable</div><div class="val" id="pay-stat-net">Rs 0</div></div>
+        <div class="sc"><div class="lbl">Payments Done</div><div class="val" id="pay-stat-done">0 / 0</div></div>
       </div>
       <div class="g2">
         <div class="card">
@@ -518,47 +492,29 @@ tr:hover td{background:rgba(61,107,79,0.03);}
           <div class="tw">
             <table>
               <thead><tr><th>Land Owner</th><th>Gross</th><th>Deductions</th><th>Net</th><th>Status</th><th>Action</th></tr></thead>
-              <tbody>
-                <tr><td>Amara Perera</td><td>Rs 142,000</td><td>Rs 14,000</td><td>Rs 128,000</td><td><span class="b y">Pending</span></td><td><button class="btn btn-a btn-sm" onclick="processPay(this)">Process</button></td></tr>
-                <tr><td>Nirmala Wickrama</td><td>Rs 175,000</td><td>Rs 8,000</td><td>Rs 167,000</td><td><span class="b g">Processed</span></td><td>—</td></tr>
-                <tr><td>Kamal Jayawardena</td><td>Rs 96,000</td><td>Rs 6,000</td><td>Rs 90,000</td><td><span class="b y">Pending</span></td><td><button class="btn btn-a btn-sm" onclick="processPay(this)">Process</button></td></tr>
-                <tr><td>Priya Fernando</td><td>Rs 105,000</td><td>Rs 12,000</td><td>Rs 93,000</td><td><span class="b g">Processed</span></td><td>—</td></tr>
+              <tbody id="pay-tb">
+                <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem;">⏳ Loading payment data…</td></tr>
               </tbody>
             </table>
           </div>
         </div>
-        <div class="card">
-          <div class="ct">Monthly Payout <small>Rs (millions)</small></div>
-          <div class="bchart" id="pay-chart"></div>
-        </div>
       </div>
     </div>
 
-    <!-- LOAN APPROVALS -->
+   
     <div class="page" id="p-loans">
       <div class="ph"><h2>Loan Requests</h2><p>Review and approve land owner loan applications</p></div>
       <div class="stats">
-        <div class="sc amb"><div class="lbl">Pending</div><div class="val">3</div><div class="sub">Need review</div></div>
-        <div class="sc"><div class="lbl">Approved This Month</div><div class="val">5</div></div>
-        <div class="sc sage"><div class="lbl">Total Issued</div><div class="val">Rs 120k</div></div>
-        <div class="sc"><div class="lbl">Outstanding</div><div class="val">Rs 85k</div></div>
+        <div class="sc amb" id="loan-stat-pending"><div class="lbl">Pending</div><div class="val">0</div><div class="sub">Need review</div></div>
+        <div class="sc" id="loan-stat-approved-month"><div class="lbl">Approved This Month</div><div class="val">0</div></div>
+        <div class="sc sage" id="loan-stat-issued"><div class="lbl">Total Issued</div><div class="val">Rs 0</div></div>
+        <div class="sc" id="loan-stat-outstanding"><div class="lbl">Outstanding</div><div class="val">Rs 0</div></div>
       </div>
       <div class="g2">
         <div class="card">
           <div class="ct">Pending Approvals</div>
           <div id="loan-pending">
-            <div class="appr-card">
-              <div class="top"><div><div class="name">Amara Perera <span class="b y" style="font-size:0.68rem;margin-left:4px;">Pending</span></div><div class="detail">Land preparation · Applied 2025-03-01</div></div><div class="amount">Rs 15,000</div></div>
-              <div class="actions"><button class="btn btn-a btn-sm" onclick="approveLoan(this)">✓ Approve & Issue Cheque</button><button class="btn btn-d btn-sm" onclick="rejectLoan(this)">✗ Reject</button></div>
-            </div>
-            <div class="appr-card">
-              <div class="top"><div><div class="name">Suresh Bandara <span class="b y" style="font-size:0.68rem;margin-left:4px;">Pending</span></div><div class="detail">Crop protection · Applied 2025-02-28</div></div><div class="amount">Rs 8,000</div></div>
-              <div class="actions"><button class="btn btn-a btn-sm" onclick="approveLoan(this)">✓ Approve & Issue Cheque</button><button class="btn btn-d btn-sm" onclick="rejectLoan(this)">✗ Reject</button></div>
-            </div>
-            <div class="appr-card">
-              <div class="top"><div><div class="name">Priya Fernando <span class="b y" style="font-size:0.68rem;margin-left:4px;">Pending</span></div><div class="detail">Machinery hire · Applied 2025-02-25</div></div><div class="amount">Rs 20,000</div></div>
-              <div class="actions"><button class="btn btn-a btn-sm" onclick="approveLoan(this)">✓ Approve & Issue Cheque</button><button class="btn btn-d btn-sm" onclick="rejectLoan(this)">✗ Reject</button></div>
-            </div>
+            <div style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading loan requests...</div>
           </div>
         </div>
         <div class="card">
@@ -567,9 +523,7 @@ tr:hover td{background:rgba(61,107,79,0.03);}
             <table>
               <thead><tr><th>Owner</th><th>Amount</th><th>Date</th><th>Cheque</th></tr></thead>
               <tbody id="loan-hist">
-                <tr><td>Amara Perera</td><td>Rs 10,000</td><td>Feb 10</td><td><span class="b bl">Issued</span></td></tr>
-                <tr><td>Nirmala Wickrama</td><td>Rs 15,000</td><td>Feb 5</td><td><span class="b g">Verified</span></td></tr>
-                <tr><td>Kamal Jayawardena</td><td>Rs 12,000</td><td>Jan 20</td><td><span class="b g">Verified</span></td></tr>
+                <tr><td colspan="4" style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading approved loans...</td></tr>
               </tbody>
             </table>
           </div>
@@ -577,26 +531,19 @@ tr:hover td{background:rgba(61,107,79,0.03);}
       </div>
     </div>
 
-    <!-- FERTILIZER APPROVALS -->
+    
     <div class="page" id="p-fertilizer">
       <div class="ph"><h2>Fertilizer Requests</h2><p>Approve and manage fertilizer distribution</p></div>
       <div class="stats">
-        <div class="sc amb"><div class="lbl">Pending</div><div class="val">2</div></div>
-        <div class="sc sage"><div class="lbl">Approved This Month</div><div class="val">8</div></div>
-        <div class="sc"><div class="lbl">Total Distributed</div><div class="val">420 kg</div></div>
-        <div class="sc"><div class="lbl">Total Cost</div><div class="val">Rs 28k</div></div>
+        <div class="sc amb"><div class="lbl">Pending</div><div class="val" id="fert-stat-pending">0</div></div>
+        <div class="sc sage"><div class="lbl">Approved</div><div class="val" id="fert-stat-approved">0</div></div>
+        <div class="sc"><div class="lbl">Total Distributed</div><div class="val" id="fert-stat-qty">0 kg</div></div>
+        <div class="sc"><div class="lbl">Total Cost</div><div class="val" id="fert-stat-cost">Rs 0</div></div>
       </div>
       <div class="card" style="margin-bottom:1.4rem;">
         <div class="ct">Pending Fertilizer Requests</div>
         <div id="fert-pending">
-          <div class="appr-card">
-            <div class="top"><div><div class="name">Nirmala Wickrama<span class="b y" style="font-size:0.68rem;margin-left:6px;">Pending</span></div><div class="detail">50 kg Urea · Rs 40/kg · Total Rs 2,000</div></div><div class="amount" style="color:var(--tea);">50 kg</div></div>
-            <div class="actions"><button class="btn btn-a btn-sm" onclick="approveFert(this)">✓ Approve</button><button class="btn btn-d btn-sm" onclick="rejectFert(this)">✗ Reject</button></div>
-          </div>
-          <div class="appr-card">
-            <div class="top"><div><div class="name">Amara Perera<span class="b y" style="font-size:0.68rem;margin-left:6px;">Pending</span></div><div class="detail">50 kg Urea · Rs 40/kg · Total Rs 2,000</div></div><div class="amount" style="color:var(--tea);">50 kg</div></div>
-            <div class="actions"><button class="btn btn-a btn-sm" onclick="approveFert(this)">✓ Approve</button><button class="btn btn-d btn-sm" onclick="rejectFert(this)">✗ Reject</button></div>
-          </div>
+          <div style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading...</div>
         </div>
       </div>
       <div class="card">
@@ -604,118 +551,97 @@ tr:hover td{background:rgba(61,107,79,0.03);}
         <div class="tw">
           <table>
             <thead><tr><th>Date</th><th>Land Owner</th><th>Type</th><th>Qty</th><th>Cost</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>2025-02-15</td><td>Amara Perera</td><td>NPK</td><td>30 kg</td><td>Rs 1,950</td><td><span class="b g">Distributed</span></td></tr>
-              <tr><td>2025-02-10</td><td>Nirmala Wickrama</td><td>Organic</td><td>40 kg</td><td>Rs 3,200</td><td><span class="b g">Distributed</span></td></tr>
-              <tr><td>2025-01-20</td><td>Kamal Jayawardena</td><td>Urea</td><td>25 kg</td><td>Rs 1,000</td><td><span class="b g">Distributed</span></td></tr>
+            <tbody id="fert-history-tb">
+              <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading...</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- CHEQUE MANAGEMENT -->
+   
     <div class="page" id="p-cheques">
       <div class="ph"><h2>Cheque Management</h2><p>Issue and track advance cheques</p></div>
       <div class="stats">
-        <div class="sc amb"><div class="lbl">Pending Issue</div><div class="val">2</div></div>
-        <div class="sc"><div class="lbl">In Transit</div><div class="val">1</div></div>
-        <div class="sc sage"><div class="lbl">Verified</div><div class="val">12</div></div>
-        <div class="sc"><div class="lbl">Total Value</div><div class="val">Rs 185k</div></div>
+        <div class="sc amb" id="cheq-stat-pending"><div class="lbl">Pending Delivery</div><div class="val">0</div></div>
+        <div class="sc" id="cheq-stat-transit"><div class="lbl">To Verify</div><div class="val">0</div></div>
+        <div class="sc sage" id="cheq-stat-verified"><div class="lbl">Verified</div><div class="val">0</div></div>
+        <div class="sc" id="cheq-stat-value"><div class="lbl">Total Value</div><div class="val">Rs 0</div></div>
       </div>
       <div class="card">
-        <div class="ct">All Cheque Records <button class="btn btn-p btn-sm" onclick="openM('m-cheque')">+ Issue Cheque</button></div>
+        <div class="ct">All Cheque Records</div>
         <div class="tw">
           <table>
             <thead><tr><th>Cheque No.</th><th>Land Owner</th><th>Amount</th><th>Supervisor</th><th>Issued</th><th>Status</th><th>Action</th></tr></thead>
             <tbody id="cheq-tb">
-              <tr><td>CHQ-0045</td><td>Suresh Bandara</td><td>Rs 8,000</td><td>Kamal Silva</td><td>2025-03-01</td><td><span class="b y">Pending</span></td><td><button class="btn btn-amb btn-sm" onclick="assignCheque(this)">Assign Supervisor</button></td></tr>
-              <tr><td>CHQ-0044</td><td>Amara Perera</td><td>Rs 15,000</td><td>Kamal Silva</td><td>2025-03-01</td><td><span class="b bl">In Transit</span></td><td>—</td></tr>
-              <tr><td>CHQ-0043</td><td>Priya Fernando</td><td>Rs 20,000</td><td>Nimal Fernando</td><td>2025-02-26</td><td><span class="b y">Pending</span></td><td><button class="btn btn-amb btn-sm" onclick="assignCheque(this)">Assign Supervisor</button></td></tr>
-              <tr><td>CHQ-0042</td><td>Amara Perera</td><td>Rs 10,000</td><td>Kamal Silva</td><td>2025-02-10</td><td><span class="b g">Verified</span></td><td>—</td></tr>
-              <tr><td>CHQ-0041</td><td>Nirmala Wickrama</td><td>Rs 15,000</td><td>Nimal Fernando</td><td>2025-02-05</td><td><span class="b g">Verified</span></td><td>—</td></tr>
+              <tr><td colspan="7" style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading cheques...</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- REPORTS -->
+   
     <div class="page" id="p-reports">
-      <div class="ph"><h2>Reports & Statements</h2><p>Generate and approve income statements for land owners</p></div>
+      <div class="ph"><h2>Reports and Statements</h2><p>Generate monthly bills for active land owners and review generated bill history</p></div>
       <div class="g2" style="margin-bottom:1.4rem;">
         <div class="card">
-          <div class="ct">Generate Factory Report</div>
-          <div class="fg"><label>Report Type</label>
-            <select id="rep-type"><option>Monthly Bill — All Owners</option><option>Monthly Bill — Single Owner</option><option>Factory Income Summary</option><option>Delivery Summary</option></select>
+          <div class="ct">Generate Monthly Bills</div>
+          <div class="fg"><label>Land Owner Scope</label>
+            <select id="rep-owner">
+              <option value="ALL">All Active Land Owners</option>
+            </select>
           </div>
           <div class="fg"><label>Month</label>
-            <select><option>March 2025</option><option>February 2025</option><option>January 2025</option></select>
+            <select id="rep-month"></select>
           </div>
-          <button class="btn btn-p" onclick="toast('✓ Report generated and ready to download')">📄 Generate Report</button>
+          <div class="fg"><label>Year</label><input type="number" id="rep-year" min="2000" max="3000"></div>
+          <button class="btn btn-p" onclick="generateFactoryBills()">📄 Generate</button>
         </div>
         <div class="card">
-          <div class="ct">Pending Income Statement Approvals</div>
-          <div id="stmt-pending">
-            <div style="background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.2);border-radius:12px;padding:1rem;margin-bottom:0.8rem;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.7rem;">
-                <div><div style="color:var(--text);font-weight:600;font-size:0.88rem;">Amara Perera</div><div style="font-size:0.75rem;color:var(--muted);">Requested 3-month statement</div></div>
-                <span class="b y">Pending</span>
-              </div>
-              <div style="display:flex;gap:0.6rem;">
-                <button class="btn btn-a btn-sm" onclick="approveStmt(this)">✓ Approve</button>
-                <button class="btn btn-d btn-sm" onclick="rejectStmt(this)">✗ Reject</button>
-              </div>
-            </div>
+          <div class="ct">Income Statement</div>
+          <div class="fg"><label>Land Owner</label>
+            <select id="rep-inc-owner"><option value="">Select owner</option></select>
           </div>
+          <div class="fg"><label>Period</label>
+            <select id="rep-inc-per"><option value="3">3 Months</option><option value="6">6 Months</option><option value="12">12 Months</option></select>
+          </div>
+          <div class="fg"><label>Ending Month</label><select id="rep-inc-end-month"></select></div>
+          <div class="fg"><label>Ending Year</label><input type="number" id="rep-inc-end-year" min="2000" max="3000"></div>
+          <button class="btn btn-p" onclick="generateFactoryIncomeStatement()">📊 Generate Statement</button>
+          <div id="rep-summary" style="display:none;background:var(--cream);border-radius:12px;padding:1rem;border:1px solid var(--cream-dark);font-size:0.85rem;color:var(--muted);line-height:1.6;margin-top:0.8rem;"></div>
         </div>
       </div>
       <div class="card">
-        <div class="ct">Generated Reports</div>
+        <div class="ct">Generated Monthly Bills</div>
         <div class="tw">
           <table>
-            <thead><tr><th>Report</th><th>Owner/Scope</th><th>Period</th><th>Date</th><th>Download</th></tr></thead>
-            <tbody>
-              <tr><td>Monthly Bill</td><td>All Owners</td><td>Feb 2025</td><td>2025-03-01</td><td><button class="btn btn-o btn-sm" onclick="toast('Downloading…')">⬇ PDF</button></td></tr>
-              <tr><td>Income Statement</td><td>Amara Perera</td><td>Oct–Dec 2024</td><td>2025-01-05</td><td><button class="btn btn-o btn-sm" onclick="toast('Downloading…')">⬇ PDF</button></td></tr>
-              <tr><td>Factory Summary</td><td>Factory</td><td>Q4 2024</td><td>2025-01-01</td><td><button class="btn btn-o btn-sm" onclick="toast('Downloading…')">⬇ PDF</button></td></tr>
+            <thead><tr><th>Report</th><th>Land Owner</th><th>Period</th><th>Generated</th><th>Net Payable</th><th>Download</th></tr></thead>
+            <tbody id="factory-bills-tbody">
+              <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1rem;">No monthly bills generated yet.</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- COMPLAINTS -->
+   
     <div class="page" id="p-complaints">
       <div class="ph"><h2>Complaints</h2><p>Review and respond to land owner complaints</p></div>
       <div class="stats">
-        <div class="sc"><div class="lbl">Open</div><div class="val">2</div></div>
-        <div class="sc sage"><div class="lbl">Resolved</div><div class="val">8</div></div>
-        <div class="sc amb"><div class="lbl">Total</div><div class="val">10</div></div>
+        <div class="sc"><div class="lbl">Open</div><div class="val" id="comp-stat-open">0</div></div>
+        <div class="sc sage"><div class="lbl">Resolved</div><div class="val" id="comp-stat-resolved">0</div></div>
+        <div class="sc amb"><div class="lbl">Total</div><div class="val" id="comp-stat-total">0</div></div>
       </div>
       <div class="card">
         <div class="ct">Complaint Inbox</div>
-        <div id="comp-list">
-          <div style="background:rgba(200,168,75,0.07);border:1px solid rgba(200,168,75,0.18);border-radius:14px;padding:1.2rem;margin-bottom:0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.7rem;">
-              <div><div style="color:var(--text);font-weight:600;">Amara Perera <span class="b y" style="font-size:0.68rem;margin-left:6px;">Open</span></div><div style="font-size:0.8rem;color:var(--muted);margin-top:2px;">Payment calculation issue in Feb · 2025-02-20</div></div>
-            </div>
-            <div style="font-size:0.85rem;color:var(--muted);margin-bottom:0.8rem;">The February payment seems lower than expected given my recorded delivery weight of 2,650 kg.</div>
-            <div class="fg"><input type="text" placeholder="Type your response…" id="resp-1"></div>
-            <button class="btn btn-p btn-sm" onclick="sendResp('resp-1',this)">📨 Send Response</button>
-          </div>
-          <div style="background:rgba(61,107,79,0.07);border:1px solid rgba(61,107,79,0.15);border-radius:14px;padding:1.2rem;margin-bottom:0.9rem;">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.7rem;">
-              <div><div style="color:var(--text);font-weight:600;">Suresh Bandara <span class="b y" style="font-size:0.68rem;margin-left:6px;">Open</span></div><div style="font-size:0.8rem;color:var(--muted);margin-top:2px;">Loan not processed · 2025-02-28</div></div>
-            </div>
-            <div style="font-size:0.85rem;color:var(--muted);margin-bottom:0.8rem;">Applied for a loan two weeks ago but have not received any update or cheque.</div>
-            <div class="fg"><input type="text" placeholder="Type your response…" id="resp-2"></div>
-            <button class="btn btn-p btn-sm" onclick="sendResp('resp-2',this)">📨 Send Response</button>
-          </div>
-          <div style="opacity:0.5;border:1px solid var(--cream-dark);border-radius:14px;padding:1.2rem;">
-            <div style="color:var(--text);font-weight:600;">Nirmala Wickrama <span class="b g" style="font-size:0.68rem;margin-left:6px;">Resolved</span></div>
-            <div style="font-size:0.8rem;color:var(--muted);margin-top:2px;">Fertilizer not delivered on time · 2025-01-15</div>
-          </div>
+        <div style="margin-bottom:0.7rem;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);">Open</div>
+        <div id="comp-pending-list">
+          <div style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading...</div>
+        </div>
+        <div style="margin:1rem 0 0.7rem;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);">Resolved</div>
+        <div id="comp-resolved-list">
+          <div style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading...</div>
         </div>
       </div>
     </div>
@@ -724,23 +650,57 @@ tr:hover td{background:rgba(61,107,79,0.03);}
 </main>
 </div>
 
-<!-- MODALS -->
-<div class="mo" id="m-cheque">
-  <div class="mbox">
-    <div class="mhead"><h3>💳 Issue New Cheque</h3><button class="mclose" onclick="closeM('m-cheque')">✕</button></div>
-    <div class="fgg">
-      <div class="fg"><label>Land Owner</label>
-        <select id="cq-owner"><option>Amara Perera</option><option>Nirmala Wickrama</option><option>Kamal Jayawardena</option></select>
+
+
+
+
+<div class="mo" id="m-payment-select">
+  <div class="mbox" style="max-width:450px;">
+    <div class="mhead"><h3>💳 Payment Method</h3><button class="mclose" onclick="closePaymentMethodModal()">✕</button></div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="background:var(--cream);border-radius:10px;padding:1rem;border:1px solid var(--cream-dark);">
+        <div style="font-weight:600;margin-bottom:0.5rem;" id="payment-select-owner">Land Owner Name</div>
+        <div style="font-size:0.9rem;color:var(--muted);">Amount: <strong id="payment-select-amount" style="color:var(--tea);">Rs 0</strong></div>
       </div>
-      <div class="fg"><label>Loan Reference</label><input type="text" placeholder="e.g. LN-004" id="cq-loan"></div>
-      <div class="fg"><label>Amount (Rs)</label><input type="number" placeholder="e.g. 15000" id="cq-amt"></div>
-      <div class="fg"><label>Assign Supervisor</label>
-        <select id="cq-sup"><option>Kamal Silva</option><option>Nimal Fernando</option></select>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;">
+        <div style="font-size:0.85rem;color:var(--muted);font-weight:500;">Select payment method:</div>
+        <button class="btn btn-o" style="justify-content:center;" onclick="processPaymentOnline()">💳 Pay Online (Immediate)</button>
+        <button class="btn btn-amb" style="justify-content:center;" onclick="processPaymentCheque()">📄 Approve for Cheque</button>
       </div>
     </div>
-    <div style="display:flex;gap:0.7rem;justify-content:flex-end;margin-top:0.5rem;">
-      <button class="btn btn-o" onclick="closeM('m-cheque')">Cancel</button>
-      <button class="btn btn-p" onclick="issueCheque()">Issue Cheque</button>
+    <div style="display:flex;gap:0.7rem;justify-content:flex-end;margin-top:1rem;">
+      <button class="btn btn-o" onclick="closePaymentMethodModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="mo" id="m-payment-method">
+  <div class="mbox" style="max-width:450px;">
+    <div class="mhead"><h3>💰 Payment Method</h3><button class="mclose" onclick="closeLoanPaymentModal()">✕</button></div>
+    <div id="payment-modal-content" style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="background:var(--cream);border-radius:10px;padding:1rem;border:1px solid var(--cream-dark);">
+        <div style="font-weight:600;margin-bottom:0.5rem;" id="payment-loan-owner">Land Owner Name</div>
+        <div style="font-size:0.9rem;color:var(--muted);">Amount: <strong id="payment-loan-amount" style="color:var(--tea);">Rs 0</strong></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;">
+        <div style="font-size:0.85rem;color:var(--muted);font-weight:500;">Select payment method:</div>
+        <button class="btn btn-o" style="justify-content:center;" onclick="processLoanApproval('online')">💳 Pay Online</button>
+        <button class="btn btn-amb" style="justify-content:center;" onclick="processLoanApproval('cheque')">📄 Approve for Cheque</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:0.7rem;justify-content:flex-end;margin-top:1rem;">
+      <button class="btn btn-o" onclick="closeLoanPaymentModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="mo" id="m-owner-details">
+  <div class="mbox" style="max-width:750px;max-height:85vh;overflow-y:auto;">
+    <div class="mhead"><h3 id="details-owner-name">Land Owner Details</h3><button class="mclose" onclick="closeM('m-owner-details')">✕</button></div>
+    <div id="details-content" style="display:flex;flex-direction:column;gap:1.2rem;font-size:0.85rem;padding:1rem;">
+      <div style="text-align:center;color:var(--muted);">⏳ Loading details...</div>
     </div>
   </div>
 </div>
@@ -748,10 +708,49 @@ tr:hover td{background:rgba(61,107,79,0.03);}
 <div id="toast"></div>
 
 <script>
-// ── Backend base URL ──────────────────────────────────────────────────────
-const API = 'http://localhost:8080';
 
-document.addEventListener('DOMContentLoaded', () => {
+const API = 'http://localhost:8080';
+let currentFactoryOwnerId = null;
+let currentFactoryName = '';
+
+function cacheSession(data){
+  localStorage.setItem('teago_userId', data.userId ?? '');
+  localStorage.setItem('teago_role', data.role ?? '');
+  localStorage.setItem('teago_fullName', data.fullName ?? '');
+  localStorage.setItem('teago_username', data.username ?? '');
+  localStorage.setItem('teago_landOwnerId', data.landOwnerId ?? '');
+  localStorage.setItem('teago_landSize', data.landSize ?? '');
+  localStorage.setItem('teago_factoryOwnerId', data.factoryOwnerId ?? '');
+  localStorage.setItem('teago_factoryName', data.factoryName ?? '');
+  localStorage.setItem('teago_factoryLocation', data.factoryLocation ?? '');
+}
+
+async function hydrateSession(expectedRole){
+  try {
+    const res = await fetch(`${API}/api/auth/session`, { credentials: 'include' });
+    if(!res.ok){
+      window.location.href = 'index.html';
+      return false;
+    }
+
+    const data = await res.json();
+    if(data.role !== expectedRole){
+      window.location.href = 'index.html';
+      return false;
+    }
+
+    cacheSession(data);
+    return true;
+  } catch (e) {
+    window.location.href = 'index.html';
+    return false;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const sessionOk = await hydrateSession('FACTORY_OWNER');
+  if(!sessionOk) return;
+
   const d = new Date();
   document.getElementById('date-chip').textContent =
       d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -760,20 +759,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('rate-date').valueAsDate = new Date();
   document.getElementById('del-date').valueAsDate  = new Date();
 
-  // Load session data set by index.html after login
+  
   const fullName        = localStorage.getItem('teago_fullName')        || 'Factory Owner';
   const factoryOwnerId  = localStorage.getItem('teago_factoryOwnerId')  || '';
   const factoryLocation = localStorage.getItem('teago_factoryLocation') || '';
   const factoryName     = localStorage.getItem('teago_factoryName')     || '';
   const role            = localStorage.getItem('teago_role')            || '';
 
-  // Guard: redirect non-factory-owner users back to login
+  
   if (role && role !== 'FACTORY_OWNER') {
     window.location.href = 'index.html';
     return;
   }
 
-  // Populate sidebar profile
+
   const initials = fullName.trim().split(/\s+/)
       .map(w => w[0] ? w[0].toUpperCase() : '').slice(0, 2).join('');
   document.getElementById('prof-av').textContent   = initials || '?';
@@ -781,12 +780,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const idPart  = factoryOwnerId ? `FO-${String(factoryOwnerId).padStart(3,'0')}` : '—';
   const locPart = factoryLocation || factoryName || 'Factory';
   document.getElementById('prof-id').textContent   = `Factory ID: ${idPart} · ${locPart}`;
+  currentFactoryOwnerId = factoryOwnerId ? parseInt(factoryOwnerId, 10) : null;
+  currentFactoryName = factoryName || factoryLocation || 'Factory';
 
-  // Populate greeting with first name
+
   document.getElementById('greeting-name').textContent = fullName.split(' ')[0];
 
-  buildCharts();
-  loadAllDeliveries();  // fetch live delivery data from backend
+  loadFactoryDashboardOverview();
+  window.setInterval(loadFactoryDashboardOverview, 60000);
+  loadCurrentRate();         
+  loadAllDeliveries();       
+  loadFactoryOwners();       
+  loadFactoryLoans();      
+  loadFactoryCheques();     
+  loadChequeIssueOptions();  
+  populateOwnerDropdown();   
+  loadFactoryFertilizerRequests();
+  loadFactoryComplaints();
+  initFactoryBillControls();
+  loadFactoryBillOwners();
+  loadFactoryBillHistory();
+  initFactoryIncomeStatementControls();
 });
 
 const titles={dash:'Factory Overview',owners:'Land Owners',deliveries:'All Deliveries',payments:'Payment Management',loans:'Loan Requests',fertilizer:'Fertilizer Requests',cheques:'Cheque Management',reports:'Reports & Statements',complaints:'Complaints'};
@@ -796,9 +810,19 @@ function nav(id,el){
   document.getElementById('p-'+id).classList.add('active');
   document.getElementById('tb-t').textContent=titles[id]||id;
   if(el){document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));el.classList.add('on');}
+  if(id==='loans') loadFactoryLoans();
+  if(id==='cheques') loadFactoryCheques();
+  if(id==='fertilizer') loadFactoryFertilizerRequests();
+  if(id==='complaints') loadFactoryComplaints();
+  if(id==='reports') loadFactoryBillHistory();
+  if(id==='payments') loadFactoryPayments();
+  if(id==='dash') loadFactoryDashboardOverview();
 }
 
-function openM(id){document.getElementById(id).classList.add('on');}
+function openM(id){
+  document.getElementById(id).classList.add('on');
+  if(id === 'm-cheque') loadChequeIssueOptions();
+}
 function closeM(id){document.getElementById(id).classList.remove('on');}
 document.querySelectorAll('.mo').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('on');}));
 
@@ -808,122 +832,1641 @@ function quickApprove(btn,type){
 }
 function quickReject(btn){btn.closest('[style]').remove();toast('Request rejected',true);}
 
-function approveLoan(btn){
-  const card=btn.closest('.appr-card');
-  card.style.background='rgba(61,107,79,0.15)';
-  card.style.borderColor='rgba(61,107,79,0.35)';
-  card.querySelector('.actions').innerHTML='<span class="b g">✓ Approved — Cheque Issued</span>';
-  const name=card.querySelector('.name').textContent.trim().split(' ').slice(0,2).join(' ');
-  document.getElementById('loan-hist').insertAdjacentHTML('afterbegin',
-    `<tr><td>${name}</td><td>Rs ???</td><td>Today</td><td><span class="b bl">Issued</span></td></tr>`);
-  toast('✓ Loan approved and cheque issued');
-}
-function rejectLoan(btn){
-  const card=btn.closest('.appr-card');
-  card.style.opacity='0.4';
-  card.querySelector('.actions').innerHTML='<span class="b r">✗ Rejected</span>';
-  toast('Loan rejected',true);
+
+let currentLoanApprovalContext = {
+  loanId: null,
+  landOwnerName: '',
+  loanAmount: 0
+};
+
+function showLoanPaymentModal(loanId, landOwnerName, loanAmount){
+  currentLoanApprovalContext = { loanId, landOwnerName, loanAmount };
+  document.getElementById('payment-loan-owner').textContent = landOwnerName;
+  document.getElementById('payment-loan-amount').textContent = formatCurrency(loanAmount);
+  openM('m-payment-method');
 }
 
-function approveFert(btn){
-  const card=btn.closest('.appr-card');
-  card.style.background='rgba(61,107,79,0.15)';
-  card.querySelector('.actions').innerHTML='<span class="b g">✓ Approved — Will be distributed</span>';
-  toast('✓ Fertilizer request approved');
-}
-function rejectFert(btn){
-  const card=btn.closest('.appr-card');
-  card.style.opacity='0.4';
-  card.querySelector('.actions').innerHTML='<span class="b r">✗ Rejected</span>';
-  toast('Fertilizer request rejected',true);
+function closeLoanPaymentModal(){
+  currentLoanApprovalContext = { loanId: null, landOwnerName: '', loanAmount: 0 };
+  closeM('m-payment-method');
 }
 
-function approveOwner(btn){
-  const row=btn.closest('tr');
-  row.cells[6].innerHTML='<span class="b g">Active</span>';
-  row.cells[7].innerHTML='<button class="btn btn-o btn-sm" onclick="toast(\'Viewing owner\')">View</button>';
-  toast('✓ Land owner approved and activated');
+async function processLoanApproval(paymentMethod){
+  const { loanId } = currentLoanApprovalContext;
+  if(!loanId){
+    toast('❌ Invalid loan ID', true);
+    return;
+  }
+
+ 
+  try {
+    const res = await fetch(`${API}/api/loans/${loanId}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ approvalStatus: 'Approved' })
+    });
+
+    const data = await res.json();
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Failed to approve loan'), true);
+      return;
+    }
+
+    toast('✓ Loan approved');
+    
+    if(paymentMethod === 'cheque'){
+    
+      let chequeId = null;
+      const chequeRes = await fetch(`${API}/api/cheques`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ loanId })
+      });
+
+      const chequeData = await chequeRes.json();
+      
+      if(!chequeRes.ok){
+      
+        if(chequeData.message && chequeData.message.includes('already')){
+          toast('ℹ️ Cheque already exists for this loan', false);
+        
+          chequeId = chequeData.chequeId;
+          if(!chequeId){
+      
+            const existingRes = await fetch(`${API}/api/cheques/factory/${currentFactoryOwnerId}`);
+            const cheques = existingRes.ok ? await existingRes.json() : [];
+            const existing = cheques.find(c => c.loanId === loanId);
+            chequeId = existing?.chequeId;
+          }
+          
+          if(!chequeId){
+            toast('❌ Could not find cheque details', true);
+            return;
+          }
+        } else {
+          toast('❌ ' + (chequeData.message || 'Failed to create cheque'), true);
+          return;
+        }
+      } else {
+        chequeId = chequeData.chequeId;
+      }
+
+      const issueRes = await fetch(`${API}/api/cheques/${chequeId}/issue`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if(!issueRes.ok){
+        const issueData = await issueRes.json();
+        
+        if(!(issueData.message && issueData.message.includes('already'))){
+          toast('❌ ' + (issueData.message || 'Failed to issue cheque'), true);
+          return;
+        }
+      }
+
+    
+      const statusRes = await fetch(`${API}/api/cheques/${chequeId}/delivery-status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'In_Transit' })
+      });
+
+      if(!statusRes.ok){
+        const statusData = await statusRes.json();
+        toast('❌ ' + (statusData.message || 'Failed to update cheque status'), true);
+        return;
+      }
+
+      toast('✓ Cheque issued and set to In Transit');
+    }
+    
+    closeLoanPaymentModal();
+    await loadFactoryLoans();
+    if(paymentMethod === 'cheque'){
+      await loadFactoryCheques(); 
+    }
+    loadFactoryDashboardOverview();
+  } catch(e){
+    toast('❌ Network error while processing loan', true);
+    console.warn('processLoanApproval:', e.message);
+  }
 }
 
-function processPay(btn){
-  const row=btn.closest('tr');
-  row.cells[4].innerHTML='<span class="b g">Processed</span>';
-  row.cells[5].innerHTML='—';
-  toast('✓ Payment processed');
+async function approveLoan(loanId){
+  try {
+    
+    const loanRes = await fetch(`${API}/api/loans/${loanId}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ approvalStatus: 'Approved' })
+    });
+
+    if(!loanRes.ok){
+      const errData = await loanRes.json();
+      toast('❌ ' + (errData.message || 'Failed to approve loan'), true);
+      return;
+    }
+
+   
+    const chequeRes = await fetch(`${API}/api/cheques/create-from-loan/${loanId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    const chequeData = await chequeRes.json();
+    if(!chequeRes.ok){
+      
+      toast('✓ Loan approved (Cheque creation pending)', true);
+    } else {
+      toast('✓ Loan approved & Cheque issued');
+    }
+
+    await loadFactoryLoans();
+    await loadFactoryCheques();
+    loadFactoryDashboardOverview();
+  } catch(e){
+    toast('❌ Network error while approving loan', true);
+    console.warn('approveLoan:', e.message);
+  }
 }
 
-function assignCheque(btn){
-  const row=btn.closest('tr');
-  row.cells[5].innerHTML='<span class="b bl">In Transit</span>';
-  row.cells[6].innerHTML='—';
-  toast('✓ Cheque assigned to supervisor — now in transit');
+async function rejectLoan(loanId){
+  await setLoanStatus(loanId, 'Rejected');
 }
 
-let chqN=46;
-function issueCheque(){
-  const owner=document.getElementById('cq-owner').value;
-  const loan=document.getElementById('cq-loan').value;
-  const amt=document.getElementById('cq-amt').value;
-  const sup=document.getElementById('cq-sup').value;
-  if(!loan||!amt){toast('Please fill all fields.',true);return;}
-  const today=new Date().toISOString().split('T')[0];
-  document.getElementById('cheq-tb').insertAdjacentHTML('afterbegin',
-    `<tr><td>CHQ-0${chqN++}</td><td>${owner}</td><td>Rs ${parseInt(amt).toLocaleString()}</td><td>${sup}</td><td>${today}</td><td><span class="b y">Pending</span></td><td><button class="btn btn-amb btn-sm" onclick="assignCheque(this)">Assign Supervisor</button></td></tr>`);
-  closeM('m-cheque');
-  toast('✓ Cheque CHQ-0'+(chqN-1)+' issued for '+owner);
-  document.getElementById('cq-loan').value='';document.getElementById('cq-amt').value='';
+async function setLoanStatus(loanId, approvalStatus){
+  try {
+    const res = await fetch(`${API}/api/loans/${loanId}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ approvalStatus })
+    });
+
+    const data = await res.json();
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Failed to update loan'), true);
+      return;
+    }
+
+    toast(approvalStatus === 'Approved' ? '✓ Loan approved' : '✓ Loan rejected');
+    await loadFactoryLoans();
+    loadFactoryDashboardOverview();
+  } catch(e){
+    toast('❌ Network error while updating loan', true);
+    console.warn('setLoanStatus:', e.message);
+  }
 }
 
-function approveStmt(btn){
-  const box=btn.closest('[style]');
-  box.innerHTML='<div style="color:#6dd89a;font-weight:600;font-size:0.88rem;">✓ Income statement approved and sent to land owner</div>';
-  toast('✓ Income statement approved');
+function formatShortDate(dateStr){
+  const d = new Date(dateStr);
+  if(Number.isNaN(d.getTime())) return '—';
+  return d.toLocaleDateString('en-GB', { month: 'short', day: '2-digit' });
 }
-function rejectStmt(btn){
-  const box=btn.closest('[style]');
-  box.style.opacity='0.4';
-  box.querySelector('.actions').innerHTML='<span class="b r">Rejected</span>';
-  toast('Statement request rejected',true);
+
+async function loadFactoryLoans(){
+  const pendingEl = document.getElementById('loan-pending');
+  const histEl = document.getElementById('loan-hist');
+  if(!pendingEl || !histEl) return;
+
+  if(!currentFactoryOwnerId){
+    pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No factory session found.</div>';
+    histEl.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:1rem;">No data.</td></tr>';
+    return;
+  }
+
+  pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading loan requests...</div>';
+  histEl.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading approved loans...</td></tr>';
+
+  try {
+    const res = await fetch(`${API}/api/loans/factory/${currentFactoryOwnerId}`);
+    const raw = res.ok ? await res.json() : [];
+    const loans = Array.isArray(raw) ? raw : [];
+
+    
+    const chequeRes = await fetch(`${API}/api/cheques/factory/${currentFactoryOwnerId}`);
+    const cheques = chequeRes.ok ? await chequeRes.json() : [];
+    const chequesByLoanId = {};
+    cheques.forEach(c => {
+      chequesByLoanId[c.loanId] = c;
+    });
+
+    const sorted = loans.slice().sort((a,b) => new Date(b.requestDate) - new Date(a.requestDate));
+    const pending = sorted.filter(l => l.approvalStatus === 'Pending');
+    const approved = sorted.filter(l => l.approvalStatus === 'Approved');
+
+    const monthKey = new Date().toISOString().slice(0,7);
+    const approvedThisMonth = approved.filter(l => String(l.requestDate || '').slice(0,7) === monthKey);
+    const totalIssued = approved.reduce((sum, l) => sum + Number(l.loanAmount || 0), 0);
+    const outstanding = totalIssued;
+
+    const navBadge = document.getElementById('loan-nav-badge');
+    if(navBadge) navBadge.textContent = String(pending.length);
+
+    const pendingStat = document.getElementById('loan-stat-pending');
+    const approvedMonthStat = document.getElementById('loan-stat-approved-month');
+    const issuedStat = document.getElementById('loan-stat-issued');
+    const outstandingStat = document.getElementById('loan-stat-outstanding');
+
+    if(pendingStat) pendingStat.innerHTML = `<div class="lbl">Pending</div><div class="val">${pending.length}</div><div class="sub">Need review</div>`;
+    if(approvedMonthStat) approvedMonthStat.innerHTML = `<div class="lbl">Approved This Month</div><div class="val">${approvedThisMonth.length}</div>`;
+    if(issuedStat) issuedStat.innerHTML = `<div class="lbl">Total Issued</div><div class="val">${formatCurrency(totalIssued)}</div>`;
+    if(outstandingStat) outstandingStat.innerHTML = `<div class="lbl">Outstanding</div><div class="val">${formatCurrency(outstanding)}</div>`;
+
+    if(pending.length === 0){
+      pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No pending loan requests.</div>';
+    } else {
+      pendingEl.innerHTML = pending.map(l => `
+        <div class="appr-card">
+          <div class="top">
+            <div>
+              <div class="name">${l.landOwnerName || 'Land Owner'} <span class="b y" style="font-size:0.68rem;margin-left:4px;">Pending</span></div>
+              <div class="detail">${l.reason || 'Loan request'} · Applied ${l.requestDate || '—'}</div>
+            </div>
+            <div class="amount">${formatCurrency(l.loanAmount)}</div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-a btn-sm" onclick="showLoanPaymentModal(${l.loanId}, '${l.landOwnerName}', ${l.loanAmount})">✓ Approve</button>
+            <button class="btn btn-d btn-sm" onclick="rejectLoan(${l.loanId})">✗ Reject</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    if(approved.length === 0){
+      histEl.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:1rem;">No approved loans yet.</td></tr>';
+    } else {
+      histEl.innerHTML = approved.map(l => {
+        const cheque = chequesByLoanId[l.loanId];
+
+        const statusBadge = cheque && cheque.issueDate 
+          ? '<span class="b g">Issued</span>' 
+          : '<span class="b y">Approved</span>';
+        return `
+          <tr>
+            <td>${l.landOwnerName || '—'}</td>
+            <td>${formatCurrency(l.loanAmount)}</td>
+            <td>${formatShortDate(l.requestDate)}</td>
+            <td>${statusBadge}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+  } catch(e){
+    pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">⚠️ Cannot reach server.</div>';
+    histEl.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:1rem;">⚠️ Cannot reach server.</td></tr>';
+    console.warn('loadFactoryLoans:', e.message);
+  }
+}
+
+async function approveFert(requestId){
+  await updateFertStatus(requestId, 'Approved');
+}
+async function rejectFert(requestId){
+  await updateFertStatus(requestId, 'Rejected');
+}
+
+async function updateFertStatus(requestId, approvalStatus){
+  try {
+    const res = await fetch(`${API}/api/fertilizer/${requestId}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ approvalStatus })
+    });
+
+    const data = await res.json();
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Failed to update fertilizer request'), true);
+      return;
+    }
+
+    toast(approvalStatus === 'Approved'
+      ? '✓ Fertilizer request approved'
+      : '✓ Fertilizer request rejected');
+    await loadFactoryFertilizerRequests();
+    loadFactoryDashboardOverview();
+  } catch(e){
+    toast('❌ Network error while updating fertilizer request', true);
+    console.warn('updateFertStatus:', e.message);
+  }
+}
+
+function formatCurrency(n){
+  return 'Rs ' + Number(n || 0).toLocaleString();
+}
+
+function formatQty(n){
+  return Number(n || 0).toLocaleString() + ' kg';
+}
+
+async function loadFactoryFertilizerRequests(){
+  const pendingEl = document.getElementById('fert-pending');
+  const historyTb = document.getElementById('fert-history-tb');
+  if(!pendingEl || !historyTb) return;
+
+  if(!currentFactoryOwnerId){
+    pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No factory session found.</div>';
+    historyTb.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1rem;">No data.</td></tr>';
+    return;
+  }
+
+  pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading...</div>';
+  historyTb.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading...</td></tr>';
+
+  try {
+    const [pendingRes, allRes] = await Promise.all([
+      fetch(`${API}/api/fertilizer/pending/${currentFactoryOwnerId}`),
+      fetch(`${API}/api/fertilizer/factory/${currentFactoryOwnerId}`)
+    ]);
+
+    const pendingData = pendingRes.ok ? await pendingRes.json() : [];
+    const allData = allRes.ok ? await allRes.json() : [];
+
+    const pending = Array.isArray(pendingData) ? pendingData : [];
+    const all = Array.isArray(allData) ? allData : [];
+    const approved = all.filter(r => r.approvalStatus === 'Approved');
+
+    const approvedQty = approved.reduce((sum, r) => sum + Number(r.quantity || 0), 0);
+    const approvedCost = approved.reduce((sum, r) => sum + Number(r.cost || 0), 0);
+
+    const pendingStat = document.getElementById('fert-stat-pending');
+    const approvedStat = document.getElementById('fert-stat-approved');
+    const qtyStat = document.getElementById('fert-stat-qty');
+    const costStat = document.getElementById('fert-stat-cost');
+    if(pendingStat) pendingStat.textContent = String(pending.length);
+    if(approvedStat) approvedStat.textContent = String(approved.length);
+    if(qtyStat) qtyStat.textContent = formatQty(approvedQty);
+    if(costStat) costStat.textContent = formatCurrency(approvedCost);
+
+    if(pending.length === 0){
+      pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No pending fertilizer requests.</div>';
+    } else {
+      pendingEl.innerHTML = pending.map(r => `
+        <div class="appr-card">
+          <div class="top">
+            <div>
+              <div class="name">${r.landOwnerName || 'Land Owner'}<span class="b y" style="font-size:0.68rem;margin-left:6px;">Pending</span></div>
+              <div class="detail">${Number(r.quantity || 0)} kg ${r.fertilizerType || ''} · Total ${formatCurrency(r.cost)}</div>
+            </div>
+            <div class="amount" style="color:var(--tea);">${Number(r.quantity || 0)} kg</div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-a btn-sm" onclick="approveFert(${r.requestId})">✓ Approve</button>
+            <button class="btn btn-d btn-sm" onclick="rejectFert(${r.requestId})">✗ Reject</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    if(approved.length === 0){
+      historyTb.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1rem;">No approved requests yet.</td></tr>';
+    } else {
+      historyTb.innerHTML = approved
+        .slice()
+        .sort((a,b) => (b.requestId || 0) - (a.requestId || 0))
+        .map(r => `
+          <tr>
+            <td>Request #${r.requestId}</td>
+            <td>${r.landOwnerName || '—'}</td>
+            <td>${r.fertilizerType || '—'}</td>
+            <td>${formatQty(r.quantity)}</td>
+            <td>${formatCurrency(r.cost)}</td>
+            <td><span class="b g">Approved</span></td>
+          </tr>
+        `).join('');
+    }
+  } catch(e){
+    pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">⚠️ Cannot reach server.</div>';
+    historyTb.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1rem;">⚠️ Cannot reach server.</td></tr>';
+    console.warn('loadFactoryFertilizerRequests:', e.message);
+  }
+}
+
+async function approveOwner(btn, registrationId, ownerName){
+  if(!registrationId){
+    toast('Missing registration id for approval.', true);
+    return;
+  }
+
+  btn.disabled = true;
+  const oldText = btn.textContent;
+  btn.textContent = 'Approving...';
+
+  try {
+    const res = await fetch(`${API}/api/factories/registrations/${registrationId}/status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'Active' })
+    });
+
+    const data = await res.json();
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Approval failed'), true);
+      btn.disabled = false;
+      btn.textContent = oldText;
+      return;
+    }
+
+    const row = btn.closest('tr');
+    row.cells[6].innerHTML = '<span class="b g">Approved</span>';
+    row.cells[7].innerHTML = `<button class="btn btn-o btn-sm" onclick="toast('Viewing ${ownerName || 'owner'}')">View</button>`;
+    toast('✓ Land owner approved');
+  } catch(e){
+    toast('❌ Network error while approving', true);
+    btn.disabled = false;
+    btn.textContent = oldText;
+    console.warn('approveOwner:', e.message);
+  }
+}
+
+
+async function loadFactoryOwners(){
+  const tbody = document.getElementById('owners-tb');
+  if(!tbody) return;
+
+  if(!currentFactoryOwnerId){
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:1.5rem;">No factory session found. Please sign in again.</td></tr>';
+    updateLandOwnerStats([], []);
+    return;
+  }
+
+  tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:1.5rem;">⏳ Loading land owners…</td></tr>';
+
+  try {
+    const res = await fetch(`${API}/api/factories/owners/${currentFactoryOwnerId}`);
+    if(!res.ok){
+      let msg = `Could not load owners (${res.status})`;
+      try {
+        const err = await res.json();
+        if(err && err.message) msg = err.message;
+      } catch(_e) {}
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--danger);padding:1.5rem;">❌ ${msg}</td></tr>`;
+      updateLandOwnerStats([], []);
+      return;
+    }
+
+    const rows = await res.json();
+    if(!Array.isArray(rows) || rows.length === 0){
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:1.5rem;">No registered land owners yet.</td></tr>';
+      updateLandOwnerStats([], []);
+      return;
+    }
+
+    updateLandOwnerStats(rows, rows.filter(r => r.status === 'Active'));
+    tbody.innerHTML = rows
+      .slice()
+      .sort((a,b) => (a.landOwnerId || 0) - (b.landOwnerId || 0))
+      .map(r => {
+        const id = r.landOwnerId ? `LO-${String(r.landOwnerId).padStart(3,'0')}` : '—';
+        const name = r.landOwnerName || '—';
+        const nic = r.landOwnerNic || '—';
+        const landSize = (r.landSize ?? '—') !== '—' ? Number(r.landSize).toFixed(2) : '—';
+        const status = r.status || 'Pending';
+        const statusLabel = status === 'Active' ? 'Approved' : status;
+        const statusClass = status === 'Active' ? 'g' : (status === 'Rejected' ? 'r' : 'y');
+        const safeName = String(name).replace(/'/g, "\\'");
+        const action = status === 'Pending' && r.registrationId
+          ? `<button class="btn btn-a btn-sm" onclick="approveOwner(this, ${r.registrationId}, '${safeName}')">Approve</button>`
+          : `<button class="btn btn-o btn-sm" onclick="viewLandOwnerDetails(${r.landOwnerId}, '${safeName}')">View</button>`;
+
+        return `<tr>
+          <td>${id}</td>
+          <td>${name}</td>
+          <td>${nic}</td>
+          <td>${landSize}</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="b ${statusClass}">${statusLabel}</span></td>
+          <td>${action}</td>
+        </tr>`;
+      }).join('');
+  } catch(e){
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:1.5rem;">⚠️ Cannot reach server.</td></tr>';
+    updateLandOwnerStats([], []);
+    console.warn('loadFactoryOwners:', e.message);
+  }
+}
+
+
+function updateLandOwnerStats(allRows, activeRows){
+  const totalEl = document.getElementById('stat-total-registered');
+  const activeEl = document.getElementById('stat-active-owners');
+  const pendingEl = document.getElementById('stat-pending-approval');
+  const landEl = document.getElementById('stat-total-land');
+  
+  if(!totalEl || !activeEl || !pendingEl || !landEl) return;
+  
+  const totalRegistered = allRows.length;
+  const activeCount = activeRows.length;
+  const pendingCount = allRows.filter(r => r.status === 'Pending').length;
+  const totalLand = allRows.reduce((sum, r) => sum + (parseFloat(r.landSize) || 0), 0);
+  
+  totalEl.textContent = totalRegistered.toLocaleString();
+  activeEl.textContent = activeCount.toLocaleString();
+  pendingEl.textContent = pendingCount.toLocaleString();
+  landEl.textContent = totalLand.toFixed(2) + ' ac';
+}
+
+async function loadFactoryPayments(){
+  const tbody = document.getElementById('pay-tb');
+  if(!tbody) return;
+
+  if(!currentFactoryOwnerId){
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem;">No factory session found.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem;">⏳ Loading payment data…</td></tr>';
+
+  try {
+    const res = await fetch(`${API}/api/payments/factory/${currentFactoryOwnerId}/summary`);
+    
+    if(!res.ok){
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--danger);padding:1.5rem;">❌ Could not load payment data</td></tr>';
+      return;
+    }
+
+    const data = await res.json();
+    
+  
+    const totalStat = document.getElementById('pay-stat-total');
+    const deductionsStat = document.getElementById('pay-stat-deductions');
+    const netStat = document.getElementById('pay-stat-net');
+    const doneStat = document.getElementById('pay-stat-done');
+    
+    if(totalStat) totalStat.textContent = formatCurrency(data.totalPayable || 0);
+    if(deductionsStat) deductionsStat.textContent = formatCurrency(data.totalDeductions || 0);
+    if(netStat) netStat.textContent = formatCurrency(data.netDisbursable || 0);
+    if(doneStat) doneStat.textContent = `${data.paymentsDone || 0} / ${data.totalLandOwners || 0}`;
+    
+   
+    const summariesRes = await fetch(`${API}/api/payments/factory/${currentFactoryOwnerId}`);
+    const summaries = summariesRes.ok ? await summariesRes.json() : [];
+    
+    if(!Array.isArray(summaries) || summaries.length === 0){
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem;">No payment data available.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = summaries.map(s => {
+      const statusClass = s.status === 'Processed' || s.status === 'Approved' ? 'g' : 'y';
+      const action = (s.status === 'Processed' || s.status === 'Approved') ? '—' : `<button class="btn btn-a btn-sm" onclick="showPaymentMethodModal(this, '${s.landOwnerName}', ${s.netAmount})">Select Payment</button>`;
+      return `<tr>
+        <td>${s.landOwnerName || '—'}</td>
+        <td>${formatCurrency(s.grossAmount)}</td>
+        <td>${formatCurrency(s.deductionsAmount)}</td>
+        <td>${formatCurrency(s.netAmount)}</td>
+        <td><span class="b ${statusClass}">${s.status || '—'}</span></td>
+        <td>${action}</td>
+      </tr>`;
+    }).join('');
+  } catch(e){
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1.5rem;">⚠️ Cannot reach server.</td></tr>';
+    console.warn('loadFactoryPayments:', e.message);
+  }
+}
+
+
+let currentPaymentContext = {
+  landOwnerName: '',
+  netAmount: 0,
+  button: null
+};
+
+function showPaymentMethodModal(btn, landOwnerName, netAmount){
+  currentPaymentContext = { landOwnerName, netAmount, button: btn };
+  document.getElementById('payment-select-owner').textContent = landOwnerName;
+  document.getElementById('payment-select-amount').textContent = formatCurrency(netAmount);
+  openM('m-payment-select');
+}
+
+function closePaymentMethodModal(){
+  currentPaymentContext = { landOwnerName: '', netAmount: 0, button: null };
+  closeM('m-payment-select');
+}
+
+async function processPaymentOnline(){
+  const { button } = currentPaymentContext;
+  if(!button){
+    toast('❌ Invalid payment context', true);
+    return;
+  }
+
+
+  const row = button.closest('tr');
+  row.cells[4].innerHTML = '<span class="b g">Issued</span>';
+  row.cells[5].innerHTML = '—';
+  toast('✓ Payment issued (online)');
+  closePaymentMethodModal();
+}
+
+async function processPaymentCheque(){
+  const { button } = currentPaymentContext;
+  if(!button){
+    toast('❌ Invalid payment context', true);
+    return;
+  }
+
+
+  const row = button.closest('tr');
+  row.cells[4].innerHTML = '<span class="b g">Approved</span>';
+  row.cells[5].innerHTML = '—';
+  toast('✓ Payment approved for cheque');
+  closePaymentMethodModal();
+}
+
+async function markChequeDelivered(chequeId){
+  try {
+    const res = await fetch(`${API}/api/cheques/${chequeId}/delivery-status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'Delivered' })
+    });
+
+    const data = await res.json();
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Failed to update cheque status'), true);
+      return;
+    }
+
+    toast('✓ Cheque marked as delivered');
+    await loadFactoryCheques();
+  } catch(e){
+    toast('❌ Network error while updating cheque status', true);
+    console.warn('markChequeDelivered:', e.message);
+  }
+}
+
+function factoryChequeStatusBadge(cheque){
+  const delivery = cheque.deliveryStatus;
+  const verification = cheque.verificationStatus;
+  const issueDate = cheque.issueDate;
+
+  if(verification === 'Verified') return '<span class="b g">Verified</span>';
+  if(delivery === 'Delivered' && verification === 'Pending') return '<span class="b bl">Pending Verify</span>';
+  if(issueDate && delivery === 'In_Transit') return '<span class="b sage">Issued</span>'; // Cheque issued (has issueDate)
+  if(delivery === 'Pending' && !issueDate) return '<span class="b y">Approved</span>'; // Awaiting issue
+  if(delivery === 'In_Transit') return '<span class="b g">In Transit</span>';
+  if(delivery === 'Delivered') return '<span class="b bl">Delivered</span>';
+  if(delivery === 'Returned') return '<span class="b r">Returned</span>';
+  return `<span class="b">${delivery || 'Pending'}</span>`;
+}
+
+async function loadFactoryCheques(){
+  const tbody = document.getElementById('cheq-tb');
+  if(!tbody) return;
+
+  if(!currentFactoryOwnerId){
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:1rem;">No factory session found.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading cheques...</td></tr>';
+
+  try {
+    const res = await fetch(`${API}/api/cheques/factory/${currentFactoryOwnerId}`);
+    const raw = res.ok ? await res.json() : [];
+    const cheques = Array.isArray(raw) ? raw : [];
+    const sorted = cheques.slice().sort((a,b) => (b.chequeId || 0) - (a.chequeId || 0));
+
+    const pending = sorted.filter(c => c.deliveryStatus === 'Pending').length;
+    const toVerify = sorted.filter(c => c.deliveryStatus === 'Delivered' && c.verificationStatus === 'Pending').length;
+    const verified = sorted.filter(c => c.verificationStatus === 'Verified').length;
+    const totalValue = sorted.reduce((sum, c) => sum + Number(c.loanAmount || 0), 0);
+
+    const statPending = document.getElementById('cheq-stat-pending');
+    const statTransit = document.getElementById('cheq-stat-transit');
+    const statVerified = document.getElementById('cheq-stat-verified');
+    const statValue = document.getElementById('cheq-stat-value');
+
+    if(statPending) statPending.innerHTML = `<div class="lbl">Pending Delivery</div><div class="val">${pending}</div>`;
+    if(statTransit) statTransit.innerHTML = `<div class="lbl">To Verify</div><div class="val">${toVerify}</div>`;
+    if(statVerified) statVerified.innerHTML = `<div class="lbl">Verified</div><div class="val">${verified}</div>`;
+    if(statValue) statValue.innerHTML = `<div class="lbl">Total Value</div><div class="val">Rs ${totalValue.toLocaleString()}</div>`;
+
+    if(sorted.length === 0){
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:1rem;">No cheque records yet.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = sorted.map(c => {
+      const issueDate = c.issueDate || '—';
+
+      return `<tr>
+        <td>CHQ-${String(c.chequeId).padStart(4,'0')}</td>
+        <td>${c.landOwnerName || '—'}</td>
+        <td>Rs ${Number(c.loanAmount || 0).toLocaleString()}</td>
+        <td>${c.supervisorName || '—'}</td>
+        <td>${issueDate}</td>
+        <td>${factoryChequeStatusBadge(c)}</td>
+        <td>—</td>
+      </tr>`;
+    }).join('');
+  } catch(e){
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:1rem;">⚠️ Cannot reach server.</td></tr>';
+    console.warn('loadFactoryCheques:', e.message);
+  }
+}
+
+async function issueCheque(){
+  const loanId = parseInt(document.getElementById('cq-loan').value, 10);
+
+  if(!Number.isFinite(loanId)){
+    toast('Please select approved loan.', true);
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API}/api/cheques`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ loanId })
+    });
+
+    const data = await res.json();
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Failed to issue cheque'), true);
+      return;
+    }
+
+    closeM('m-cheque');
+    await loadChequeIssueOptions();
+    toast('✓ Cheque issued successfully');
+    await loadFactoryCheques();
+    loadFactoryDashboardOverview();
+  } catch(e){
+    toast('❌ Network error while issuing cheque', true);
+    console.warn('issueCheque:', e.message);
+  }
+}
+
+async function issueChequeAction(chequeId){
+  if(!chequeId || chequeId <= 0){
+    toast('Invalid cheque ID', true);
+    return;
+  }
+
+  try {
+   
+    const res = await fetch(`${API}/api/cheques/${chequeId}/issue`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    const data = await res.json();
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Failed to issue cheque'), true);
+      return;
+    }
+
+    
+    const statusRes = await fetch(`${API}/api/cheques/${chequeId}/delivery-status`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'In_Transit' })
+    });
+
+    const statusData = await statusRes.json();
+    if(!statusRes.ok){
+      toast('❌ ' + (statusData.message || 'Failed to update cheque status'), true);
+      return;
+    }
+
+    toast('✓ Cheque issued and set to In Transit');
+    await loadFactoryCheques();
+    loadFactoryDashboardOverview();
+  } catch(e){
+    toast('❌ Network error while issuing cheque', true);
+    console.warn('issueChequeAction:', e.message);
+  }
+}
+
+async function loadChequeIssueOptions(){
+  const facSel = document.getElementById('cq-factory');
+  const loanSel = document.getElementById('cq-loan');
+  if(!facSel || !loanSel) return;
+
+  facSel.innerHTML = `<option value="${currentFactoryOwnerId || ''}">${currentFactoryName || 'Factory'}</option>`;
+
+  loanSel.innerHTML = '<option value="">Loading approved loans...</option>';
+
+  if(!currentFactoryOwnerId){
+    loanSel.innerHTML = '<option value="">No factory session</option>';
+    return;
+  }
+
+  try {
+    const [loanRes, cheqRes] = await Promise.all([
+      fetch(`${API}/api/loans/factory/${currentFactoryOwnerId}`),
+      fetch(`${API}/api/cheques/factory/${currentFactoryOwnerId}`)
+    ]);
+
+    const loanRaw = loanRes.ok ? await loanRes.json() : [];
+    const cheqRaw = cheqRes.ok ? await cheqRes.json() : [];
+
+    const loans = Array.isArray(loanRaw) ? loanRaw : [];
+    const cheques = Array.isArray(cheqRaw) ? cheqRaw : [];
+
+    const issuedLoanIds = new Set(cheques.map(c => Number(c.loanId)));
+    const approvedUnissued = loans
+      .filter(l => l.approvalStatus === 'Approved' && !issuedLoanIds.has(Number(l.loanId)))
+      .sort((a,b) => new Date(b.requestDate) - new Date(a.requestDate));
+
+    if(approvedUnissued.length === 0){
+      loanSel.innerHTML = '<option value="">No approved loans available</option>';
+    } else {
+      loanSel.innerHTML = '<option value="">-- Select Approved Loan --</option>';
+      approvedUnissued.forEach(l => {
+        const opt = document.createElement('option');
+        opt.value = l.loanId;
+        opt.textContent = `${l.landOwnerName || 'Land Owner'} - Rs ${Number(l.loanAmount || 0).toLocaleString()} (${l.requestDate || '—'})`;
+        loanSel.appendChild(opt);
+      });
+    }
+
+  } catch(e){
+    loanSel.innerHTML = '<option value="">Cannot load loans</option>';
+    console.warn('loadChequeIssueOptions:', e.message);
+  }
+}
+
+function formatCurrency(value){
+  const n = Number(value || 0);
+  return 'Rs ' + n.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+}
+
+function initFactoryBillControls(){
+  const monthSel = document.getElementById('rep-month');
+  const yearInput = document.getElementById('rep-year');
+  if(!monthSel || !yearInput) return;
+
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  monthSel.innerHTML = monthNames
+    .map((name, i) => `<option value="${i + 1}">${name}</option>`)
+    .join('');
+
+  const now = new Date();
+  monthSel.value = String(now.getMonth() + 1);
+  yearInput.value = String(now.getFullYear());
+}
+
+async function loadFactoryBillOwners(){
+  const ownerSel = document.getElementById('rep-owner');
+  const incOwnerSel = document.getElementById('rep-inc-owner');
+  if(!ownerSel) return;
+
+  ownerSel.innerHTML = '<option value="ALL">All Active Land Owners</option>';
+  if(incOwnerSel) incOwnerSel.innerHTML = '<option value="">Select owner</option>';
+
+  if(!currentFactoryOwnerId) return;
+
+  try {
+    const res = await fetch(`${API}/api/factories/active-owners/${currentFactoryOwnerId}`);
+    if(!res.ok) return;
+
+    const owners = await res.json();
+    if(!Array.isArray(owners)) return;
+
+    owners.forEach(o => {
+      const opt = document.createElement('option');
+      opt.value = String(o.landOwnerId);
+      opt.textContent = o.landOwnerName || (`Land Owner #${o.landOwnerId}`);
+      ownerSel.appendChild(opt);
+
+      if(incOwnerSel){
+        const incOpt = document.createElement('option');
+        incOpt.value = String(o.landOwnerId);
+        incOpt.textContent = opt.textContent;
+        incOwnerSel.appendChild(incOpt);
+      }
+    });
+  } catch(e){
+    console.warn('loadFactoryBillOwners:', e.message);
+  }
+}
+
+function initFactoryIncomeStatementControls(){
+  const monthSel = document.getElementById('rep-inc-end-month');
+  const yearInput = document.getElementById('rep-inc-end-year');
+  if(!monthSel || !yearInput) return;
+
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  monthSel.innerHTML = monthNames
+    .map((name, i) => `<option value="${i + 1}">${name}</option>`)
+    .join('');
+
+  const now = new Date();
+  monthSel.value = String(now.getMonth() + 1);
+  yearInput.value = String(now.getFullYear());
+}
+
+let factoryIncomeStatementCache = null;
+let factoryBillHistoryCache = [];
+
+async function generateFactoryIncomeStatement(){
+  const ownerId = parseInt(document.getElementById('rep-inc-owner').value, 10);
+  const months = parseInt(document.getElementById('rep-inc-per').value, 10);
+  const endMonth = parseInt(document.getElementById('rep-inc-end-month').value, 10);
+  const endYear = parseInt(document.getElementById('rep-inc-end-year').value, 10);
+
+  if(!currentFactoryOwnerId){ toast('Please sign in again.', true); return; }
+  if(!Number.isFinite(ownerId)){ toast('Select a land owner.', true); return; }
+  if(!Number.isFinite(months) || months < 1){ toast('Select a valid period.', true); return; }
+  if(!Number.isFinite(endMonth) || endMonth < 1 || endMonth > 12){ toast('Select a valid ending month.', true); return; }
+  if(!Number.isFinite(endYear) || endYear < 2000 || endYear > 3000){ toast('Enter a valid ending year.', true); return; }
+
+  try {
+    const url = `${API}/api/bills/statement/factory/${currentFactoryOwnerId}/owner/${ownerId}?months=${months}&endMonth=${endMonth}&endYear=${endYear}`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Failed to generate income statement'), true);
+      return;
+    }
+
+    renderFactoryIncomeStatement(data);
+    toast('✓ Income statement generated');
+  } catch(e){
+    toast('❌ Cannot reach server.', true);
+  }
+}
+
+function renderFactoryIncomeStatement(stmt){
+  factoryIncomeStatementCache = stmt;
+  const summary = document.getElementById('rep-summary');
+  if(!summary) return;
+
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const rows = Array.isArray(stmt.months) ? stmt.months : [];
+
+  summary.innerHTML = `
+    <div style="font-weight:600;color:var(--text);margin-bottom:0.4rem;">${stmt.periodMonths}-Month Income Statement - ${stmt.landOwnerName || '-'}</div>
+    <div style="display:flex;flex-direction:column;gap:0.25rem;margin-bottom:0.5rem;">
+      ${rows.map(m => `<div style="display:flex;justify-content:space-between;"><span>${monthNames[(m.month || 1) - 1]} ${m.year}</span><strong>${formatCurrency(m.netPayable)}</strong></div>`).join('')}
+    </div>
+    <div style="border-top:1px solid var(--cream-dark);padding-top:0.4rem;display:flex;flex-direction:column;gap:0.2rem;">
+      <div style="display:flex;justify-content:space-between;"><span>Total Earnings</span><strong>${formatCurrency(stmt.totalEarnings)}</strong></div>
+      <div style="display:flex;justify-content:space-between;"><span>Total Deductions</span><strong>${formatCurrency(stmt.totalDeductions)}</strong></div>
+      <div style="display:flex;justify-content:space-between;font-weight:700;color:var(--text);"><span>Total Net Payable</span><strong>${formatCurrency(stmt.totalNetPayable)}</strong></div>
+    </div>
+    <div style="margin-top:0.5rem;font-size:0.76rem;color:var(--muted);">Generated on: ${stmt.generatedDate || '-'}</div>
+    <button class="btn btn-o btn-sm" style="margin-top:0.6rem;" onclick="exportFactoryIncomeStatementPDF()">⬇ Export PDF</button>
+  `;
+  summary.style.display = 'block';
+}
+
+function exportFactoryIncomeStatementPDF(){
+  const stmt = factoryIncomeStatementCache;
+  if(!stmt){
+    toast('Generate an income statement first.', true);
+    return;
+  }
+
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const rows = Array.isArray(stmt.months) ? stmt.months : [];
+  const rowsHtml = rows
+    .map(m => `<tr><td>${monthNames[(m.month || 1) - 1]} ${m.year}</td><td style="text-align:right;">${formatCurrency(m.totalEarnings)}</td><td style="text-align:right;">${formatCurrency(m.totalDeductions)}</td><td style="text-align:right;">${formatCurrency(m.netPayable)}</td></tr>`)
+    .join('');
+
+  const html = `
+    <html>
+      <head>
+        <title>Factory Income Statement</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 24px; color: #1a2e24; }
+          h1 { margin: 0 0 8px 0; font-size: 22px; }
+          .meta { margin-bottom: 16px; color: #5a6b61; font-size: 13px; }
+          table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+          th, td { border: 1px solid #d9d9d9; padding: 8px; font-size: 13px; }
+          th { background: #f4f4f4; text-align: left; }
+          .totals { margin-top: 16px; width: 320px; margin-left: auto; }
+          .totals div { display: flex; justify-content: space-between; padding: 3px 0; }
+          .final { font-weight: 700; border-top: 1px solid #ccc; margin-top: 6px; padding-top: 6px; }
+        </style>
+      </head>
+      <body>
+        <h1>${stmt.periodMonths}-Month Income Statement</h1>
+        <div class="meta">Land Owner: ${stmt.landOwnerName || '-'} | Generated: ${stmt.generatedDate || '-'}</div>
+        <table>
+          <thead>
+            <tr><th>Month</th><th style="text-align:right;">Earnings</th><th style="text-align:right;">Deductions</th><th style="text-align:right;">Net Payable</th></tr>
+          </thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+        <div class="totals">
+          <div><span>Total Earnings</span><strong>${formatCurrency(stmt.totalEarnings)}</strong></div>
+          <div><span>Total Deductions</span><strong>${formatCurrency(stmt.totalDeductions)}</strong></div>
+          <div class="final"><span>Total Net Payable</span><strong>${formatCurrency(stmt.totalNetPayable)}</strong></div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  const printWindow = window.open('', '_blank');
+  if(!printWindow){
+    toast('Please allow popups to export PDF.', true);
+    return;
+  }
+  printWindow.document.open();
+  printWindow.document.write(html);
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+}
+
+async function generateFactoryBills(){
+  const ownerSel = document.getElementById('rep-owner');
+  const month = parseInt(document.getElementById('rep-month').value, 10);
+  const year = parseInt(document.getElementById('rep-year').value, 10);
+  const ownerId = ownerSel ? ownerSel.value : 'ALL';
+
+  if(!currentFactoryOwnerId){ toast('Please sign in again.', true); return; }
+  if(!Number.isFinite(month) || month < 1 || month > 12){ toast('Select a valid month.', true); return; }
+  if(!Number.isFinite(year) || year < 2000 || year > 3000){ toast('Enter a valid year.', true); return; }
+
+  let endpoint;
+  if(ownerId === 'ALL') {
+    endpoint = `${API}/api/bills/factory/${currentFactoryOwnerId}/generate?month=${month}&year=${year}`;
+  } else {
+    endpoint = `${API}/api/bills/factory/${currentFactoryOwnerId}/generate/${ownerId}?month=${month}&year=${year}`;
+  }
+
+  try {
+    const res = await fetch(endpoint, { method: 'POST' });
+    const data = await res.json();
+
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Failed to generate monthly bill(s)'), true);
+      return;
+    }
+
+    const count = Array.isArray(data) ? data.length : 1;
+    document.getElementById('rep-summary').innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:0.3rem;">
+        <div><strong>Generation completed</strong></div>
+        <div>Period: ${month}/${year}</div>
+        <div>Bills generated: ${count}</div>
+      </div>
+    `;
+
+    await loadFactoryBillHistory();
+    toast('✓ Monthly bill generation completed');
+  } catch(e){
+    toast('❌ Cannot reach server.', true);
+  }
+}
+
+async function loadFactoryBillHistory(){
+  const tbody = document.getElementById('factory-bills-tbody');
+  if(!tbody) return;
+
+  if(!currentFactoryOwnerId){
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1rem;">Please sign in again.</td></tr>';
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API}/api/bills/factory/${currentFactoryOwnerId}`);
+    const list = res.ok ? await res.json() : [];
+
+    if(!Array.isArray(list) || list.length === 0){
+      factoryBillHistoryCache = [];
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1rem;">No monthly bills generated yet.</td></tr>';
+      return;
+    }
+
+    const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    factoryBillHistoryCache = list
+      .slice()
+      .sort((a,b) => (b.year - a.year) || (b.month - a.month) || String(a.landOwnerName).localeCompare(String(b.landOwnerName)));
+
+    tbody.innerHTML = factoryBillHistoryCache.map((b, idx) => `
+      <tr>
+        <td>Monthly Bill</td>
+        <td>${b.landOwnerName || '-'}</td>
+        <td>${monthNames[(b.month || 1) - 1]} ${b.year}</td>
+        <td>${b.generatedDate || '-'}</td>
+        <td><strong>${formatCurrency(b.netPayable)}</strong></td>
+        <td><button class="btn btn-o btn-sm" onclick="exportFactoryMonthlyBillPDF(${idx})">⬇ PDF</button></td>
+      </tr>
+    `).join('');
+  } catch(e){
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:1rem;">⚠️ Cannot load bill history.</td></tr>';
+  }
+}
+
+function exportFactoryMonthlyBillPDF(index){
+  const bill = factoryBillHistoryCache[index];
+  if(!bill){
+    toast('Monthly bill not found.', true);
+    return;
+  }
+
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const period = `${monthNames[(bill.month || 1) - 1]} ${bill.year}`;
+
+  const html = `
+    <html>
+      <head>
+        <title>Monthly Bill</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 24px; color: #1a2e24; }
+          h1 { margin: 0 0 8px 0; font-size: 22px; }
+          .meta { margin-bottom: 16px; color: #5a6b61; font-size: 13px; }
+          .box { border: 1px solid #d9d9d9; border-radius: 8px; padding: 14px; }
+          .row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
+          .emph { font-weight: 700; border-top: 1px solid #ccc; margin-top: 8px; padding-top: 8px; }
+        </style>
+      </head>
+      <body>
+        <h1>Monthly Bill</h1>
+        <div class="meta">Land Owner: ${bill.landOwnerName || '-'} | Period: ${period} | Generated: ${bill.generatedDate || '-'}</div>
+        <div class="box">
+          <div class="row"><span>Gross Earnings</span><strong>${formatCurrency(bill.totalEarnings)}</strong></div>
+          <div class="row"><span>Delivery Deductions</span><strong>${formatCurrency(bill.deliveryDeductions || 0)}</strong></div>
+          <div class="row"><span>Loan / Advance Deductions</span><strong>${formatCurrency(bill.loanDeductions)}</strong></div>
+          <div class="row"><span>Fertilizer Deductions</span><strong>${formatCurrency(bill.fertilizerDeductions)}</strong></div>
+          <div class="row"><span>Total Deductions</span><strong>${formatCurrency(bill.totalDeductions)}</strong></div>
+          <div class="row emph"><span>Net Payable</span><strong>${formatCurrency(bill.netPayable)}</strong></div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  const printWindow = window.open('', '_blank');
+  if(!printWindow){
+    toast('Please allow popups to export PDF.', true);
+    return;
+  }
+  printWindow.document.open();
+  printWindow.document.write(html);
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+}
+
+async function sendComplaintResponse(complaintId, inputId){
+  const input = document.getElementById(inputId);
+  const responseText = input ? input.value.trim() : '';
+  if(!responseText){
+    toast('Please type a response.', true);
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API}/api/complaints/${complaintId}/response`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ responseText, status: 'Resolved' })
+    });
+
+    const data = await res.json();
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Failed to send response'), true);
+      return;
+    }
+
+    toast('✓ Response sent to land owner');
+    await loadFactoryComplaints();
+    loadFactoryDashboardOverview();
+  } catch(e){
+    toast('❌ Network error while sending response', true);
+    console.warn('sendComplaintResponse:', e.message);
+  }
+}
+
+async function loadFactoryComplaints(){
+  const pendingEl = document.getElementById('comp-pending-list');
+  const resolvedEl = document.getElementById('comp-resolved-list');
+  if(!pendingEl || !resolvedEl) return;
+
+  if(!currentFactoryOwnerId){
+    pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No factory session found.</div>';
+    resolvedEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No factory session found.</div>';
+    return;
+  }
+
+  pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading...</div>';
+  resolvedEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">⏳ Loading...</div>';
+
+  try {
+    const [pendingRes, allRes] = await Promise.all([
+      fetch(`${API}/api/complaints/pending/${currentFactoryOwnerId}`),
+      fetch(`${API}/api/complaints/factory/${currentFactoryOwnerId}`)
+    ]);
+
+    const pendingData = pendingRes.ok ? await pendingRes.json() : [];
+    const allData = allRes.ok ? await allRes.json() : [];
+    const pending = Array.isArray(pendingData) ? pendingData : [];
+    const all = Array.isArray(allData) ? allData : [];
+    const resolved = all.filter(c => c.status === 'Resolved');
+
+    const openStat = document.getElementById('comp-stat-open');
+    const resolvedStat = document.getElementById('comp-stat-resolved');
+    const totalStat = document.getElementById('comp-stat-total');
+    if(openStat) openStat.textContent = String(pending.length);
+    if(resolvedStat) resolvedStat.textContent = String(resolved.length);
+    if(totalStat) totalStat.textContent = String(all.length);
+
+    if(pending.length === 0){
+      pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No open complaints.</div>';
+    } else {
+      pendingEl.innerHTML = pending
+        .slice()
+        .sort((a,b) => (b.complaintId || 0) - (a.complaintId || 0))
+        .map(c => {
+          const lines = String(c.complaintText || '').split('\n');
+          const subject = lines[0] || 'Complaint';
+          const detail = lines.slice(1).join(' ').trim() || '';
+          const inputId = `resp-${c.complaintId}`;
+          return `<div style="background:rgba(200,168,75,0.07);border:1px solid rgba(200,168,75,0.18);border-radius:14px;padding:1.2rem;margin-bottom:0.9rem;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.7rem;">
+              <div><div style="color:var(--text);font-weight:600;">${c.landOwnerName || 'Land Owner'} <span class="b y" style="font-size:0.68rem;margin-left:6px;">Open</span></div><div style="font-size:0.8rem;color:var(--muted);margin-top:2px;">${subject} · ${c.dateSubmitted || '—'}</div></div>
+            </div>
+            ${detail ? `<div style="font-size:0.85rem;color:var(--muted);margin-bottom:0.8rem;">${detail}</div>` : ''}
+            <div class="fg"><input type="text" placeholder="Type your response..." id="${inputId}"></div>
+            <button class="btn btn-p btn-sm" onclick="sendComplaintResponse(${c.complaintId}, '${inputId}')">📨 Send Response</button>
+          </div>`;
+        }).join('');
+    }
+
+    if(resolved.length === 0){
+      resolvedEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No resolved complaints yet.</div>';
+    } else {
+      resolvedEl.innerHTML = resolved
+        .slice()
+        .sort((a,b) => (b.complaintId || 0) - (a.complaintId || 0))
+        .map(c => {
+          const lines = String(c.complaintText || '').split('\n');
+          const subject = lines[0] || 'Complaint';
+          return `<div style="opacity:0.85;border:1px solid var(--cream-dark);border-radius:14px;padding:1.2rem;margin-bottom:0.7rem;">
+            <div style="color:var(--text);font-weight:600;">${c.landOwnerName || 'Land Owner'} <span class="b g" style="font-size:0.68rem;margin-left:6px;">Resolved</span></div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-top:2px;">${subject} · ${c.dateSubmitted || '—'}</div>
+            <div style="margin-top:6px;font-size:0.82rem;color:var(--muted);background:var(--cream);padding:0.45rem 0.7rem;border-radius:8px;"><strong>Factory response:</strong> ${c.responseText || 'Resolved'}</div>
+          </div>`;
+        }).join('');
+    }
+  } catch(e){
+    pendingEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">⚠️ Cannot reach server.</div>';
+    resolvedEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">⚠️ Cannot reach server.</div>';
+    console.warn('loadFactoryComplaints:', e.message);
+  }
 }
 
 function sendResp(inputId,btn){
-  const val=document.getElementById(inputId).value;
-  if(!val){toast('Please type a response.',true);return;}
-  const card=btn.closest('[style]');
-  card.querySelector('.b.y').className='b g';card.querySelector('.b.g').textContent='Resolved';
-  const resp=document.createElement('div');
-  resp.style.cssText='background:rgba(61,107,79,0.15);padding:0.6rem 0.85rem;border-radius:9px;font-size:0.82rem;color:var(--muted);margin-top:0.5rem;';
-  resp.innerHTML=`<strong>Your response:</strong> ${val}`;
-  btn.parentNode.replaceChild(resp,btn);
-  document.getElementById(inputId).style.display='none';
-  toast('✓ Response sent to land owner');
+  toast('This handler is deprecated. Please use the live complaint cards.', true);
+}
+
+function toNumber(value){
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function parseSafeDate(value){
+  if(!value) return null;
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function isSameMonth(dateObj, ref){
+  return dateObj && dateObj.getFullYear() === ref.getFullYear() && dateObj.getMonth() === ref.getMonth();
+}
+
+function monthKey(dateObj){
+  return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function compactCurrency(value){
+  const amount = toNumber(value);
+  if(amount >= 1000000) return `Rs ${(amount / 1000000).toFixed(2)}M`;
+  if(amount >= 1000) return `Rs ${Math.round(amount / 1000)}k`;
+  return `Rs ${Math.round(amount).toLocaleString('en-IN')}`;
+}
+
+function fetchArrayOrEmpty(url){
+  return fetch(url)
+    .then(res => (res.ok ? res.json() : []))
+    .then(data => (Array.isArray(data) ? data : []))
+    .catch(() => []);
+}
+
+function agoLabel(dateObj){
+  if(!dateObj) return '-';
+  const diffMs = Math.max(0, Date.now() - dateObj.getTime());
+  const mins = Math.floor(diffMs / 60000);
+  if(mins < 60) return mins <= 1 ? 'just now' : `${mins} mins ago`;
+  const hours = Math.floor(mins / 60);
+  if(hours < 24) return hours === 1 ? '1 hour ago' : `${hours} hours ago`;
+  const days = Math.floor(hours / 24);
+  if(days < 7) return days === 1 ? '1 day ago' : `${days} days ago`;
+  return dateObj.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: '2-digit' });
+}
+
+function renderFactoryRecentActivity(items){
+  const host = document.getElementById('dash-recent-activity');
+  if(!host) return;
+
+  if(!items.length){
+    host.innerHTML = '<div class="ai"><div class="adot b">i</div><div class="at"><div class="am">No recent records yet</div><div class="ti">Activity will appear here</div></div></div>';
+    return;
+  }
+
+  host.innerHTML = items.slice(0, 5).map(a => `
+    <div class="ai">
+      <div class="adot ${a.dotClass}">${a.icon}</div>
+      <div class="at">
+        <div class="am">${a.message}</div>
+        <div class="ti">${agoLabel(a.when)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderDashPendingLoans(pending){
+  const host = document.getElementById('dash-pending-loan-list');
+  if(!host) return;
+
+  if(!pending.length){
+    host.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No pending loan requests.</div>';
+    return;
+  }
+
+  const cards = pending.slice(0, 3).map(l => `
+    <div style="background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.2);border-radius:11px;padding:0.9rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="color:var(--text);font-weight:600;font-size:0.85rem;">${l.landOwnerName || 'Land Owner'}</div><div style="color:var(--muted);font-size:0.75rem;">${l.reason || 'Loan request'}</div></div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--amber);">${formatCurrency(l.loanAmount)}</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;margin-top:0.7rem;">
+        <button class="btn btn-a btn-sm" onclick="approveLoan(${l.loanId})">✓ Approve</button>
+        <button class="btn btn-d btn-sm" onclick="rejectLoan(${l.loanId})">✗ Reject</button>
+      </div>
+    </div>
+  `).join('');
+
+  host.innerHTML = `${cards}<div style="text-align:center;"><button class="btn btn-o btn-sm" onclick="nav('loans',null)">View All ${pending.length} -></button></div>`;
+}
+
+function renderDashPendingFertilizer(pending){
+  const host = document.getElementById('dash-pending-fert-list');
+  if(!host) return;
+
+  if(!pending.length){
+    host.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No pending fertilizer requests.</div>';
+    return;
+  }
+
+  const cards = pending.slice(0, 3).map(r => `
+    <div style="background:rgba(61,107,79,0.1);border:1px solid rgba(61,107,79,0.2);border-radius:11px;padding:0.9rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="color:var(--text);font-weight:600;font-size:0.85rem;">${r.landOwnerName || 'Land Owner'}</div><div style="color:var(--muted);font-size:0.75rem;">${toNumber(r.quantity).toLocaleString('en-IN')} kg - ${r.fertilizerType || '-'}</div></div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--tea);">${formatCurrency(r.cost)}</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;margin-top:0.7rem;">
+        <button class="btn btn-a btn-sm" onclick="approveFert(${r.requestId})">✓ Approve</button>
+        <button class="btn btn-d btn-sm" onclick="rejectFert(${r.requestId})">✗ Reject</button>
+      </div>
+    </div>
+  `).join('');
+
+  host.innerHTML = `${cards}<div style="text-align:center;"><button class="btn btn-o btn-sm" onclick="nav('fertilizer',null)">View All ${pending.length} -></button></div>`;
+}
+
+function renderDashTopDeliverers(deliveries, now){
+  const host = document.getElementById('dash-top-deliverers');
+  if(!host) return;
+
+  const byOwner = new Map();
+  deliveries.forEach(d => {
+    const dDate = parseSafeDate(d.deliveryDate);
+    if(!isSameMonth(dDate, now)) return;
+    const key = String(d.landOwnerId || d.landOwnerName || 'owner');
+    const entry = byOwner.get(key) || { name: d.landOwnerName || 'Land Owner', kg: 0 };
+    entry.kg += toNumber(d.teaWeight);
+    byOwner.set(key, entry);
+  });
+
+  const top = Array.from(byOwner.values()).sort((a, b) => b.kg - a.kg).slice(0, 3);
+  if(!top.length){
+    host.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;">No deliveries this month yet.</div>';
+    return;
+  }
+
+  host.innerHTML = top.map((o, idx) => {
+    const rankStyle = idx === 0
+      ? 'background:var(--amber);color:var(--tea-dark);'
+      : (idx === 1 ? 'background:var(--cream-dark);color:var(--text);' : 'background:var(--cream);color:var(--muted);');
+    return `<div style="display:flex;justify-content:space-between;align-items:center;font-size:0.84rem;"><div style="display:flex;align-items:center;gap:6px;"><span style="${rankStyle}width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;">${idx + 1}</span><span style="color:var(--text);">${o.name}</span></div><strong style="color:var(--tea);">${Math.round(o.kg).toLocaleString('en-IN')} kg</strong></div>`;
+  }).join('');
+}
+
+async function loadFactoryDashboardOverview(){
+  if(!currentFactoryOwnerId) return;
+
+  try {
+    const [deliveries, activeOwners, loans, fertilizers, cheques, pendingComplaints, allComplaints] = await Promise.all([
+      fetchArrayOrEmpty(`${API}/api/deliveries/factory/${currentFactoryOwnerId}`),
+      fetchArrayOrEmpty(`${API}/api/factories/active-owners/${currentFactoryOwnerId}`),
+      fetchArrayOrEmpty(`${API}/api/loans/factory/${currentFactoryOwnerId}`),
+      fetchArrayOrEmpty(`${API}/api/fertilizer/factory/${currentFactoryOwnerId}`),
+      fetchArrayOrEmpty(`${API}/api/cheques/factory/${currentFactoryOwnerId}`),
+      fetchArrayOrEmpty(`${API}/api/complaints/pending/${currentFactoryOwnerId}`),
+      fetchArrayOrEmpty(`${API}/api/complaints/factory/${currentFactoryOwnerId}`)
+    ]);
+
+    const now = new Date();
+    const monthDeliveries = deliveries.filter(d => isSameMonth(parseSafeDate(d.deliveryDate), now));
+    const totalKgMonth = monthDeliveries.reduce((sum, d) => sum + toNumber(d.teaWeight), 0);
+    const totalPayableMonth = monthDeliveries.reduce((sum, d) => {
+      const rate = toNumber(d.ratePerKg || currentRate);
+      const amount = toNumber(d.totalAmount) || (toNumber(d.teaWeight) * rate);
+      return sum + amount;
+    }, 0);
+
+    const pendingLoans = loans.filter(l => l.approvalStatus === 'Pending').sort((a, b) => new Date(b.requestDate) - new Date(a.requestDate));
+    const pendingFert = fertilizers.filter(f => f.approvalStatus === 'Pending').sort((a, b) => (b.requestId || 0) - (a.requestId || 0));
+
+    const resolvedComplaints = allComplaints.filter(c => c.status === 'Resolved');
+    const openComplaints = pendingComplaints.length || allComplaints.filter(c => c.status === 'Pending').length;
+
+    const ownersEl = document.getElementById('dash-active-owners');
+    const deliveriesEl = document.getElementById('dash-total-deliveries');
+    const payableEl = document.getElementById('dash-total-payable');
+    const loansEl = document.getElementById('dash-pending-loans');
+    const fertEl = document.getElementById('dash-pending-fertilizer');
+    const compEl = document.getElementById('dash-open-complaints');
+    if(ownersEl) ownersEl.textContent = String(activeOwners.length);
+    if(deliveriesEl) deliveriesEl.textContent = Math.round(totalKgMonth).toLocaleString('en-IN');
+    if(payableEl) payableEl.textContent = compactCurrency(totalPayableMonth);
+    if(loansEl) loansEl.textContent = String(pendingLoans.length);
+    if(fertEl) fertEl.textContent = String(pendingFert.length);
+    if(compEl) compEl.textContent = String(openComplaints);
+
+    const loanBadge = document.getElementById('loan-nav-badge');
+    const fertBadge = document.getElementById('fert-nav-badge');
+    const compBadge = document.getElementById('comp-nav-badge');
+    if(loanBadge) loanBadge.textContent = String(pendingLoans.length);
+    if(fertBadge) fertBadge.textContent = String(pendingFert.length);
+    if(compBadge) compBadge.textContent = String(openComplaints);
+
+    const activity = [];
+    deliveries.forEach(d => {
+      const when = parseSafeDate(d.deliveryDate);
+      if(!when) return;
+      activity.push({
+        when,
+        icon: '🍃',
+        dotClass: 'g',
+        message: `${d.landOwnerName || 'Land Owner'} delivered ${toNumber(d.teaWeight).toLocaleString('en-IN')} kg`
+      });
+    });
+    loans.forEach(l => {
+      const when = parseSafeDate(l.requestDate);
+      if(!when) return;
+      activity.push({
+        when,
+        icon: '📋',
+        dotClass: 'y',
+        message: `Loan request ${formatCurrency(l.loanAmount)} by ${l.landOwnerName || 'Land Owner'}`
+      });
+    });
+    fertilizers.forEach(f => {
+      const when = parseSafeDate(f.requestDate || f.requestedDate);
+      if(!when) return;
+      activity.push({
+        when,
+        icon: '🌿',
+        dotClass: 'y',
+        message: `Fertilizer ${toNumber(f.quantity).toLocaleString('en-IN')} kg request - ${f.landOwnerName || 'Land Owner'}`
+      });
+    });
+    cheques.forEach(c => {
+      const when = parseSafeDate(c.issueDate || c.createdDate || c.date);
+      if(!when) return;
+      activity.push({
+        when,
+        icon: '💳',
+        dotClass: 'b',
+        message: `CHQ-${String(c.chequeId || '').padStart(4, '0')} issued to ${c.landOwnerName || 'Land Owner'}`
+      });
+    });
+    allComplaints.forEach(c => {
+      const when = parseSafeDate(c.dateSubmitted);
+      if(!when) return;
+      activity.push({
+        when,
+        icon: '📣',
+        dotClass: c.status === 'Resolved' ? 'g' : 'r',
+        message: `Complaint ${c.status === 'Resolved' ? 'resolved' : 'filed'} by ${c.landOwnerName || 'Land Owner'}`
+      });
+    });
+
+    activity.sort((a, b) => b.when - a.when);
+    renderFactoryRecentActivity(activity);
+    renderDashPendingLoans(pendingLoans);
+    renderDashPendingFertilizer(pendingFert);
+    renderDashTopDeliverers(deliveries, now);
+    buildCharts(deliveries);
+  } catch(e){
+    console.warn('loadFactoryDashboardOverview:', e.message);
+  }
 }
 
 let currentRate    = 50;
 let delRecordCount = 0;
 
-// ── Update rate (local only — update to backend endpoint if you add one) ─
-function setRate(){
-  const rate = document.getElementById('rate-val').value;
-  if(!rate){ toast('Enter a rate.', true); return; }
-  currentRate = parseFloat(rate);
-  document.getElementById('rate-display').textContent  = 'Rs ' + rate + '/kg';
-  document.getElementById('rate-cur-lbl').textContent  = 'Rs ' + rate + '/kg';
-  toast('✓ Tea rate updated to Rs ' + rate + '/kg');
+
+async function loadCurrentRate(){
+  if(!currentFactoryOwnerId) return;
+  try {
+    const res = await fetch(`${API}/api/deliveries/rate/${currentFactoryOwnerId}`);
+    if(!res.ok) return;
+    const data = await res.json();
+    const rate = parseFloat(data.ratePerKg ?? 50);
+    currentRate = rate;
+    document.getElementById('rate-val').value               = rate;
+    document.getElementById('rate-display').textContent     = 'Rs ' + rate + '/kg';
+    document.getElementById('rate-cur-lbl').textContent     = 'Rs ' + rate + '/kg';
+  } catch(e){
+    console.warn('loadCurrentRate:', e.message);
+  }
 }
 
-// ── Live preview as weight is typed ──────────────────────────────────────
+
+async function setRate(){
+  const rate = document.getElementById('rate-val').value;
+  const effectiveFrom = document.getElementById('rate-date').value;
+
+  if(!rate || parseFloat(rate) <= 0){ toast('Please enter a valid rate.', true); return; }
+  if(!currentFactoryOwnerId){ toast('No factory session found. Please sign in again.', true); return; }
+
+  const btn = document.querySelector('[onclick="setRate()"]');
+  btn.disabled    = true;
+  btn.textContent = '⏳ Saving…';
+
+  try {
+    const res = await fetch(`${API}/api/deliveries/rate`, {
+      method : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body   : JSON.stringify({
+        factoryOwnerId : currentFactoryOwnerId,
+        ratePerKg      : parseFloat(rate),
+        effectiveFrom  : effectiveFrom || new Date().toISOString().split('T')[0]
+      })
+    });
+
+    const data = await res.json();
+
+    if(!res.ok){
+      toast('❌ ' + (data.message || 'Failed to save rate'), true);
+      return;
+    }
+
+    
+    const savedRate = parseFloat(data.ratePerKg ?? rate);
+    currentRate = savedRate;
+    document.getElementById('rate-display').textContent = 'Rs ' + savedRate + '/kg';
+    document.getElementById('rate-cur-lbl').textContent = 'Rs ' + savedRate + '/kg';
+    toast('✓ Tea rate updated to Rs ' + savedRate + '/kg — saved to database');
+    loadFactoryDashboardOverview();
+
+  } catch(e){
+    toast('❌ Network error — is the server running?', true);
+    console.error(e);
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = '💰 Update Rate';
+  }
+}
+
+
 function calcFactoryDel(){
   const w   = parseFloat(document.getElementById('del-weight').value) || 0;
-  const amt = w * currentRate;
-  document.getElementById('del-amount').value = w ? 'Rs ' + amt.toLocaleString() : '';
+  const deduction = parseFloat(document.getElementById('del-deduction').value) || 0;
+  const grossAmt = w * currentRate;
+  const netAmt = grossAmt - deduction;
+  
+  document.getElementById('del-amount').value = w ? 'Rs ' + netAmt.toLocaleString() : '';
+  
   const preview   = document.getElementById('del-preview');
   const sel       = document.getElementById('del-owner');
   const ownerName = sel.options[sel.selectedIndex].text.split(' (')[0];
+  
   if(w){
-    preview.style.display = 'flex';
+    preview.style.display = 'block';
     document.getElementById('del-preview-text').textContent = ownerName + ' · ' + w + ' kg × Rs ' + currentRate;
-    document.getElementById('del-preview-amt').textContent  = 'Rs ' + amt.toLocaleString();
+    document.getElementById('del-preview-gross').textContent = 'Rs ' + grossAmt.toLocaleString();
+    
+    const deductionRow = document.getElementById('del-preview-deduction-row');
+    if(deduction > 0){
+      deductionRow.style.display = 'flex';
+      document.getElementById('del-preview-deduction').textContent = 'Rs ' + deduction.toLocaleString();
+    } else {
+      deductionRow.style.display = 'none';
+    }
+    
+    document.getElementById('del-preview-amt').textContent = 'Rs ' + netAmt.toLocaleString();
   } else {
     preview.style.display = 'none';
   }
@@ -931,13 +2474,21 @@ function calcFactoryDel(){
 
 function updateOwnerBadge(){ calcFactoryDel(); }
 
-// ── POST /api/deliveries ─ insert delivery into database ─────────────────
+
 async function saveFactoryDelivery(){
   const sel         = document.getElementById('del-owner');
-  const ownerName   = sel.options[sel.selectedIndex].text.split(' (')[0];
   const landOwnerId = parseInt(sel.value);
-  const date        = document.getElementById('del-date').value;
-  const weight      = parseFloat(document.getElementById('del-weight').value);
+
+
+  if (!sel.value || isNaN(landOwnerId)) {
+    toast('Please select a land owner.', true);
+    return;
+  }
+
+  const ownerName = sel.options[sel.selectedIndex].text.split(' (')[0];
+  const date      = document.getElementById('del-date').value;
+  const weight    = parseFloat(document.getElementById('del-weight').value);
+  const deduction = parseFloat(document.getElementById('del-deduction').value) || 0;
 
   if(!date)                { toast('Please select a delivery date.', true); return; }
   if(!weight || weight<=0) { toast('Please enter a valid weight.',   true); return; }
@@ -951,9 +2502,12 @@ async function saveFactoryDelivery(){
       method : 'POST',
       headers: { 'Content-Type': 'application/json' },
       body   : JSON.stringify({
-        landOwnerId  : landOwnerId,
-        deliveryDate : date,
-        teaWeight    : weight
+        factoryOwnerId : currentFactoryOwnerId,
+        landOwnerId    : landOwnerId,
+        deliveryDate   : date,
+        teaWeight      : weight,
+        deductionAmount: deduction
+        
       })
     });
 
@@ -964,14 +2518,19 @@ async function saveFactoryDelivery(){
       return;
     }
 
-    // Use values returned from the server (authoritative)
+   
     appendDeliveryRow(data);
     delRecordCount++;
     document.getElementById('del-count').textContent = delRecordCount + ' records';
 
-    // Clear the form
-    document.getElementById('del-weight').value      = '';
-    document.getElementById('del-amount').value      = '';
+   
+    loadAllDeliveries();
+    loadFactoryDashboardOverview();
+
+    
+    document.getElementById('del-weight').value           = '';
+    document.getElementById('del-deduction').value        = '';
+    document.getElementById('del-amount').value           = '';
     document.getElementById('del-preview').style.display = 'none';
 
     const fmtAmt = 'Rs ' + parseFloat(data.totalAmount).toLocaleString();
@@ -986,36 +2545,43 @@ async function saveFactoryDelivery(){
   }
 }
 
-// ── GET /api/deliveries ─ load all records from the database on page load ─
-async function loadAllDeliveries(){
-  const tbody     = document.getElementById('del-records-tb');
-  const countLbl  = document.getElementById('del-count');
 
-  // Show loading state
+async function loadAllDeliveries(){
+  const tbody    = document.getElementById('del-records-tb');
+  const countLbl = document.getElementById('del-count');
+
   tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:1.5rem;">
       ⏳ Loading deliveries…</td></tr>`;
 
+  if(!currentFactoryOwnerId){
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:1.5rem;">
+        No factory session found. Please sign in again.</td></tr>`;
+    return;
+  }
+
   try {
-    const res = await fetch(`${API}/api/deliveries`);
+    const res = await fetch(`${API}/api/deliveries/factory/${currentFactoryOwnerId}`);
 
     if(!res.ok){
       tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--danger);padding:1.5rem;">
           ❌ Could not load deliveries (${res.status})</td></tr>`;
+      updateDeliveryStats([], 0);
       return;
     }
 
     const deliveries = await res.json();
-    tbody.innerHTML  = '';   // clear loading row
+    tbody.innerHTML  = '';
 
     if(!Array.isArray(deliveries) || deliveries.length === 0){
       tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:1.5rem;">
           No deliveries recorded yet.</td></tr>`;
-      delRecordCount  = 0;
+      delRecordCount = 0;
       countLbl.textContent = '0 records';
+      updateDeliveryStats([], 0);
       return;
     }
 
-    // Newest first
+    
     deliveries
       .slice()
       .sort((a, b) => new Date(b.deliveryDate) - new Date(a.deliveryDate))
@@ -1024,57 +2590,252 @@ async function loadAllDeliveries(){
     delRecordCount = deliveries.length;
     countLbl.textContent = delRecordCount + ' records';
 
+    updateDeliveryStats(deliveries, currentRate);
+
   } catch(e){
-    // Backend not reachable — show friendly message
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:1.5rem;">
         ⚠️ Cannot reach server. Showing offline view.</td></tr>`;
     console.warn('loadAllDeliveries:', e.message);
   }
 }
 
-// ── Helper: build one table row from a DeliveryResponseDTO ───────────────
+
+function updateDeliveryStats(deliveries, rate){
+  const todayStr = new Date().toISOString().split('T')[0];   
+  const now      = new Date();
+  const curMonth = now.getMonth() + 1;   
+  const curYear  = now.getFullYear();
+
+  
+  const monthKg = deliveries
+    .filter(d => {
+     
+      const m = d.month ?? new Date(d.deliveryDate).getMonth() + 1;
+      const y = d.year  ?? new Date(d.deliveryDate).getFullYear();
+      return m === curMonth && y === curYear;
+    })
+    .reduce((sum, d) => sum + parseFloat(d.teaWeight || 0), 0);
+
+
+  const todayKg = deliveries
+    .filter(d => String(d.deliveryDate).startsWith(todayStr))
+    .reduce((sum, d) => sum + parseFloat(d.teaWeight || 0), 0);
+
+
+  const activeOwners = new Set(deliveries.map(d => d.landOwnerId)).size;
+
+  const monthEl  = document.getElementById('del-stat-month');
+  const todayEl  = document.getElementById('del-stat-today');
+  const ownersEl = document.getElementById('del-stat-owners');
+
+  if(monthEl)  monthEl.textContent  = monthKg.toLocaleString() + ' kg';
+  if(todayEl)  todayEl.textContent  = todayKg.toLocaleString() + ' kg';
+  if(ownersEl) ownersEl.textContent = String(activeOwners);
+}
+
+
 function appendDeliveryRow(d){
   const tbody   = document.getElementById('del-records-tb');
   const rate    = parseFloat(d.ratePerKg   ?? currentRate);
-  const total   = parseFloat(d.totalAmount ?? (parseFloat(d.teaWeight) * rate));
-  const fmtAmt  = 'Rs ' + total.toLocaleString();
+  const deduction = parseFloat(d.deductionAmount ?? 0);
+  const grossAmt   = parseFloat(d.teaWeight) * rate;
+  const netAmt  = grossAmt - deduction;
+  const fmtGross  = 'Rs ' + grossAmt.toLocaleString();
+  const fmtDeduction = 'Rs ' + deduction.toLocaleString();
+  const fmtNet  = 'Rs ' + netAmt.toLocaleString();
+  
+  const deductionStyle = deduction > 0 ? 'color:var(--danger);font-weight:600;' : '';
+  
   tbody.insertAdjacentHTML('afterbegin',
     `<tr style="animation:rise 0.3s ease;">
       <td>${d.deliveryDate}</td>
       <td><strong>${d.landOwnerName}</strong></td>
       <td>${d.teaWeight}</td>
       <td>Rs ${rate}</td>
-      <td><strong style="color:var(--tea)">${fmtAmt}</strong></td>
-      <td><span class="b bl">Factory</span></td>
+      <td>${fmtGross}</td>
+      <td style="${deductionStyle}">${fmtDeduction}</td>
+      <td><strong style="color:var(--tea)">${fmtNet}</strong></td>
       <td><span class="b g">Recorded</span></td>
     </tr>`);
 }
 
-// ── Sign out ──────────────────────────────────────────────────────────────
+
 function signOut(){
+  fetch(`${API}/api/auth/logout`, {
+    method: 'POST',
+    credentials: 'include'
+  }).catch(() => {});
+
   ['teago_userId','teago_role','teago_fullName','teago_username',
    'teago_factoryOwnerId','teago_factoryName','teago_factoryLocation']
     .forEach(k => localStorage.removeItem(k));
   window.location.href = 'index.html';
 }
 
-function buildCharts(){
-  const months=['Oct','Nov','Dec','Jan','Feb','Mar'];
-  const fac=[42,51,58,55,63,68.4];
-  const max=Math.max(...fac);
-  document.getElementById('fac-chart').innerHTML=months.map((m,i)=>
-    `<div class="bc"><div class="bar ${i===5?'hi':''}" style="height:${Math.round(fac[i]/max*100)}px"></div><div class="blbl">${m}</div></div>`).join('');
 
-  const pay=[2.1,2.55,2.9,2.75,3.15,3.42];
-  const pm=Math.max(...pay);
-  document.getElementById('pay-chart').innerHTML=months.map((m,i)=>
-    `<div class="bc"><div class="bar amb ${i===5?'hi':''}" style="height:${Math.round(pay[i]/pm*100)}px"></div><div class="blbl">${m}</div></div>`).join('');
+async function populateOwnerDropdown(){
+  const sel = document.getElementById('del-owner');
+  if(!sel) return;
+
+  if(!currentFactoryOwnerId){
+    sel.innerHTML = '<option value="" disabled selected>No factory session</option>';
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API}/api/factories/active-owners/${currentFactoryOwnerId}`);
+
+    if(!res.ok){
+      sel.innerHTML = '<option value="" disabled selected>❌ Could not load owners</option>';
+      return;
+    }
+
+    const owners = await res.json();
+
+    if(!Array.isArray(owners) || owners.length === 0){
+      sel.innerHTML = '<option value="" disabled selected>No approved land owners yet</option>';
+      return;
+    }
+
+    
+    sel.innerHTML = owners
+      .map(o => `<option value="${o.landOwnerId}">${o.displayName}</option>`)
+      .join('');
+
+    
+    calcFactoryDel();
+
+  } catch(e){
+    sel.innerHTML = '<option value="" disabled selected>⚠️ Server unreachable</option>';
+    console.warn('populateOwnerDropdown:', e.message);
+  }
+}
+
+function buildCharts(deliveries){
+  const now = new Date();
+  const months = [];
+  for(let i = 5; i >= 0; i -= 1){
+    months.push(new Date(now.getFullYear(), now.getMonth() - i, 1));
+  }
+
+  const bucket = new Map(months.map(m => [monthKey(m), 0]));
+  (Array.isArray(deliveries) ? deliveries : []).forEach(d => {
+    const dDate = parseSafeDate(d.deliveryDate);
+    if(!dDate) return;
+    const key = monthKey(dDate);
+    if(!bucket.has(key)) return;
+    bucket.set(key, bucket.get(key) + toNumber(d.teaWeight));
+  });
+
+  const series = months.map(m => ({
+    label: m.toLocaleDateString('en-GB', { month: 'short' }),
+    value: bucket.get(monthKey(m)) || 0
+  }));
+  const max = Math.max(1, ...series.map(s => s.value));
+  document.getElementById('fac-chart').innerHTML = series.map((s, i) =>
+    `<div class="bc"><div class="bar ${i===series.length-1?'hi':''}" style="height:${Math.max(6, Math.round((s.value / max) * 100))}px"></div><div class="blbl">${s.label}</div></div>`).join('');
 
   const daily=[3100,2800,3400,3200,3600,3240];
   const dm=Math.max(...daily);
   const dc=document.getElementById('daily-chart');
   if(dc)dc.innerHTML=['Mon','Tue','Wed','Thu','Fri','Sat'].map((m,i)=>
     `<div class="bc"><div class="bar ${i===4?'hi':''}" style="height:${Math.round(daily[i]/dm*100)}px"></div><div class="blbl">${m}</div></div>`).join('');
+}
+
+async function viewLandOwnerDetails(landOwnerId, ownerName){
+  console.log('viewLandOwnerDetails called:', landOwnerId, ownerName);
+  
+  if(!currentFactoryOwnerId){
+    toast('No factory session found.', true);
+    return;
+  }
+
+  const contentEl = document.getElementById('details-content');
+  const titleEl = document.getElementById('details-owner-name');
+
+  if(!contentEl || !titleEl){
+    toast('Modal elements not found!', true);
+    console.error('Modal elements missing');
+    return;
+  }
+
+  titleEl.textContent = (ownerName || 'Land Owner') + ' — Details';
+  contentEl.innerHTML = '<div style="text-align:center;color:var(--muted);">⏳ Loading details...</div>';
+  openM('m-owner-details');
+
+  try {
+    const apiUrl = `${API}/api/factories/${currentFactoryOwnerId}/owner-details/${landOwnerId}`;
+    console.log('Fetching from:', apiUrl);
+    
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+
+    console.log('Response status:', res.status);
+    console.log('Response data:', data);
+
+    if(!res.ok){
+      contentEl.innerHTML = `<div style="color:var(--danger);padding:1rem;background:rgba(214,64,69,0.1);border-radius:10px;"><strong>Error:</strong> ${data.message || 'Could not load details'}</div>`;
+      return;
+    }
+
+    const statusColor = data.status === 'Active' ? 'g' : (data.status === 'Rejected' ? 'r' : 'y');
+    const registrationDate = data.registrationDate ? new Date(data.registrationDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+    const dob = data.dateOfBirth ? new Date(data.dateOfBirth).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+
+    contentEl.innerHTML = `
+      <div>
+        <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.5rem;margin-top:0;">Personal Information</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;background:rgba(61,107,79,0.08);border:1px solid rgba(61,107,79,0.15);border-radius:10px;padding:0.9rem;">
+          <div><span style="color:var(--muted);font-size:0.75rem;">Full Name</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.fullName || data.name || '—'}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Name with Initials</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.nameWithInitials || '—'}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">NIC</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.nic || '—'}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Contact Number</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.contactNumber || '—'}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Date of Birth</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${dob}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Address</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.address || '—'}</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.5rem;margin-top:0;">Land Details</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.15);border-radius:10px;padding:0.9rem;">
+          <div><span style="color:var(--muted);font-size:0.75rem;">Total Land Size</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.totalLandSize ? Number(data.totalLandSize).toFixed(2) : '—'} acres</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Land Size (This Factory)</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.factoryLandSize ? Number(data.factoryLandSize).toFixed(2) : '—'} acres</div></div>
+          <div style="grid-column:1/-1;"><span style="color:var(--muted);font-size:0.75rem;">Land Location</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.landLocation || '—'}</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.5rem;margin-top:0;">Bank Details</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;background:rgba(61,107,79,0.08);border:1px solid rgba(61,107,79,0.15);border-radius:10px;padding:0.9rem;">
+          <div><span style="color:var(--muted);font-size:0.75rem;">Account Name</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.bankAccountName || '—'}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Bank Name</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.bankName || '—'}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Branch</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.bankBranch || '—'}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Account Number</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.bankAccountNumber || '—'}</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.5rem;margin-top:0;">Emergency Contact</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;background:rgba(214,64,69,0.08);border:1px solid rgba(214,64,69,0.15);border-radius:10px;padding:0.9rem;">
+          <div><span style="color:var(--muted);font-size:0.75rem;">Name</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.emergencyContactName || '—'}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Relationship</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.emergencyContactRelationship || '—'}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Phone</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.emergencyContactPhone || '—'}</div></div>
+          <div style="grid-column:1/-1;"><span style="color:var(--muted);font-size:0.75rem;">Address</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${data.emergencyContactAddress || '—'}</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.5rem;margin-top:0;">Factory Registration</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.15);border-radius:10px;padding:0.9rem;">
+          <div><span style="color:var(--muted);font-size:0.75rem;">Registration Date</span><div style="font-weight:600;color:var(--text);margin-top:0.3rem;">${registrationDate}</div></div>
+          <div><span style="color:var(--muted);font-size:0.75rem;">Status</span><div style="font-weight:600;margin-top:0.3rem;"><span class="b ${statusColor}">${data.status || '—'}</span></div></div>
+        </div>
+      </div>
+    `;
+  } catch(e){
+    console.error('viewLandOwnerDetails error:', e);
+    contentEl.innerHTML = '<div style="color:var(--danger);padding:1rem;background:rgba(214,64,69,0.1);border-radius:10px;"><strong>Error:</strong> Cannot reach server - ' + e.message + '</div>';
+  }
 }
 
 function toast(msg,err=false){
