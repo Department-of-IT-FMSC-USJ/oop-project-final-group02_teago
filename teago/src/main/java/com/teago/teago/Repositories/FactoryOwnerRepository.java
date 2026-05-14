@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface FactoryOwnerRepository extends JpaRepository<FactoryOwner, Integer> {
 
-    // Look up a factory owner by their linked User ID
+    
     Optional<FactoryOwner> findByUser_UserId(Integer userId);
 }

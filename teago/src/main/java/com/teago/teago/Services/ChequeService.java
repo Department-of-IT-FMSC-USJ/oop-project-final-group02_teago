@@ -8,7 +8,7 @@ import com.teago.teago.Repositories.ChequeRepository;
 import com.teago.teago.Repositories.FactoryOwnerRepository;
 import com.teago.teago.Repositories.LandOwnerRepository;
 import com.teago.teago.Repositories.LoanRepository;
-import com.teago.teago.Repositories.SupervisorRepository;
+
 import com.teago.teago.dto.ChequeIssueRequestDTO;
 import com.teago.teago.dto.ChequeResponseDTO;
 import com.teago.teago.dto.ChequeStatusUpdateDTO;

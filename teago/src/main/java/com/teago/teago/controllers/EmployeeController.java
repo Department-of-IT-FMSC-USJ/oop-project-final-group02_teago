@@ -1,4 +1,4 @@
-package com.teago.teago.Controllers;
+package com.teago.teago.controllers;
 
 import com.teago.teago.Services.EmployeeService;
 import com.teago.teago.dto.EmployeeRequestDTO;
