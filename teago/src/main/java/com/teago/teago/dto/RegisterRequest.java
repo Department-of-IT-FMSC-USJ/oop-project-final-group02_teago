@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class RegisterRequest {
 
-    // ── Common (all roles) ────────────────────────────────────────────────
+    
     private String name;
     private String nic;
     private String address;
@@ -13,32 +13,32 @@ public class RegisterRequest {
     private String password;
     private String role;
 
-    // ── Land Owner specific ───────────────────────────────────────────────
+    
     private String     nameWithInitials;
     private String     fullName;
-    private String     dateOfBirth;          // sent as "yyyy-MM-dd" string
+    private String     dateOfBirth;        
     private BigDecimal landSize;
     private String     landLocation;
 
-    // Bank details
+   
     private String     bankAccountName;
     private String     bankName;
     private String     bankBranch;
     private String     bankAccountNumber;
 
-    // Emergency contact
+    
     private String     emergencyContactName;
     private String     emergencyContactAddress;
     private String     emergencyContactPhone;
     private String     emergencyContactRelationship;
 
-    // ── Factory Owner specific ────────────────────────────────────────────
-    private String     factoryOwnerFullName;      // Full name of factory owner
+    
+    private String     factoryOwnerFullName;      
     private String     factoryName;
     private String     factoryLocation;
-    private String     registrationNumber;        // Business registration number
+    private String     registrationNumber;        
 
-    // ── Getters ───────────────────────────────────────────────────────────
+    
     public String     getName()                          { return name; }
     public String     getNic()                           { return nic; }
     public String     getAddress()                       { return address; }
@@ -64,7 +64,7 @@ public class RegisterRequest {
     public String     getFactoryLocation()               { return factoryLocation; }
     public String     getRegistrationNumber()            { return registrationNumber; }
 
-    // ── Setters ───────────────────────────────────────────────────────────
+    
     public void setName(String v)                          { this.name = v; }
     public void setNic(String v)                           { this.nic = v; }
     public void setAddress(String v)                       { this.address = v; }
@@ -90,7 +90,7 @@ public class RegisterRequest {
     public void setFactoryLocation(String v)               { this.factoryLocation = v; }
     public void setRegistrationNumber(String v)            { this.registrationNumber = v; }
 
-    // Alias for some frontend clients that send "fullName" for the User.name field
+    
     public String getFullNameAlias()     { return this.name; }
     public void   setFullNameAlias(String v) { this.name = v; }
 }
