@@ -1,4 +1,4 @@
-package com.teago.teago.Models;
+package com.teago.teago.models;
 
 import java.math.BigDecimal;
 
