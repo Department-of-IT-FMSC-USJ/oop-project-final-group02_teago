@@ -1,13 +1,13 @@
 package com.teago.teago.Services;
 
-import com.teago.teago.Models.FertilizerRequest;
-import com.teago.teago.Models.Delivery;
-import com.teago.teago.Models.FactoryOwner;
-import com.teago.teago.Models.LandOwner;
-import com.teago.teago.Models.LandOwnerFactory;
-import com.teago.teago.Models.Loan;
-import com.teago.teago.Models.MonthlyBill;
-import com.teago.teago.Models.Payment;
+import com.teago.teago.models.FertilizerRequest;
+import com.teago.teago.models.Delivery;
+import com.teago.teago.models.FactoryOwner;
+import com.teago.teago.models.LandOwner;
+import com.teago.teago.models.LandOwnerFactory;
+import com.teago.teago.models.Loan;
+import com.teago.teago.models.MonthlyBill;
+import com.teago.teago.models.Payment;
 import com.teago.teago.Repositories.DeliveryRepository;
 import com.teago.teago.Repositories.FactoryOwnerRepository;
 import com.teago.teago.Repositories.FertilizerRequestRepository;
