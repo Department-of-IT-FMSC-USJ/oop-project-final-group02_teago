@@ -15,15 +15,6 @@ import com.teago.teago.dto.UserDTO;
 
 import java.time.LocalDate;
 
-/**
- * UserService — demonstrates OOP principles:
- *
- *  Abstraction    : callers invoke register() without knowing which
- *                   role table is written to.
- *  Encapsulation  : role-table insertion logic is private to this service.
- *  Polymorphism   : one register() method handles two entity types at
- *                   runtime based on the role value.
- */
 @Service
 public class UserService {
 
@@ -39,8 +30,6 @@ public class UserService {
         this.factoryOwnerRepository = factoryOwnerRepository;
     }
 
-    // ── Register ──────────────────────────────────────────────────────────
-
     @Transactional
     public void register(RegisterRequest request) {
 
@@ -52,7 +41,7 @@ public class UserService {
 
         User.Role role = mapRole(request.getRole());
 
-        // Step 1: Save User row (common credentials)
+        
         User user = new User();
         user.setName(request.getName());
         user.setNic(request.getNic());
@@ -63,7 +52,7 @@ public class UserService {
         user.setRole(role);
         userRepository.save(user);
 
-        // Step 2: Save role-specific row (Polymorphism at runtime)
+       
         switch (role) {
             case LandOwner:    createLandOwnerRow(user, request);    break;
             case FactoryOwner: createFactoryOwnerRow(user, request); break;
@@ -71,13 +60,12 @@ public class UserService {
         }
     }
 
-    // ── Private helpers (Encapsulation) ──────────────────────────────────
 
     private void createLandOwnerRow(User user, RegisterRequest req) {
         LandOwner lo = new LandOwner();
         lo.setUser(user);
 
-        // Personal details
+       
         lo.setNameWithInitials(req.getNameWithInitials());
         lo.setFullName(req.getFullName());
 
@@ -86,17 +74,17 @@ public class UserService {
             catch (Exception ignored) {}
         }
 
-        // Land
+      
         lo.setLandSize(req.getLandSize());
         lo.setLandLocation(req.getLandLocation());
 
-        // Bank details
+       
         lo.setBankAccountName(req.getBankAccountName());
         lo.setBankName(req.getBankName());
         lo.setBankBranch(req.getBankBranch());
         lo.setBankAccountNumber(req.getBankAccountNumber());
 
-        // Emergency contact
+        
         lo.setEmergencyContactName(req.getEmergencyContactName());
         lo.setEmergencyContactAddress(req.getEmergencyContactAddress());
         lo.setEmergencyContactPhone(req.getEmergencyContactPhone());
@@ -108,7 +96,7 @@ public class UserService {
     private void createFactoryOwnerRow(User user, RegisterRequest req) {
         FactoryOwner fo = new FactoryOwner();
         fo.setUser(user);
-        // Full name (set separately from User.name)
+       
         fo.setFullName(
             req.getFactoryOwnerFullName() != null && !req.getFactoryOwnerFullName().isBlank()
                 ? req.getFactoryOwnerFullName() : user.getName()
@@ -135,7 +123,7 @@ public class UserService {
         }
     }
 
-    // ── Login ─────────────────────────────────────────────────────────────
+
 
     public UserDTO login(LoginRequest request) {
         User user = userRepository.findByUsername(request.getUsername())
