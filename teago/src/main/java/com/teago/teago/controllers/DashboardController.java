@@ -1,4 +1,4 @@
-package com.teago.teago.Controllers;
+package com.teago.teago.controllers;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.teago.teago.Models.User;
+import com.teago.teago.models.User;
 import com.teago.teago.Repositories.UserRepository;
 
 @RestController
