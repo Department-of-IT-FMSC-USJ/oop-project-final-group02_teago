@@ -814,6 +814,37 @@
 <script>
   const API = 'http://localhost:8080';
 
+  function cacheSession(data) {
+    localStorage.setItem('teago_userId', data.userId ?? '');
+    localStorage.setItem('teago_role', data.role ?? '');
+    localStorage.setItem('teago_fullName', data.fullName ?? '');
+    localStorage.setItem('teago_username', data.username ?? '');
+
+    localStorage.setItem('teago_landOwnerId', data.landOwnerId ?? '');
+    localStorage.setItem('teago_landSize', data.landSize ?? '');
+    localStorage.setItem('teago_factoryOwnerId', data.factoryOwnerId ?? '');
+    localStorage.setItem('teago_factoryName', data.factoryName ?? '');
+    localStorage.setItem('teago_factoryLocation', data.factoryLocation ?? '');
+  }
+
+  (async function restoreSessionOnLanding() {
+    try {
+      const res = await fetch(`${API}/api/auth/session`, { credentials: 'include' });
+      if (!res.ok) return;
+
+      const data = await res.json();
+      cacheSession(data);
+
+      if (data.role === 'LAND_OWNER') {
+        window.location.href = 'dashboard-owner.html';
+      } else if (data.role === 'FACTORY_OWNER') {
+        window.location.href = 'dashboard-factory.html';
+      }
+    } catch (e) {
+      // If session check fails, user stays on login page.
+    }
+  })();
+
   // ── Tab switching ─────────────────────────────────────────────────────
   function setTab(el, formId) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -869,6 +900,7 @@
       const res  = await fetch(`${API}/api/auth/login`, {
         method : 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body   : JSON.stringify({ username, password })
       });
       const data = await res.json();
@@ -879,22 +911,7 @@
         showToast('❌ Wrong role selected — please choose the correct one.', true); return;
       }
 
-      // Save session to localStorage
-      localStorage.setItem('teago_userId',   data.userId);
-      localStorage.setItem('teago_role',     data.role);
-      localStorage.setItem('teago_fullName', data.fullName);
-      localStorage.setItem('teago_username', data.username);
-
-      if (data.role === 'LAND_OWNER') {
-        localStorage.setItem('teago_landOwnerId',  data.landOwnerId  ?? '');
-        localStorage.setItem('teago_landSize',     data.landSize     ?? '');
-        localStorage.setItem('teago_landLocation', data.landLocation ?? '');
-      }
-      if (data.role === 'FACTORY_OWNER') {
-        localStorage.setItem('teago_factoryOwnerId',  data.factoryOwnerId  ?? '');
-        localStorage.setItem('teago_factoryName',     data.factoryName     ?? '');
-        localStorage.setItem('teago_factoryLocation', data.factoryLocation ?? '');
-      }
+      cacheSession(data);
 
       showToast(`✓ Welcome back, ${data.fullName}! Redirecting…`);
       setTimeout(() => {
