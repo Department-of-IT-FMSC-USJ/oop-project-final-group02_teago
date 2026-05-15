@@ -1,7 +1,7 @@
 package com.teago.teago.Repositories;
 
-import com.teago.teago.Models.FactoryOwner;
-import com.teago.teago.Models.TeaRate;
+import com.teago.teago.models.FactoryOwner;
+import com.teago.teago.models.TeaRate;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

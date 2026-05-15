@@ -29,7 +29,7 @@ public class ChequeService {
 
     public ChequeService(ChequeRepository chequeRepository,
                          LoanRepository loanRepository,
-                                                 SupervisorRepository supervisorRepository,
+                                                 
                                                  LandOwnerRepository landOwnerRepository,
                                                  FactoryOwnerRepository factoryOwnerRepository) {
         this.chequeRepository     = chequeRepository;

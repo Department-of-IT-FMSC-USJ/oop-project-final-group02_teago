@@ -15,18 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * FactoryRegistrationService demonstrates:
- *
- *  Inheritance    — LandOwnerFactory extends the base JPA entity hierarchy
- *                   and reuses the pattern established by other join models.
- *  Encapsulation  — duplicate registration check, date stamping and initial
- *                   status assignment are hidden from the controller.
- *  Abstraction    — getAllFactories() lets the land owner browse all factories
- *                   without knowing the FactoryOwner entity structure.
- *  Polymorphism   — updateStatus() handles both Active and Rejected transitions
- *                   with one method using the same DTO.
- */
+
 @Service
 public class FactoryRegistrationService {
 
