@@ -37,4 +37,16 @@ public class Payment {
 
     @Column(name = "PaymentDate")
     private LocalDate paymentDate;
+
+    @Column(name = "LoanDeduction", precision = 10, scale = 2)
+    private BigDecimal loanDeduction = BigDecimal.ZERO;
+
+    @Column(name = "AdvanceDeduction", precision = 10, scale = 2)
+    private BigDecimal advanceDeduction = BigDecimal.ZERO;
+
+    @Column(name = "TotalDeduction", precision = 10, scale = 2)
+    private BigDecimal totalDeduction = BigDecimal.ZERO;
+
+    @Column(name = "NetPayment", precision = 10, scale = 2)
+    private BigDecimal netPayment;
 }
